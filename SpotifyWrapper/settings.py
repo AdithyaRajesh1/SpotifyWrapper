@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-56foi3ozk=_lx6v$^2bsk00r)n($-%ar@nm2@x8yy6idh%gm05
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'Api.apps.ApiConfig',
 ]
 
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'SpotifyWrapper.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",  # Stores the SQLite database in the project directory
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
