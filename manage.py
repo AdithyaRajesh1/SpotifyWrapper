@@ -3,6 +3,7 @@
 import os
 import sys
 
+#CLIENTID = 9f913852b772462792d678d78fcadfa5
 
 def main():
     """Run administrative tasks."""
