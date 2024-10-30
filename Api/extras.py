@@ -49,3 +49,15 @@ def refresh_token_func(session_id):
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET,
     })
+
+    access_token = response.get('access_token')
+    expires_in = response.get('expires_in')
+    token_type = response.get('token_type')
+
+    create_or_update_tokens(
+        sessionId=session_id,
+        access_token=access_token,
+        refresh_token=refresh_token,
+        expires_in=expires_in,
+        token_type=token_type,
+    )
