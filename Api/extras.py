@@ -61,3 +61,18 @@ def refresh_token_func(session_id):
         expires_in=expires_in,
         token_type=token_type,
     )
+def spotify_requests_execution(session_id, endpoint):
+    token = check_tokens(session_id)
+    headers = {'Content-Type' : 'application/json', 'Authorization': f'Bearer {token.access_token}'}
+
+    response = post(BASE_URL + endpoint, {}, headers=headers)
+
+    if response:
+        print(response)
+    else:
+        print("No response")
+
+    try:
+        return response.json()
+    except:
+        return {'Error' : 'Issue'}

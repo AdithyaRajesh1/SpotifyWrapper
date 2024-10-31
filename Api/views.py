@@ -1,12 +1,14 @@
 from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import response
 from rest_framework import status
 from requests import Request, post
 from django.http import HttpResponseRedirect
+from .models import Token
 
 from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
-from .extras import create_or_update_tokens, is_spotify_authenticated
+from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 
 
 # Create your views here.
@@ -51,7 +53,7 @@ def spotify_redirect(request, format=None):
         token_type=token_type,
     )
 
-    redirect_url = ""
+    redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={authKey}"
     return HttpResponseRedirect(redirect_url)
 
 class CheckAuthentication(APIView):
@@ -63,8 +65,48 @@ class CheckAuthentication(APIView):
         auth_status = is_spotify_authenticated(key)
 
         if auth_status:
-            redirect_url = ""
+            redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={key}"
             return HttpResponseRedirect(redirect_url)
         else:
-            redirect_url = ""
+            redirect_url = "http://127.0.0.1:8000/spotify/auth-url"
             return HttpResponseRedirect(redirect_url)
+class CurrentSong(APIView):
+    kwarg = "key"
+    def get(self, request, format=None):
+        key = request.GET.get(self.kwarg)
+        token = Token.objects.get(user=key)
+        print(token)
+
+        endpoint = "player/currently-playing"
+        response = spotify_requests_execution(key, endpoint)
+
+        if "error" in response or "item" not in response:
+            return Response({}, status = status.HTTP_204_NO_CONTENT)
+        item = response.get("item")
+
+        progress = response.get("progress")
+        is_playing = response.get("is_playing")
+        duration = item.get("duration")
+        song_id = item.get("id")
+        title = item.get("title")
+        album_cover = item.get("album").get("images")[0].get("url")
+
+        artists = ""
+        for i,artist in enumerate(item.get("artists")):
+            if i>0:
+                artists += ", "
+            name = artist.get("name")
+            artists += name
+
+        song = {
+            "id": song_id,
+            "title": title,
+            "artists": artists,
+            "duration": duration,
+            "is_playing": is_playing,
+            "album_cover": album_cover,
+            "is_playing": is_playing,
+        }
+
+        print(song)
+        return Response(song, status = status.HTTP_200_OK)
