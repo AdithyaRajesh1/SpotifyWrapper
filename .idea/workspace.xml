@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="partial user auth + redirect">
+    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="full user auth + redirect">
+      <change afterPath="$PROJECT_DIR$/Api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api/extras.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/extras.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpotifyWrapper/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpotifyWrapper/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +97,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730309034212</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="partial user auth + redirect">
+      <option name="closed" value="true" />
+      <created>1730318525387</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1730318525387</updated>
+    </task>
+    <task id="LOCAL-00003" summary="full user auth + redirect">
+      <option name="closed" value="true" />
+      <created>1730318542756</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730318542756</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,6 +121,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="partial user auth + redirect" />
-    <option name="LAST_COMMIT_MESSAGE" value="partial user auth + redirect" />
+    <MESSAGE value="full user auth + redirect" />
+    <option name="LAST_COMMIT_MESSAGE" value="full user auth + redirect" />
   </component>
 </project>
