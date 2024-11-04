@@ -7,7 +7,7 @@ class Token(models.Model):
     access_token = models.CharField(max_length=500)
     refresh_token = models.CharField(max_length=500)
     expires_in = models.DateTimeField()
-    user = models.CharField(unique = True, max_length=50)
+    user = models.CharField(max_length=50, unique=True)
     token_type = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
