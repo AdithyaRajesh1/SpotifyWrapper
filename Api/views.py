@@ -19,7 +19,7 @@ class Authentication(APIView):
         }).prepare().url
         return Response({"auth_url": url}, status=status.HTTP_200_OK)
 
-
+#hello
 def spotify_redirect(request):
     code = request.GET.get('code')
     error = request.GET.get('error')
@@ -40,7 +40,7 @@ def spotify_redirect(request):
     ).json()
 
     print("Authorization Code:", code)
-    #print("Spotify Response:", response.status_code, response.json())
+    print("Spotify Response:", response.status_code, response.json())
 
     access_token = response.get('access_token')
     refresh_token = response.get('refresh_token')
