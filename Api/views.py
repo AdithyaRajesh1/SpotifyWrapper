@@ -8,7 +8,6 @@ from .models import Token
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 
-
 class Authentication(APIView):
     def get(self, request, format=None):
         scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state"
@@ -80,7 +79,7 @@ class CheckAuthentication(APIView):
         if auth_status:
             redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={key}"
         else:
-            redirect_url = "http://127.0.0.1:8000/spotify/auth-url"
+            redirect_url = "http://127.0.0.1:8000/spotify/redirect"
 
         return Response({"redirect": redirect_url}, status=status.HTTP_200_OK)
 
