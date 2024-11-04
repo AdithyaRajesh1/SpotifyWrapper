@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.response import Response
+from rest_framework.reverse import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework import status
 from requests import Request, post
@@ -8,6 +9,9 @@ from .models import Token
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 
+
+def home(request):
+    return render(request, 'home.html')
 class Authentication(APIView):
     def get(self, request, format=None):
         scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state"
@@ -17,7 +21,7 @@ class Authentication(APIView):
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID,
         }).prepare().url
-        return Response({"auth_url": url}, status=status.HTTP_200_OK)
+        return Response({"url": url}, status=status.HTTP_200_OK)
 
 
 def spotify_redirect(request):
@@ -35,28 +39,23 @@ def spotify_redirect(request):
         'redirect_uri': REDIRECT_URI,
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET,
-    },
-    headers={'Content-Type': 'application/x-www-form-urlencoded'}
-    ).json()
+    }).json()
+
 
     print("Authorization Code:", code)
-    #print("Spotify Response:", response.status_code, response.json())
+
+    if not request.session.exists(request.session.session_key):
+        request.session.create()
+        print('successful')
 
     access_token = response.get('access_token')
     refresh_token = response.get('refresh_token')
     expires_in = response.get('expires_in', 3600)
     token_type = response.get('token_type')
-
-    if not access_token or not refresh_token or not expires_in:
-        return JsonResponse({"error": "Invalid response from Spotify"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    auth_key = request.session.session_key
-    if not request.session.exists(auth_key):
-        request.session.create()
-        auth_key = request.session.session_key
+    error = response.get('error')
 
     create_or_update_tokens(
-        session_id=auth_key,
+        session_id=request.session.session_key,
         access_token=access_token,
         refresh_token=refresh_token,
         expires_in=expires_in,
@@ -64,25 +63,14 @@ def spotify_redirect(request):
     )
 
     # Return redirect URL as JSON, handle on frontend
-    redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={auth_key}"
-    return JsonResponse({"redirect_url": redirect_url}, status=status.HTTP_200_OK)
+    redirect_url = f"http://localhost:8000/spotify/redirect/?code={code}"
+    return redirect(redirect_url)
 
 
 class CheckAuthentication(APIView):
     def get(self, request, format=None):
-        key = self.request.session.session_key
-        if not self.request.session.exists(key):
-            self.request.session.create()
-            key = self.request.session.session_key
-        auth_status = is_spotify_authenticated(key)
-
-        if auth_status:
-            redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={key}"
-        else:
-            redirect_url = "http://127.0.0.1:8000/spotify/redirect"
-
-        return Response({"redirect": redirect_url}, status=status.HTTP_200_OK)
-
+        is_authenticated = is_spotify_authenticated(self.request.session.session_key)
+        return Response({"is_authenticated": is_authenticated}, status=status.HTTP_200_OK)
 
 class CurrentSong(APIView):
     def get(self, request, format=None):
