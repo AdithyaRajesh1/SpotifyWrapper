@@ -1,3 +1,3 @@
-CLIENT_ID = "f220d88bacab4dc4a6b6d8f3b56f7f63"
-CLIENT_SECRET = "f321457322a143069612a9d3fad4634a"
-REDIRECT_URI = "http://127.0.0.1:8000/spotify/redirect"
+CLIENT_ID = "f657a8dcbb3242e580819d93dc1380c8"
+CLIENT_SECRET = "e69f8a6ee6e34266b9ab17cac81c0bb8"
+REDIRECT_URI = "http://localhost:8000/callback"
