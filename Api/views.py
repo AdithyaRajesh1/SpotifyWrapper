@@ -14,7 +14,7 @@ def home(request):
     return render(request, 'home.html')
 class Authentication(APIView):
     def get(self, request, format=None):
-        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read"
+        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read playlist-read-private"
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'response_type': 'code',
@@ -107,3 +107,84 @@ class CurrentSong(APIView):
         }
 
         return Response(song, status=status.HTTP_200_OK)
+
+
+class TopSongs2023(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+
+        # First, get all playlists to find "Your Top Songs 2023"
+        endpoint = "playlists/"
+        playlists_response = spotify_requests_execution(key, endpoint)
+
+        if "error" in playlists_response:
+            return Response({"error": "Failed to fetch playlists"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Find the "Your Top Songs 2023" playlist
+        top_songs_playlist = None
+        for playlist in playlists_response.get("items", []):
+            if playlist.get("name") == "Your Top Songs 2023":
+                top_songs_playlist = playlist
+                break
+
+        if not top_songs_playlist:
+            return Response(
+                {"error": "Your Top Songs 2023 playlist not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Get the tracks from the playlist
+        playlist_id = top_songs_playlist.get("id")
+        print(f"Found playlist ID: {playlist_id}")
+
+        # Use the full endpoint path for Spotify-owned playlist
+        tracks_endpoint = f"users/spotify/playlists/{playlist_id}/tracks"
+        tracks_response = spotify_requests_execution(key, tracks_endpoint)
+
+        if "error" in tracks_response:
+            # Try alternative endpoint
+            tracks_endpoint = f"playlists/{playlist_id}"
+            tracks_response = spotify_requests_execution(key, tracks_endpoint)
+
+            if "error" in tracks_response:
+                return Response({
+                    "error": "Failed to fetch tracks",
+                    "playlist_id": playlist_id,
+                    "response": tracks_response
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            # Get tracks from the tracks object
+            tracks_response = tracks_response.get("tracks", {})
+
+        tracks = []
+        items = tracks_response.get("items", [])
+
+        for item in items:
+            track = item.get("track")
+            if track:
+                images = track.get("album", {}).get("images", [])
+                album_cover = images[0].get("url") if images else None
+
+                track_data = {
+                    "id": track.get("id"),
+                    "name": track.get("name"),
+                    "artists": ", ".join(artist.get("name") for artist in track.get("artists", [])),
+                    "album": track.get("album", {}).get("name"),
+                    "album_cover": album_cover,
+                    "duration_ms": track.get("duration_ms"),
+                    "external_url": track.get("external_urls", {}).get("spotify"),
+                    "preview_url": track.get("preview_url"),
+                    "popularity": track.get("popularity")
+                }
+                tracks.append(track_data)
+
+        playlist_info = {
+            "playlist_name": top_songs_playlist.get("name"),
+            "description": top_songs_playlist.get("description"),
+            "owner": top_songs_playlist.get("owner", {}).get("display_name"),
+            "total_tracks": len(tracks),
+            "image_url": next((image.get("url") for image in top_songs_playlist.get("images", [])), None),
+            "tracks": tracks
+        }
+
+        return Response(playlist_info, status=status.HTTP_200_OK)
