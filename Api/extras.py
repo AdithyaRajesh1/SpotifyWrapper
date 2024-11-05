@@ -34,7 +34,7 @@ def create_or_update_tokens(session_id, access_token, refresh_token, expires_in,
             expires_in=expires_in_time,
             token_type=token_type,
         )
-        tokens[0].save()
+        tokens.save()
 
 def is_spotify_authenticated(session_id):
     tokens = check_tokens(session_id)
