@@ -138,23 +138,9 @@ class TopSongs2023(APIView):
         print(f"Found playlist ID: {playlist_id}")
 
         # Use the full endpoint path for Spotify-owned playlist
-        tracks_endpoint = f"users/spotify/playlists/{playlist_id}/tracks"
+        tracks_endpoint = f"playlists/{playlist_id}/tracks"
         tracks_response = spotify_requests_execution(key, tracks_endpoint)
-
-        if "error" in tracks_response:
-            # Try alternative endpoint
-            tracks_endpoint = f"playlists/{playlist_id}"
-            tracks_response = spotify_requests_execution(key, tracks_endpoint)
-
-            if "error" in tracks_response:
-                return Response({
-                    "error": "Failed to fetch tracks",
-                    "playlist_id": playlist_id,
-                    "response": tracks_response
-                }, status=status.HTTP_400_BAD_REQUEST)
-
-            # Get tracks from the tracks object
-            tracks_response = tracks_response.get("tracks", {})
+        print(tracks_response)
 
         tracks = []
         items = tracks_response.get("items", [])
