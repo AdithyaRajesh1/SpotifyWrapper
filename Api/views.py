@@ -14,7 +14,7 @@ def home(request):
     return render(request, 'home.html')
 class Authentication(APIView):
     def get(self, request, format=None):
-        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state"
+        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read"
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'response_type': 'code',
@@ -63,7 +63,7 @@ def spotify_redirect(request):
     )
 
     # Return redirect URL as JSON, handle on frontend
-    redirect_url = f"http://localhost:8000/spotify/redirect/?code={code}"
+    redirect_url = f"http://localhost:8000/spotify/current-song/?code={code}"
     return redirect(redirect_url)
 
 
@@ -74,13 +74,14 @@ class CheckAuthentication(APIView):
 
 class CurrentSong(APIView):
     def get(self, request, format=None):
-        key = request.GET.get("key")
+        key = self.request.session.session_key
+        '''
         try:
             token = Token.objects.get(user=key)
         except Token.DoesNotExist:
             return Response({"error": "Token not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        endpoint = "me/player/currently-playing"
+'''
+        endpoint = "player/currently-playing"
         response = spotify_requests_execution(key, endpoint)
 
         if "error" in response or "item" not in response:
