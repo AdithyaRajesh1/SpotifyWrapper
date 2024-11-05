@@ -81,7 +81,7 @@ class CurrentSong(APIView):
         except Token.DoesNotExist:
             return Response({"error": "Token not found"}, status=status.HTTP_404_NOT_FOUND)
 '''
-        endpoint = "player/currently-playing"
+        endpoint = "me/player/currently-playing"
         response = spotify_requests_execution(key, endpoint)
 
         if "error" in response or "item" not in response:
@@ -114,7 +114,7 @@ class TopSongs2023(APIView):
         key = self.request.session.session_key
 
         # First, get all playlists to find "Your Top Songs 2023"
-        endpoint = "playlists/"
+        endpoint = "me/playlists/"
         playlists_response = spotify_requests_execution(key, endpoint)
 
         if "error" in playlists_response:
@@ -138,7 +138,7 @@ class TopSongs2023(APIView):
         print(f"Found playlist ID: {playlist_id}")
 
         # Use the full endpoint path for Spotify-owned playlist
-        tracks_endpoint = f"playlists/{playlist_id}/tracks"
+        tracks_endpoint = f"playlists/{playlist_id}/tracks/"
         tracks_response = spotify_requests_execution(key, tracks_endpoint)
         print(tracks_response)
 
