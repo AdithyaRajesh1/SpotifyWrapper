@@ -5,7 +5,7 @@ from django.utils import timezone
 from datetime import timedelta
 from requests import post
 
-BASE_URL = 'https://api.spotify.com/v1/me'
+BASE_URL = 'https://api.spotify.com/v1'
 
 def check_tokens(session_id):
     tokens = Token.objects.filter(user=session_id)
