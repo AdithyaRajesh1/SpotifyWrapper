@@ -113,64 +113,74 @@ class TopSongs2023(APIView):
     def get(self, request, format=None):
         key = self.request.session.session_key
 
-        # First, get all playlists to find "Your Top Songs 2023"
+        # Define the target playlists from 2019 to 2023
+        target_playlists = [
+            "Your Top Songs 2023",
+            "Your Top Songs 2022",
+            "Your Top Songs 2021",
+            "Your Top Songs 2020",
+            "Your Top Songs 2019"
+        ]
+
+        # Fetch all user playlists
         endpoint = "me/playlists/"
         playlists_response = spotify_requests_execution(key, endpoint)
 
         if "error" in playlists_response:
             return Response({"error": "Failed to fetch playlists"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Find the "Your Top Songs 2023" playlist
-        top_songs_playlist = None
+        # Find any matching "Your Top Songs" playlists
+        found_playlists = {}
         for playlist in playlists_response.get("items", []):
-            if playlist.get("name") == "Your Top Songs 2023":
-                top_songs_playlist = playlist
-                break
+            playlist_name = playlist.get("name")
+            if playlist_name in target_playlists:
+                found_playlists[playlist_name] = playlist
 
-        if not top_songs_playlist:
+        # If no matching playlists found, return an error
+        if not found_playlists:
             return Response(
-                {"error": "Your Top Songs 2023 playlist not found"},
+                {"error": "No 'Your Top Songs' playlists found from 2019 to 2023"},
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Get the tracks from the playlist
-        playlist_id = top_songs_playlist.get("id")
-        print(f"Found playlist ID: {playlist_id}")
+        all_tracks = []
 
-        # Use the full endpoint path for Spotify-owned playlist
-        tracks_endpoint = f"playlists/{playlist_id}/tracks/"
-        tracks_response = spotify_requests_execution(key, tracks_endpoint)
-        print(tracks_response)
+        # Retrieve and process tracks from each found playlist
+        for playlist_name, playlist in found_playlists.items():
+            playlist_id = playlist.get("id")
+            tracks_endpoint = f"playlists/{playlist_id}/tracks/"
+            tracks_response = spotify_requests_execution(key, tracks_endpoint)
+            items = tracks_response.get("items", [])
 
-        tracks = []
-        items = tracks_response.get("items", [])
+            # Process each track
+            for item in items:
+                track = item.get("track")
+                if track:
+                    images = track.get("album", {}).get("images", [])
+                    album_cover = images[0].get("url") if images else None
 
-        for item in items:
-            track = item.get("track")
-            if track:
-                images = track.get("album", {}).get("images", [])
-                album_cover = images[0].get("url") if images else None
+                    track_data = {
+                        "id": track.get("id"),
+                        "name": track.get("name"),
+                        "artists": ", ".join(artist.get("name") for artist in track.get("artists", [])),
+                        "album": track.get("album", {}).get("name"),
+                        "album_cover": album_cover,
+                        "duration_ms": track.get("duration_ms"),
+                        "external_url": track.get("external_urls", {}).get("spotify"),
+                        "preview_url": track.get("preview_url"),
+                        "popularity": track.get("popularity"),
+                        "playlist_name": playlist_name  # Indicate which playlist the track came from
+                    }
+                    all_tracks.append(track_data)
 
-                track_data = {
-                    "id": track.get("id"),
-                    "name": track.get("name"),
-                    "artists": ", ".join(artist.get("name") for artist in track.get("artists", [])),
-                    "album": track.get("album", {}).get("name"),
-                    "album_cover": album_cover,
-                    "duration_ms": track.get("duration_ms"),
-                    "external_url": track.get("external_urls", {}).get("spotify"),
-                    "preview_url": track.get("preview_url"),
-                    "popularity": track.get("popularity")
-                }
-                tracks.append(track_data)
+        # Sort tracks by playlist year if desired, with the newest year first
+        all_tracks.sort(key=lambda x: x["playlist_name"], reverse=True)
 
+        # Response format
         playlist_info = {
-            "playlist_name": top_songs_playlist.get("name"),
-            "description": top_songs_playlist.get("description"),
-            "owner": top_songs_playlist.get("owner", {}).get("display_name"),
-            "total_tracks": len(tracks),
-            "image_url": next((image.get("url") for image in top_songs_playlist.get("images", [])), None),
-            "tracks": tracks
+            "combined_playlist_name": "Your Top Songs 2019-2023",
+            "total_tracks": len(all_tracks),
+            "tracks": all_tracks
         }
 
         return Response(playlist_info, status=status.HTTP_200_OK)
