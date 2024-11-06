@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="fixed random errors">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="halfway through getting 2023 wrapped">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/credentials.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
@@ -33,7 +34,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="WrappedPage" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,13 +46,12 @@
     &quot;assignee&quot;: &quot;aishanibal&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AdithyaRajesh1/SpotifyWrapper.git",
-    "accountId": "1b76475c-5901-4984-8fbf-869bf5bdf017"
-  },
-  "editorReviewEnabled": false
-}]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper.git&quot;,
+    &quot;accountId&quot;: &quot;1b76475c-5901-4984-8fbf-869bf5bdf017&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -160,7 +160,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730765117689</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="halfway through getting 2023 wrapped">
+      <option name="closed" value="true" />
+      <created>1730767600045</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730767600046</updated>
+    </task>
+    <task id="LOCAL-00007" summary="halfway through getting 2023 wrapped">
+      <option name="closed" value="true" />
+      <created>1730768328735</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730768328735</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,19 +185,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="partial user auth + redirect" />
     <MESSAGE value="client-id" />
-    <MESSAGE value="current songs works" />
     <MESSAGE value="fixed random errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed random errors" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Api/views.py</url>
-          <line>181</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="current songs works" />
+    <MESSAGE value="halfway through getting 2023 wrapped" />
+    <option name="LAST_COMMIT_MESSAGE" value="halfway through getting 2023 wrapped" />
   </component>
 </project>
