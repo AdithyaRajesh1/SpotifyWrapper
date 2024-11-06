@@ -4,33 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="fixed random errors">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcff646e-f419-4c25-8c9b-ec4479c08dae.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcff646e-f419-4c25-8c9b-ec4479c08dae.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/extras.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/extras.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-    </list>
+    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="halfway through getting 2023 wrapped" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="eshan1jaffar &lt;80078879+eshan1jaffar@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -40,8 +42,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper&quot;,
-    &quot;accountId&quot;: &quot;9c198e46-08e7-49dc-98c8-3c4789907df6&quot;
+    &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper.git&quot;,
+    &quot;accountId&quot;: &quot;1b76475c-5901-4984-8fbf-869bf5bdf017&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -53,21 +55,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Django Server.SpotifyWrapper.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;UserAuth&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Django Server.SpotifyWrapper.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "#1 on UserAuth",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="SpotifyWrapper" type="Python.DjangoServer" factoryName="Django server">
       <module name="SpotifyWrapper" />
@@ -98,8 +98,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153" />
-        <option value="bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.428" />
+        <option value="bundled-python-sdk-80e8e15d2b92-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.428" />
       </set>
     </attachedChunks>
   </component>
@@ -113,7 +113,6 @@
       <updated>1730300651790</updated>
       <workItem from="1730300653221" duration="184000" />
       <workItem from="1730743092250" duration="1469000" />
-      <workItem from="1730752628670" duration="1123000" />
     </task>
     <task id="LOCAL-00001" summary="partial user auth + redirect">
       <option name="closed" value="true" />
@@ -131,7 +130,55 @@
       <option name="project" value="LOCAL" />
       <updated>1730743322687</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fixed random errors">
+      <option name="closed" value="true" />
+      <created>1730754494290</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730754494290</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fixed random errors">
+      <option name="closed" value="true" />
+      <created>1730754499126</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730754499126</updated>
+    </task>
+    <task id="LOCAL-00005" summary="current songs works">
+      <option name="closed" value="true" />
+      <created>1730765117689</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730765117689</updated>
+    </task>
+    <task id="LOCAL-00006" summary="halfway through getting 2023 wrapped">
+      <option name="closed" value="true" />
+      <created>1730767600045</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730767600046</updated>
+    </task>
+    <task id="LOCAL-00007" summary="halfway through getting 2023 wrapped">
+      <option name="closed" value="true" />
+      <created>1730768328735</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730768328735</updated>
+    </task>
+    <task id="LOCAL-00008" summary="halfway through getting 2023 wrapped">
+      <option name="closed" value="true" />
+      <created>1730926116380</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730926116380</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,7 +186,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="partial user auth + redirect" />
+    <MESSAGE value="client-id" />
     <MESSAGE value="fixed random errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed random errors" />
+    <MESSAGE value="current songs works" />
+    <MESSAGE value="halfway through getting 2023 wrapped" />
+    <option name="LAST_COMMIT_MESSAGE" value="halfway through getting 2023 wrapped" />
   </component>
 </project>
