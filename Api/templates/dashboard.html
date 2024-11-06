@@ -14,7 +14,19 @@
                         <img src="{{ track.album_cover }}" alt="Album cover" width="50">
                         <strong>{{ track.name }}</strong> by {{ track.artists }} <br>
                         Album: {{ track.album }} <br>
-                        <a href="{{ track.external_url }}">Listen on Spotify</a>
+
+                        {% if track.preview_url %}
+                            <!-- Audio player for song preview -->
+                            <audio controls>
+                                <source src="{{ track.preview_url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% else %}
+                            <p>Preview not available</p>
+                        {% endif %}
+
+                        <!-- Link to full song on Spotify -->
+                        <a href="{{ track.external_url }}" target="_blank">Listen on Spotify</a>
                     </li>
                 {% endfor %}
             </ul>
