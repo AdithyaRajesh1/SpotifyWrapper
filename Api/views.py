@@ -8,20 +8,22 @@ from django.http import JsonResponse
 from .models import Token
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
+import sqlite3
 
 
 def home(request):
     return render(request, 'home.html')
 class Authentication(APIView):
     def get(self, request, format=None):
-        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read"
+        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read playlist-read-private"
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'response_type': 'code',
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID,
         }).prepare().url
-        return Response({"url": url}, status=status.HTTP_200_OK)
+        #return Response({"url": url}, status=status.HTTP_200_OK)
+        return render(request, 'auth.html', {"url": url})
 
 
 def spotify_redirect(request):
@@ -63,7 +65,7 @@ def spotify_redirect(request):
     )
 
     # Return redirect URL as JSON, handle on frontend
-    redirect_url = f"http://localhost:8000/spotify/current-song/?code={code}"
+    redirect_url = f"http://localhost:8000/spotify/wrapped/?code={code}"
     return redirect(redirect_url)
 
 
@@ -81,7 +83,7 @@ class CurrentSong(APIView):
         except Token.DoesNotExist:
             return Response({"error": "Token not found"}, status=status.HTTP_404_NOT_FOUND)
 '''
-        endpoint = "player/currently-playing"
+        endpoint = "me/player/currently-playing"
         response = spotify_requests_execution(key, endpoint)
 
         if "error" in response or "item" not in response:
@@ -107,3 +109,164 @@ class CurrentSong(APIView):
         }
 
         return Response(song, status=status.HTTP_200_OK)
+
+
+class TopSongs(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        target_playlists = [
+            "Your Top Songs 2023",
+            "Your Top Songs 2022",
+            "Your Top Songs 2021",
+            "Your Top Songs 2020",
+            "Your Top Songs 2019"
+        ]
+
+        endpoint = "me/playlists/"
+        playlists_response = spotify_requests_execution(key, endpoint)
+
+        if "error" in playlists_response:
+            return Response({"error": "Failed to fetch playlists"}, status=status.HTTP_400_BAD_REQUEST)
+
+        found_playlists = {}
+        for playlist in playlists_response.get("items", []):
+            playlist_name = playlist.get("name")
+            if playlist_name in target_playlists:
+                found_playlists[playlist_name] = playlist
+
+        playlists_by_year = {}
+
+        for playlist_name, playlist in found_playlists.items():
+            playlist_id = playlist.get("id")
+            tracks_endpoint = f"playlists/{playlist_id}/tracks/"
+            tracks_response = spotify_requests_execution(key, tracks_endpoint)
+            items = tracks_response.get("items", [])
+
+            tracks = []
+            for item in items:
+                track = item.get("track")
+                if track:
+                    track_data = {
+                        "id": track.get("id"),
+                        "name": track.get("name"),
+                        "artists": ", ".join(artist.get("name") for artist in track.get("artists", [])),
+                        "album": track.get("album", {}).get("name"),
+                        "album_cover": track.get("album", {}).get("images", [{}])[0].get("url"),
+                        "duration_ms": track.get("duration_ms"),
+                        "preview_url": track.get("preview_url"),  # Add preview URL for playback
+                        "popularity": track.get("popularity"),
+                    }
+                    tracks.append(track_data)
+            playlists_by_year[playlist_name] = tracks
+
+        return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
+
+
+class SpotifyWrappedView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+
+        # Fetch top artists
+        top_artists_endpoint = "me/top/artists?limit=5"
+        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
+        top_artists = [
+            {
+                "name": artist["name"],
+                "genres": artist.get("genres", []),
+                "image": artist["images"][0]["url"] if artist.get("images") else None
+            }
+            for artist in top_artists_response.get("items", [])
+        ]
+
+        # Fetch top tracks
+        top_tracks_endpoint = "me/top/tracks?limit=5"
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+        top_tracks = [
+            {
+                "name": track["name"],
+                "artists": ", ".join([artist["name"] for artist in track["artists"]]),
+                "album_cover": track["album"]["images"][0]["url"] if track["album"].get("images") else None
+            }
+            for track in top_tracks_response.get("items", [])
+        ]
+
+        # Aggregate genres from top artists
+        genres = set()
+        for artist in top_artists_response.get("items", []):
+            genres.update(artist.get("genres", []))
+        top_genres = list(genres)[:5]  # Limit to top 5 genres
+
+        # Calculate listening time from playback history
+        playback_history_endpoint = "me/player/recently-played?limit=50"
+        playback_history_response = spotify_requests_execution(key, playback_history_endpoint)
+        total_listening_time = sum(
+            item["track"]["duration_ms"] for item in playback_history_response.get("items", [])
+        )
+        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)  # Convert ms to hours
+
+        # Count new artists discovered
+        new_artists = len({track["track"]["artists"][0]["id"] for track in playback_history_response.get("items", [])})
+
+        # Mock data for other metrics
+        music_trends = "Trending tracks of the year and global chart highlights"
+        sound_town = "Your Sound Town: Nashville"
+        listening_character = "The Adventurer - You explore a wide range of genres and discover new artists often."
+
+        # Context for Wrapped data
+        context = {
+            "top_artists": top_artists,
+            "top_tracks": top_tracks,
+            "top_genres": top_genres,
+            "listening_time_hours": listening_time_hours,
+            "new_artists": new_artists,
+            "music_trends": music_trends,
+            "sound_town": sound_town,
+            "listening_character": listening_character,
+        }
+
+        print("dablt")
+        import sqlite3
+
+        # Connect to the SQLite database
+        conn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed
+        cursor = conn.cursor()
+
+        # Get the list of all table names in the database
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cursor.fetchall()
+
+        # Iterate through each table and display its contents
+        for table in tables:
+            table_name = table[0]
+            print(f"Displaying data from table: {table_name}")
+
+            try:
+                # Query to select everything from the current table
+                cursor.execute(f"SELECT * FROM {table_name}")
+
+                # Fetch all rows from the table
+                rows = cursor.fetchall()
+
+                # If the table is empty, print a message
+                if not rows:
+                    print(f"Table {table_name} is empty.")
+                else:
+                    # Print each row in the table
+                    for row in rows:
+                        print(row)
+
+            except sqlite3.Error as e:
+                # Handle the case where a table can't be queried
+                print(f"Error querying table {table_name}: {e}")
+
+            print("\n" + "-" * 50 + "\n")
+
+        # Close the connection when done
+        conn.close()
+
+
+
+
+
+        # Render the wrapped.html template with context
+        return render(request, "wrapped.html", context)
