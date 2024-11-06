@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Your Top Songs Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Your Top Songs from 2019 to 2023</h1>
+
+    {% for year, tracks in playlists_by_year.items %}
+        <details>
+            <summary><h2>{{ year }}</h2></summary>
+            <ul>
+                {% for track in tracks %}
+                    <li>
+                        <img src="{{ track.album_cover }}" alt="Album cover" width="50">
+                        <strong>{{ track.name }}</strong> by {{ track.artists }} <br>
+                        Album: {{ track.album }} <br>
+                        <a href="{{ track.external_url }}">Listen on Spotify</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </details>
+    {% endfor %}
+{% endblock %}
