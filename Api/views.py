@@ -114,8 +114,6 @@ class CurrentSong(APIView):
 class TopSongs(APIView):
     def get(self, request, format=None):
         key = self.request.session.session_key
-
-        # Define the target playlists from 2019 to 2023
         target_playlists = [
             "Your Top Songs 2023",
             "Your Top Songs 2022",
@@ -124,61 +122,43 @@ class TopSongs(APIView):
             "Your Top Songs 2019"
         ]
 
-        # Fetch all user playlists
         endpoint = "me/playlists/"
         playlists_response = spotify_requests_execution(key, endpoint)
 
         if "error" in playlists_response:
             return Response({"error": "Failed to fetch playlists"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Find any matching "Your Top Songs" playlists
         found_playlists = {}
         for playlist in playlists_response.get("items", []):
             playlist_name = playlist.get("name")
             if playlist_name in target_playlists:
                 found_playlists[playlist_name] = playlist
 
-        # If no matching playlists found, return an error
-        if not found_playlists:
-            return Response(
-                {"error": "No 'Your Top Songs' playlists found from 2019 to 2023"},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
         playlists_by_year = {}
 
-        # Retrieve and process tracks from each found playlist
         for playlist_name, playlist in found_playlists.items():
             playlist_id = playlist.get("id")
             tracks_endpoint = f"playlists/{playlist_id}/tracks/"
             tracks_response = spotify_requests_execution(key, tracks_endpoint)
             items = tracks_response.get("items", [])
 
-            # Collect track data for the current playlist
             tracks = []
             for item in items:
                 track = item.get("track")
                 if track:
-                    images = track.get("album", {}).get("images", [])
-                    album_cover = images[0].get("url") if images else None
-
                     track_data = {
                         "id": track.get("id"),
                         "name": track.get("name"),
                         "artists": ", ".join(artist.get("name") for artist in track.get("artists", [])),
                         "album": track.get("album", {}).get("name"),
-                        "album_cover": album_cover,
+                        "album_cover": track.get("album", {}).get("images", [{}])[0].get("url"),
                         "duration_ms": track.get("duration_ms"),
-                        "external_url": track.get("external_urls", {}).get("spotify"),
-                        "preview_url": track.get("preview_url"),
+                        "preview_url": track.get("preview_url"),  # Add preview URL for playback
                         "popularity": track.get("popularity"),
                     }
                     tracks.append(track_data)
-
-            # Assign tracks to the playlist's year
             playlists_by_year[playlist_name] = tracks
 
-        # Render to HTML with the playlist data
         return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
 
 
