@@ -1,0 +1,63 @@
+Index: Api/credentials.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>CLIENT_ID = \"9f913852b772462792d678d78fcadfa5\"\nCLIENT_SECRET = \"d269676339f24a2cab18cb694b2fd9da\"\nREDIRECT_URI = \"http://127.0.0.1:8000/spotify/current-song\"
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/credentials.py b/Api/credentials.py
+--- a/Api/credentials.py	(revision e5543b1cbb6b6d093f26c10067b60d38c8b5979e)
++++ b/Api/credentials.py	(date 1730747009650)
+@@ -1,3 +1,3 @@
+ CLIENT_ID = "9f913852b772462792d678d78fcadfa5"
+ CLIENT_SECRET = "d269676339f24a2cab18cb694b2fd9da"
+-REDIRECT_URI = "http://127.0.0.1:8000/spotify/current-song"
+\ No newline at end of file
++REDIRECT_URI = "http://127.0.0.1:8000/callback"
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"fixed random errors\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Api/credentials.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Api/credentials.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Api/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Api/views.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/SpotifyWrapper/settings.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/SpotifyWrapper/settings.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/db.sqlite3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db.sqlite3\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;aishanibal&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper.git&quot;,\n    &quot;accountId&quot;: &quot;1b76475c-5901-4984-8fbf-869bf5bdf017&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2oOaUJnnBJkv3cXjpz1xgE4eSAI\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Django Server.SpotifyWrapper.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;UserAuth&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"SpotifyWrapper\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\n      <module name=\"SpotifyWrapper\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n        <env name=\"DJANGO_SETTINGS_MODULE\" value=\"SpotifyWrapper.settings\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\n      <option name=\"port\" value=\"8000\" />\n      <option name=\"host\" value=\"localhost\" />\n      <option name=\"additionalOptions\" value=\"\" />\n      <option name=\"browserUrl\" value=\"\" />\n      <option name=\"runTestServer\" value=\"false\" />\n      <option name=\"runNoReload\" value=\"false\" />\n      <option name=\"useCustomRunCommand\" value=\"false\" />\n      <option name=\"customRunCommand\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.428\" />\n        <option value=\"bundled-python-sdk-80e8e15d2b92-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.428\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"\" />\n      <created>1730300651790</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1730300651790</updated>\n      <workItem from=\"1730300653221\" duration=\"184000\" />\n      <workItem from=\"1730743092250\" duration=\"1469000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"partial user auth + redirect\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730309034212</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730309034212</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"fixed random errors\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730743322687</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730743322687</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"partial user auth + redirect\" />\n    <MESSAGE value=\"fixed random errors\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fixed random errors\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e5543b1cbb6b6d093f26c10067b60d38c8b5979e)
++++ b/.idea/workspace.xml	(date 1730754219912)
+@@ -5,10 +5,7 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="fixed random errors">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Api/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/credentials.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/SpotifyWrapper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpotifyWrapper/settings.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -30,6 +27,7 @@
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+   &quot;lastFilter&quot;: {
+@@ -138,4 +136,15 @@
+     <MESSAGE value="fixed random errors" />
+     <option name="LAST_COMMIT_MESSAGE" value="fixed random errors" />
+   </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
++          <url>file://$PROJECT_DIR$/Api/extras.py</url>
++          <line>1</line>
++          <option name="timeStamp" value="3" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++  </component>
+ </project>
+\ No newline at end of file

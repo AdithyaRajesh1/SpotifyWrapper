@@ -1,0 +1,122 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"fixed random errors\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Api/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Api/views.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/db.sqlite3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db.sqlite3\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"DjangoConsoleOptions\" custom-start-script=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\">\n    <option name=\"myCustomStartScript\" value=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\n      <list>\n        <option value=\"eshan1jaffar &lt;80078879+eshan1jaffar@users.noreply.github.com&gt;\" />\n      </list>\n    </option>\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"WrappedPage\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;aishanibal&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\n  \"selectedUrlAndAccountId\": {\n    \"url\": \"https://github.com/AdithyaRajesh1/SpotifyWrapper.git\",\n    \"accountId\": \"1b76475c-5901-4984-8fbf-869bf5bdf017\"\n  },\n  \"editorReviewEnabled\": false\n}]]></component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2oOaUJnnBJkv3cXjpz1xgE4eSAI\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Django Server.SpotifyWrapper.executor\": \"Run\",\n    \"RunOnceActivity.OpenDjangoStructureViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"git-widget-placeholder\": \"#1 on UserAuth\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RunManager\">\n    <configuration name=\"SpotifyWrapper\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\n      <module name=\"SpotifyWrapper\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n        <env name=\"DJANGO_SETTINGS_MODULE\" value=\"SpotifyWrapper.settings\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\n      <option name=\"port\" value=\"8000\" />\n      <option name=\"host\" value=\"localhost\" />\n      <option name=\"additionalOptions\" value=\"\" />\n      <option name=\"browserUrl\" value=\"\" />\n      <option name=\"runTestServer\" value=\"false\" />\n      <option name=\"runNoReload\" value=\"false\" />\n      <option name=\"useCustomRunCommand\" value=\"false\" />\n      <option name=\"customRunCommand\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.428\" />\n        <option value=\"bundled-python-sdk-80e8e15d2b92-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.428\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"\" />\n      <created>1730300651790</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1730300651790</updated>\n      <workItem from=\"1730300653221\" duration=\"184000\" />\n      <workItem from=\"1730743092250\" duration=\"1469000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"partial user auth + redirect\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730309034212</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730309034212</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"fixed random errors\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730743322687</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730743322687</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"fixed random errors\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730754494290</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730754494290</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"fixed random errors\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730754499126</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730754499126</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"current songs works\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1730765117689</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1730765117689</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"6\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"partial user auth + redirect\" />\n    <MESSAGE value=\"client-id\" />\n    <MESSAGE value=\"current songs works\" />\n    <MESSAGE value=\"fixed random errors\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fixed random errors\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\n          <url>file://$PROJECT_DIR$/Api/views.py</url>\n          <line>181</line>\n          <option name=\"timeStamp\" value=\"4\" />\n        </line-breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision cc75f084418e774d4993366aed0439e459f6fbfd)
++++ b/.idea/workspace.xml	(date 1730926437780)
+@@ -4,10 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="fixed random errors">
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
++    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="made wrapped show past 5 years">
+       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -28,6 +25,7 @@
+   <component name="Git.Settings">
+     <option name="PREVIOUS_COMMIT_AUTHORS">
+       <list>
++        <option value="meghagoddu &lt;gmegha901@gmail.com&gt;" />
+         <option value="eshan1jaffar &lt;80078879+eshan1jaffar@users.noreply.github.com&gt;" />
+       </list>
+     </option>
+@@ -45,13 +43,13 @@
+     &quot;assignee&quot;: &quot;aishanibal&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/AdithyaRajesh1/SpotifyWrapper.git",
+-    "accountId": "1b76475c-5901-4984-8fbf-869bf5bdf017"
+-  },
+-  "editorReviewEnabled": false
+-}]]></component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper.git&quot;,
++    &quot;accountId&quot;: &quot;1b76475c-5901-4984-8fbf-869bf5bdf017&quot;
++  },
++  &quot;editorReviewEnabled&quot;: false
++}</component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 6
+ }</component>
+@@ -61,19 +59,19 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Django Server.SpotifyWrapper.executor": "Run",
+-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "#1 on UserAuth",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Django Server.SpotifyWrapper.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;#1 on UserAuth&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="SpotifyWrapper" type="Python.DjangoServer" factoryName="Django server">
+       <module name="SpotifyWrapper" />
+@@ -160,7 +158,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1730765117689</updated>
+     </task>
+-    <option name="localTasksCounter" value="6" />
++    <task id="LOCAL-00006" summary="made wrapped show past 5 years">
++      <option name="closed" value="true" />
++      <created>1730917335004</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1730917335004</updated>
++    </task>
++    <task id="LOCAL-00007" summary="made wrapped show past 5 years">
++      <option name="closed" value="true" />
++      <created>1730917358111</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1730917358111</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -169,9 +183,11 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="partial user auth + redirect" />
+     <MESSAGE value="client-id" />
+-    <MESSAGE value="current songs works" />
+     <MESSAGE value="fixed random errors" />
+-    <option name="LAST_COMMIT_MESSAGE" value="fixed random errors" />
++    <MESSAGE value="current songs works" />
++    <MESSAGE value="wrapped is done!!!!!" />
++    <MESSAGE value="made wrapped show past 5 years" />
++    <option name="LAST_COMMIT_MESSAGE" value="made wrapped show past 5 years" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
