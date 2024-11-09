@@ -18,8 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from Api.views import spotify_redirect, CheckAuthentication, CurrentSong
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('spotify/', include('Api.urls'))
+    path('spotify/', include('Api.urls')),
+    path('', include('Api.urls')),  # Root URL points to the new home view
 ]

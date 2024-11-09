@@ -5,62 +5,152 @@
 {% block content %}
     <h1>Your Spotify Wrapped</h1>
 
+    <!-- Total Counts Section -->
+    <section>
+        <h2>Stats Overview</h2>
+        <ul>
+            <li>
+                <strong>Total Artists:</strong> {{ wrapped_data.totalArtists }}
+            </li>
+            <li>
+                <strong>Total Tracks:</strong> {{ wrapped_data.totalTracks }}
+            </li>
+            <li>
+                <strong>Total Albums:</strong> {{ wrapped_data.totalAlbums }}
+            </li>
+            <li>
+                <strong>Total Listening Time:</strong> {{ wrapped_data.listeningTimeHours }} hours
+            </li>
+            <li>
+                <strong>New Artists Discovered:</strong> {{ wrapped_data.newArtistsCount }}
+            </li>
+            <li>
+                <strong>Available In:</strong> {{ wrapped_data.totalLocations }} countries
+            </li>
+        </ul>
+    </section>
+
+    <!-- Top Artists Section -->
     <section>
         <h2>Top Artists</h2>
         <ul>
-            {% for artist in top_artists %}
+            {% for artist in wrapped_data.topArtists %}
                 <li>
-                    <img src="{{ artist.image }}" alt="{{ artist.name }}" width="50" height="50">
-                    <strong>{{ artist.name }}</strong> - Genres: {{ artist.genres|join:", " }}
+                    {% if artist.image %}
+                        <img src="{{ artist.image }}" alt="{{ artist.name }}" width="50" height="50">
+                    {% endif %}
+                    <strong>{{ artist.name }}</strong>
+                    {% if artist.genres %}
+                        - Genres: {{ artist.genres|join:", " }}
+                    {% endif %}
+                    {% if artist.spotifyUrl %}
+                        <a href="{{ artist.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
     </section>
 
+    <!-- Top Tracks Section -->
     <section>
         <h2>Top Tracks</h2>
         <ul>
-            {% for track in top_tracks %}
+            {% for track in wrapped_data.topTracks %}
                 <li>
-                    <img src="{{ track.album_cover }}" alt="{{ track.name }}" width="50" height="50">
-                    <strong>{{ track.name }}</strong> by {{ track.artists }}
+                    {% if track.image %}
+                        <img src="{{ track.image }}" alt="{{ track.name }}" width="50" height="50">
+                    {% endif %}
+                    <strong>{{ track.name }}</strong> 
+                    by {{ track.subtitle }}
+                    {% if track.spotifyUrl %}
+                        <a href="{{ track.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
     </section>
 
+    <!-- Top Albums Section -->
     <section>
-        <h2>Top Genres</h2>
+        <h2>Top Albums</h2>
         <ul>
-            {% for genre in top_genres %}
-                <li>{{ genre }}</li>
+            {% for album in wrapped_data.topAlbums %}
+                <li>
+                    {% if album.image %}
+                        <img src="{{ album.image }}" alt="{{ album.name }}" width="50" height="50">
+                    {% endif %}
+                    <strong>{{ album.name }}</strong> 
+                    by {{ album.subtitle }}
+                    {% if album.releaseDate %}
+                        (Released: {{ album.releaseDate }})
+                    {% endif %}
+                    {% if album.spotifyUrl %}
+                        <a href="{{ album.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
     </section>
 
+    <!-- Top Genres Section -->
     <section>
-        <h2>Total Listening Time</h2>
-        <p>{{ listening_time_hours }} hours</p>
+        <h2>Top Genres</h2>
+        <ul>
+            {% for genre in wrapped_data.topGenres %}
+                <li>{{ genre.name }} ({{ genre.count }} tracks)</li>
+            {% endfor %}
+        </ul>
     </section>
 
+    <!-- Top Locations Section -->
     <section>
-        <h2>New Artists Discovered</h2>
-        <p>{{ new_artists }} new artists</p>
+        <h2>Top Listening Locations</h2>
+        <ul>
+            {% for location in wrapped_data.topLocations %}
+                <li>{{ location.name }} ({{ location.count }} tracks available)</li>
+            {% endfor %}
+        </ul>
     </section>
 
-    <section>
-        <h2>Music Trends</h2>
-        <p>{{ music_trends }}</p>
-    </section>
+    <!-- User Profile Section -->
+    {% if wrapped_data.userProfile %}
+        <section>
+            <h2>Your Profile</h2>
+            <div>
+                {% if wrapped_data.userProfile.image %}
+                    <img src="{{ wrapped_data.userProfile.image }}" 
+                         alt="{{ wrapped_data.userProfile.name }}" 
+                         width="100" 
+                         height="100">
+                {% endif %}
+                <p><strong>Name:</strong> {{ wrapped_data.userProfile.name }}</p>
+                <p><strong>Country:</strong> {{ wrapped_data.userProfile.country }}</p>
+                <p><strong>Followers:</strong> {{ wrapped_data.userProfile.followersCount }}</p>
+                <p><strong>Account Type:</strong> {{ wrapped_data.userProfile.product|title }}</p>
+            </div>
+        </section>
+    {% endif %}
 
-    <section>
-        <h2>Your Sound Town</h2>
-        <p>{{ sound_town }}</p>
-    </section>
+    <!-- Additional Context Sections -->
+    {% if music_trends %}
+        <section>
+            <h2>Music Trends</h2>
+            <p>{{ music_trends }}</p>
+        </section>
+    {% endif %}
 
-    <section>
-        <h2>Your Listening Character</h2>
-        <p>{{ listening_character }}</p>
-    </section>
+    {% if sound_town %}
+        <section>
+            <h2>Your Sound Town</h2>
+            <p>{{ sound_town }}</p>
+        </section>
+    {% endif %}
+
+    {% if listening_character %}
+        <section>
+            <h2>Your Listening Character</h2>
+            <p>{{ listening_character }}</p>
+        </section>
+    {% endif %}
 
 {% endblock %}

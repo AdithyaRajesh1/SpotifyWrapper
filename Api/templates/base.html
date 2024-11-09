@@ -9,10 +9,15 @@
 </head>
 <body>
     <nav>
-        <ul>
-           <li><a href="{% url 'home' %}">Home</a></li>
-
-        </ul>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <a href="{% url 'home' %}">Home</a>
+                    <button type="submit" class="btn btn-secondary">Log out</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+            {% endif %}
     </nav>
 
     <div class="content">
