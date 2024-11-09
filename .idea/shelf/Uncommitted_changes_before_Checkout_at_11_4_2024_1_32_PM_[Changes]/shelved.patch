@@ -1,0 +1,437 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"fixed random errors\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Api/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Api/views.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/db.sqlite3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db.sqlite3\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\r\n  \"lastFilter\": {\r\n    \"state\": \"OPEN\",\r\n    \"assignee\": \"aishanibal\"\r\n  }\r\n}]]></component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/AdithyaRajesh1/SpotifyWrapper.git\",\r\n    \"accountId\": \"1b76475c-5901-4984-8fbf-869bf5bdf017\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\"><![CDATA[{\r\n  \"associatedIndex\": 6\r\n}]]></component>\r\n  <component name=\"ProjectId\" id=\"2oOaUJnnBJkv3cXjpz1xgE4eSAI\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Django Server.SpotifyWrapper.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenDjangoStructureViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"UserAuth\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"SpotifyWrapper\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\r\n      <module name=\"SpotifyWrapper\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n        <env name=\"DJANGO_SETTINGS_MODULE\" value=\"SpotifyWrapper.settings\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\r\n      <option name=\"port\" value=\"8000\" />\r\n      <option name=\"host\" value=\"localhost\" />\r\n      <option name=\"additionalOptions\" value=\"\" />\r\n      <option name=\"browserUrl\" value=\"\" />\r\n      <option name=\"runTestServer\" value=\"false\" />\r\n      <option name=\"runNoReload\" value=\"false\" />\r\n      <option name=\"useCustomRunCommand\" value=\"false\" />\r\n      <option name=\"customRunCommand\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.428\" />\r\n        <option value=\"bundled-python-sdk-80e8e15d2b92-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.428\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"\" />\r\n      <created>1730300651790</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1730300651790</updated>\r\n      <workItem from=\"1730300653221\" duration=\"184000\" />\r\n      <workItem from=\"1730743092250\" duration=\"1469000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"partial user auth + redirect\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730309034212</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730309034212</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"fixed random errors\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730743322687</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730743322687</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"partial user auth + redirect\" />\r\n    <MESSAGE value=\"fixed random errors\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fixed random errors\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 92bfa173cad2f4a2c271db4fcb6ff54a91a6d14e)
++++ b/.idea/workspace.xml	(date 1730744929355)
+@@ -4,8 +4,9 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="fixed random errors">
++    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="full user auth + redirect">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/extras.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/extras.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+     </list>
+@@ -24,45 +25,24 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="main" />
++        <entry key="$PROJECT_DIR$" value="UserAuth" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+-  "lastFilter": {
+-    "state": "OPEN",
+-    "assignee": "aishanibal"
+-  }
+-}]]></component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/AdithyaRajesh1/SpotifyWrapper.git",
+-    "accountId": "1b76475c-5901-4984-8fbf-869bf5bdf017"
+-  }
+-}]]></component>
+-  <component name="ProjectColorInfo"><![CDATA[{
+-  "associatedIndex": 6
+-}]]></component>
+-  <component name="ProjectId" id="2oOaUJnnBJkv3cXjpz1xgE4eSAI" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Django Server.SpotifyWrapper.executor": "Run",
+-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "UserAuth",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Django Server.SpotifyWrapper.executor&quot;: &quot;Run&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;UserAuth&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="SpotifyWrapper" type="Python.DjangoServer" factoryName="Django server">
+       <module name="SpotifyWrapper" />
+@@ -107,7 +87,6 @@
+       <option name="presentableId" value="Default" />
+       <updated>1730300651790</updated>
+       <workItem from="1730300653221" duration="184000" />
+-      <workItem from="1730743092250" duration="1469000" />
+     </task>
+     <task id="LOCAL-00001" summary="partial user auth + redirect">
+       <option name="closed" value="true" />
+@@ -117,15 +96,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1730309034212</updated>
+     </task>
+-    <task id="LOCAL-00002" summary="fixed random errors">
++    <task id="LOCAL-00002" summary="partial user auth + redirect">
+       <option name="closed" value="true" />
+-      <created>1730743322687</created>
++      <created>1730318525387</created>
+       <option name="number" value="00002" />
+       <option name="presentableId" value="LOCAL-00002" />
+       <option name="project" value="LOCAL" />
+-      <updated>1730743322687</updated>
++      <updated>1730318525387</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="full user auth + redirect">
++      <option name="closed" value="true" />
++      <created>1730318542756</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1730318542756</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -133,7 +120,7 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="partial user auth + redirect" />
+-    <MESSAGE value="fixed random errors" />
+-    <option name="LAST_COMMIT_MESSAGE" value="fixed random errors" />
++    <MESSAGE value="full user auth + redirect" />
++    <option name="LAST_COMMIT_MESSAGE" value="full user auth + redirect" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: Api/extras.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import requests\r\nfrom .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI\r\nfrom .models import Token\r\nfrom django.utils import timezone\r\nfrom datetime import timedelta\r\nfrom requests import post\r\n\r\nBASE_URL = 'https://api.spotify.com/v1/me'\r\n\r\ndef check_tokens(session_id):\r\n    tokens = Token.objects.filter(user=session_id).first()\r\n    return tokens  # returns None if no tokens found\r\n\r\ndef create_or_update_tokens(session_id, access_token, refresh_token, expires_in, token_type):\r\n    if expires_in is None:\r\n        expires_in = 3600  # Default to 1 hour if not provided\r\n    expires_in_time = timezone.now() + timedelta(seconds=expires_in)\r\n\r\n    tokens = check_tokens(session_id)\r\n    if tokens:\r\n        tokens.access_token = access_token\r\n        tokens.refresh_token = refresh_token\r\n        tokens.expires_in = expires_in_time\r\n        tokens.token_type = token_type\r\n        tokens.save(update_fields=['access_token', 'refresh_token', 'expires_in', 'token_type'])\r\n    else:\r\n        Token.objects.create(\r\n            user=session_id,\r\n            access_token=access_token,\r\n            refresh_token=refresh_token,\r\n            expires_in=expires_in_time,\r\n            token_type=token_type,\r\n        )\r\n\r\ndef is_spotify_authenticated(session_id):\r\n    tokens = check_tokens(session_id)\r\n    if tokens:\r\n        if tokens.expires_in <= timezone.now():\r\n            # Refresh the token if expired\r\n            refresh_token_func(session_id)\r\n            tokens = check_tokens(session_id)  # Reload tokens after refresh\r\n        return True if tokens.access_token else False\r\n    return False\r\n\r\ndef refresh_token_func(session_id):\r\n    tokens = check_tokens(session_id)\r\n    if not tokens:\r\n        return False  # No token to refresh\r\n\r\n    response = post('https://accounts.spotify.com/api/token', data={\r\n        'grant_type': 'refresh_token',\r\n        'refresh_token': tokens.refresh_token,\r\n        'client_id': CLIENT_ID,\r\n        'client_secret': CLIENT_SECRET,\r\n    })\r\n\r\n    if response.status_code == 200:\r\n        response_data = response.json()\r\n        access_token = response_data.get('access_token')\r\n        expires_in = response_data.get('expires_in', 3600)  # Fallback to 1 hour\r\n        token_type = response_data.get('token_type')\r\n\r\n        # Update tokens\r\n        create_or_update_tokens(\r\n            session_id=session_id,\r\n            access_token=access_token,\r\n            refresh_token=tokens.refresh_token,\r\n            expires_in=expires_in,\r\n            token_type=token_type,\r\n        )\r\n    else:\r\n        print(\"Error refreshing token:\", response.status_code, response.text)\r\n        return False\r\n    return True\r\n\r\ndef spotify_requests_execution(session_id, endpoint):\r\n    if not is_spotify_authenticated(session_id):\r\n        return {\"error\": \"Authentication required\"}\r\n\r\n    tokens = check_tokens(session_id)\r\n    headers = {\r\n        'Content-Type': 'application/json',\r\n        'Authorization': f'Bearer {tokens.access_token}'\r\n    }\r\n\r\n    response = requests.get(f\"{BASE_URL}/{endpoint}\", headers=headers)\r\n\r\n    if response.status_code == 200:\r\n        return response.json()\r\n    else:\r\n        print(\"Error with request:\", response.status_code, response.text)\r\n        return {'Error': 'Issue with Spotify API request'}\r\n
+===================================================================
+diff --git a/Api/extras.py b/Api/extras.py
+--- a/Api/extras.py	(revision 92bfa173cad2f4a2c271db4fcb6ff54a91a6d14e)
++++ b/Api/extras.py	(date 1730744797093)
+@@ -1,92 +1,78 @@
+-import requests
+-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
++from .credentials import CLIENT_ID, CLIENT_SECRET
+ from .models import Token
+ from django.utils import timezone
+ from datetime import timedelta
+ from requests import post
++from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+ 
+ BASE_URL = 'https://api.spotify.com/v1/me'
+ 
+ def check_tokens(session_id):
+-    tokens = Token.objects.filter(user=session_id).first()
+-    return tokens  # returns None if no tokens found
++    tokens = Token.objects.filter(user=session_id)
++    if tokens:
++        return tokens[0]
++    else:
++        return None
+ 
+ def create_or_update_tokens(session_id, access_token, refresh_token, expires_in, token_type):
+-    if expires_in is None:
+-        expires_in = 3600  # Default to 1 hour if not provided
+-    expires_in_time = timezone.now() + timedelta(seconds=expires_in)
+-
+     tokens = check_tokens(session_id)
++    expires_in = timezone.now() + timedelta(seconds=expires_in)
++
+     if tokens:
+         tokens.access_token = access_token
+         tokens.refresh_token = refresh_token
+-        tokens.expires_in = expires_in_time
++        tokens.expires_in = expires_in
+         tokens.token_type = token_type
+         tokens.save(update_fields=['access_token', 'refresh_token', 'expires_in', 'token_type'])
+     else:
+-        Token.objects.create(
+-            user=session_id,
+-            access_token=access_token,
+-            refresh_token=refresh_token,
+-            expires_in=expires_in_time,
+-            token_type=token_type,
++        token = Token(
++            user = session_id,
++            access_token = access_token,
++            refresh_token = refresh_token,
++            expires_in = expires_in,
++            token_type = token_type,
+         )
++        tokens.save()
+ 
+ def is_spotify_authenticated(session_id):
+     tokens = check_tokens(session_id)
+     if tokens:
+         if tokens.expires_in <= timezone.now():
+-            # Refresh the token if expired
+-            refresh_token_func(session_id)
+-            tokens = check_tokens(session_id)  # Reload tokens after refresh
+-        return True if tokens.access_token else False
++            pass
++        return True
+     return False
+-
+ def refresh_token_func(session_id):
+-    tokens = check_tokens(session_id)
+-    if not tokens:
+-        return False  # No token to refresh
+-
+-    response = post('https://accounts.spotify.com/api/token', data={
++    refresh_token = check_tokens(session_id).refresh_token
++    response = post('https://accounts.spotify.com/api/token', {
+         'grant_type': 'refresh_token',
+-        'refresh_token': tokens.refresh_token,
++        'refresh_token': refresh_token,
+         'client_id': CLIENT_ID,
+         'client_secret': CLIENT_SECRET,
+     })
+ 
+-    if response.status_code == 200:
+-        response_data = response.json()
+-        access_token = response_data.get('access_token')
+-        expires_in = response_data.get('expires_in', 3600)  # Fallback to 1 hour
+-        token_type = response_data.get('token_type')
++    access_token = response.get('access_token')
++    expires_in = response.get('expires_in')
++    token_type = response.get('token_type')
+ 
+-        # Update tokens
+-        create_or_update_tokens(
+-            session_id=session_id,
+-            access_token=access_token,
+-            refresh_token=tokens.refresh_token,
+-            expires_in=expires_in,
+-            token_type=token_type,
+-        )
++    create_or_update_tokens(
++        sessionId=session_id,
++        access_token=access_token,
++        refresh_token=refresh_token,
++        expires_in=expires_in,
++        token_type=token_type,
++    )
++def spotify_requests_execution(session_id, endpoint):
++    token = check_tokens(session_id)
++    headers = {'Content-Type' : 'application/json', 'Authorization': f'Bearer {token.access_token}'}
++
++    response = post(BASE_URL + endpoint, {}, headers=headers)
++
++    if response:
++        print(response)
+     else:
+-        print("Error refreshing token:", response.status_code, response.text)
+-        return False
+-    return True
+-
+-def spotify_requests_execution(session_id, endpoint):
+-    if not is_spotify_authenticated(session_id):
+-        return {"error": "Authentication required"}
++        print("No response")
+ 
+-    tokens = check_tokens(session_id)
+-    headers = {
+-        'Content-Type': 'application/json',
+-        'Authorization': f'Bearer {tokens.access_token}'
+-    }
+-
+-    response = requests.get(f"{BASE_URL}/{endpoint}", headers=headers)
+-
+-    if response.status_code == 200:
++    try:
+         return response.json()
+-    else:
+-        print("Error with request:", response.status_code, response.text)
+-        return {'Error': 'Issue with Spotify API request'}
++    except:
++        return {'Error' : 'Issue'}
+\ No newline at end of file
+Index: Api/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render\r\nfrom rest_framework.response import Response\r\nfrom rest_framework.views import APIView\r\nfrom rest_framework import status\r\nfrom requests import Request, post\r\nfrom django.http import JsonResponse\r\nfrom .models import Token\r\nfrom .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI\r\nfrom .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution\r\n\r\nclass Authentication(APIView):\r\n    def get(self, request, format=None):\r\n        scopes = \"user-read-currently-playing user-read-playback-state user-modify-playback-state\"\r\n        url = Request('GET', 'https://accounts.spotify.com/authorize', params={\r\n            'scope': scopes,\r\n            'response_type': 'code',\r\n            'redirect_uri': REDIRECT_URI,\r\n            'client_id': CLIENT_ID,\r\n        }).prepare().url\r\n        return Response({\"auth_url\": url}, status=status.HTTP_200_OK)\r\n\r\n\r\ndef spotify_redirect(request):\r\n    code = request.GET.get('code')\r\n    error = request.GET.get('error')\r\n\r\n    if error:\r\n        return JsonResponse({\"error\": error}, status=status.HTTP_400_BAD_REQUEST)\r\n\r\n    response = post(\r\n    'https://accounts.spotify.com/api/token',\r\n    data={\r\n        'grant_type': 'authorization_code',\r\n        'code': code,\r\n        'redirect_uri': REDIRECT_URI,\r\n        'client_id': CLIENT_ID,\r\n        'client_secret': CLIENT_SECRET,\r\n    },\r\n    headers={'Content-Type': 'application/x-www-form-urlencoded'}\r\n    ).json()\r\n\r\n    print(\"Authorization Code:\", code)\r\n    #print(\"Spotify Response:\", response.status_code, response.json())\r\n\r\n    access_token = response.get('access_token')\r\n    refresh_token = response.get('refresh_token')\r\n    expires_in = response.get('expires_in', 3600)\r\n    token_type = response.get('token_type')\r\n\r\n    if not access_token or not refresh_token or not expires_in:\r\n        return JsonResponse({\"error\": \"Invalid response from Spotify\"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)\r\n\r\n    auth_key = request.session.session_key\r\n    if not request.session.exists(auth_key):\r\n        request.session.create()\r\n        auth_key = request.session.session_key\r\n\r\n    create_or_update_tokens(\r\n        session_id=auth_key,\r\n        access_token=access_token,\r\n        refresh_token=refresh_token,\r\n        expires_in=expires_in,\r\n        token_type=token_type,\r\n    )\r\n\r\n    # Return redirect URL as JSON, handle on frontend\r\n    redirect_url = f\"http://127.0.0.1:8000/spotify/current-song?key={auth_key}\"\r\n    return JsonResponse({\"redirect_url\": redirect_url}, status=status.HTTP_200_OK)\r\n\r\n\r\nclass CheckAuthentication(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        if not self.request.session.exists(key):\r\n            self.request.session.create()\r\n            key = self.request.session.session_key\r\n        auth_status = is_spotify_authenticated(key)\r\n\r\n        if auth_status:\r\n            redirect_url = f\"http://127.0.0.1:8000/spotify/current-song?key={key}\"\r\n        else:\r\n            redirect_url = \"http://127.0.0.1:8000/spotify/redirect\"\r\n\r\n        return Response({\"redirect\": redirect_url}, status=status.HTTP_200_OK)\r\n\r\n\r\nclass CurrentSong(APIView):\r\n    def get(self, request, format=None):\r\n        key = request.GET.get(\"key\")\r\n        try:\r\n            token = Token.objects.get(user=key)\r\n        except Token.DoesNotExist:\r\n            return Response({\"error\": \"Token not found\"}, status=status.HTTP_404_NOT_FOUND)\r\n\r\n        endpoint = \"me/player/currently-playing\"\r\n        response = spotify_requests_execution(key, endpoint)\r\n\r\n        if \"error\" in response or \"item\" not in response:\r\n            return Response({}, status=status.HTTP_204_NO_CONTENT)\r\n\r\n        item = response.get(\"item\")\r\n        progress = response.get(\"progress_ms\")\r\n        is_playing = response.get(\"is_playing\")\r\n        duration = item.get(\"duration_ms\")\r\n        song_id = item.get(\"id\")\r\n        title = item.get(\"name\")\r\n        album_cover = item.get(\"album\", {}).get(\"images\", [{}])[0].get(\"url\")\r\n        artists = \", \".join(artist.get(\"name\") for artist in item.get(\"artists\", []))\r\n\r\n        song = {\r\n            \"id\": song_id,\r\n            \"title\": title,\r\n            \"artists\": artists,\r\n            \"duration\": duration,\r\n            \"is_playing\": is_playing,\r\n            \"album_cover\": album_cover,\r\n            \"progress\": progress,\r\n        }\r\n\r\n        return Response(song, status=status.HTTP_200_OK)\r\n
+===================================================================
+diff --git a/Api/views.py b/Api/views.py
+--- a/Api/views.py	(revision 92bfa173cad2f4a2c271db4fcb6ff54a91a6d14e)
++++ b/Api/views.py	(date 1730745116410)
+@@ -1,72 +1,60 @@
+ from django.shortcuts import render
+ from rest_framework.response import Response
+ from rest_framework.views import APIView
++from rest_framework import response
+ from rest_framework import status
+ from requests import Request, post
+-from django.http import JsonResponse
++from django.http import HttpResponseRedirect
+ from .models import Token
+-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
++
++from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
+ from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
+ 
++
++# Create your views here.
++
+ class Authentication(APIView):
+     def get(self, request, format=None):
+-        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state"
++        scopes = ""
+         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
+             'scope': scopes,
+             'response_type': 'code',
+             'redirect_uri': REDIRECT_URI,
+             'client_id': CLIENT_ID,
+-        }).prepare().url
+-        return Response({"auth_url": url}, status=status.HTTP_200_OK)
+-
+-
+-def spotify_redirect(request):
++            }).prepare().url
++        return HttpResponseRedirect(url)
++def spotify_redirect(request, format=None):
+     code = request.GET.get('code')
+     error = request.GET.get('error')
+ 
+     if error:
+-        return JsonResponse({"error": error}, status=status.HTTP_400_BAD_REQUEST)
+-
+-    response = post(
+-    'https://accounts.spotify.com/api/token',
+-    data={
++        return error
++    response = post("https://accounts.spotify.com/api/token", data = {
+         'grant_type': 'authorization_code',
+         'code': code,
+         'redirect_uri': REDIRECT_URI,
+         'client_id': CLIENT_ID,
+-        'client_secret': CLIENT_SECRET,
+-    },
+-    headers={'Content-Type': 'application/x-www-form-urlencoded'}
+-    ).json()
+-
+-    print("Authorization Code:", code)
+-    #print("Spotify Response:", response.status_code, response.json())
+-
++    }).json()
+     access_token = response.get('access_token')
+     refresh_token = response.get('refresh_token')
+-    expires_in = response.get('expires_in', 3600)
++    expires_in = response.get('expires_in')
+     token_type = response.get('token_type')
+ 
+-    if not access_token or not refresh_token or not expires_in:
+-        return JsonResponse({"error": "Invalid response from Spotify"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+-
+-    auth_key = request.session.session_key
+-    if not request.session.exists(auth_key):
++    authKey = request.session.session_key
++    if not request.session.exists(authKey):
+         request.session.create()
+-        auth_key = request.session.session_key
++        authKey = request.session.session_key
+ 
+     create_or_update_tokens(
+-        session_id=auth_key,
++        sessionId=authKey,
+         access_token=access_token,
+         refresh_token=refresh_token,
+         expires_in=expires_in,
+         token_type=token_type,
+     )
+ 
+-    # Return redirect URL as JSON, handle on frontend
+-    redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={auth_key}"
+-    return JsonResponse({"redirect_url": redirect_url}, status=status.HTTP_200_OK)
+-
++    redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={authKey}"
++    return HttpResponseRedirect(redirect_url)
+ 
+ class CheckAuthentication(APIView):
+     def get(self, request, format=None):
+@@ -78,34 +66,37 @@
+ 
+         if auth_status:
+             redirect_url = f"http://127.0.0.1:8000/spotify/current-song?key={key}"
++            return HttpResponseRedirect(redirect_url)
+         else:
+             redirect_url = "http://127.0.0.1:8000/spotify/redirect"
+-
+-        return Response({"redirect": redirect_url}, status=status.HTTP_200_OK)
+-
+-
++            return HttpResponseRedirect(redirect_url)
+ class CurrentSong(APIView):
++    kwarg = "key"
+     def get(self, request, format=None):
+-        key = request.GET.get("key")
+-        try:
+-            token = Token.objects.get(user=key)
+-        except Token.DoesNotExist:
+-            return Response({"error": "Token not found"}, status=status.HTTP_404_NOT_FOUND)
++        key = request.GET.get(self.kwarg)
++        token = Token.objects.get(user=key)
++        print(token)
+ 
+-        endpoint = "me/player/currently-playing"
++        endpoint = "player/currently-playing"
+         response = spotify_requests_execution(key, endpoint)
+ 
+         if "error" in response or "item" not in response:
+-            return Response({}, status=status.HTTP_204_NO_CONTENT)
+-
++            return Response({}, status = status.HTTP_204_NO_CONTENT)
+         item = response.get("item")
+-        progress = response.get("progress_ms")
++
++        progress = response.get("progress")
+         is_playing = response.get("is_playing")
+-        duration = item.get("duration_ms")
++        duration = item.get("duration")
+         song_id = item.get("id")
+-        title = item.get("name")
+-        album_cover = item.get("album", {}).get("images", [{}])[0].get("url")
+-        artists = ", ".join(artist.get("name") for artist in item.get("artists", []))
++        title = item.get("title")
++        album_cover = item.get("album").get("images")[0].get("url")
++
++        artists = ""
++        for i,artist in enumerate(item.get("artists")):
++            if i>0:
++                artists += ", "
++            name = artist.get("name")
++            artists += name
+ 
+         song = {
+             "id": song_id,
+@@ -114,7 +105,8 @@
+             "duration": duration,
+             "is_playing": is_playing,
+             "album_cover": album_cover,
+-            "progress": progress,
++            "is_playing": is_playing,
+         }
+ 
+-        return Response(song, status=status.HTTP_200_OK)
++        print(song)
++        return Response(song, status = status.HTTP_200_OK)
+\ No newline at end of file
