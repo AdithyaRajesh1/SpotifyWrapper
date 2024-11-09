@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework.reverse import reverse_lazy
@@ -8,14 +9,42 @@ from django.http import JsonResponse
 from .models import Token
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
+from collections import Counter
+from datetime import datetime, timedelta
 import sqlite3
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from rest_framework.permissions import IsAuthenticated
+import json
+
+
+
 
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        return redirect('spotify/check-auth')  # Replace 'dashboard' with your dashboard route name
+    else:
+        return redirect('login')  # Replace 'login' with your login route name
+
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully. Please log in.')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
 class Authentication(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
-        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read playlist-read-private"
+        scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read playlist-read-private user-read-recently-played user-read-private user-read-email"
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'response_type': 'code',
@@ -26,6 +55,9 @@ class Authentication(APIView):
         return render(request, 'auth.html', {"url": url})
 
 
+
+
+@login_required
 def spotify_redirect(request):
     code = request.GET.get('code')
     error = request.GET.get('error')
@@ -70,11 +102,13 @@ def spotify_redirect(request):
 
 
 class CheckAuthentication(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         is_authenticated = is_spotify_authenticated(self.request.session.session_key)
         return Response({"is_authenticated": is_authenticated}, status=status.HTTP_200_OK)
 
 class CurrentSong(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         key = self.request.session.session_key
         '''
@@ -110,8 +144,8 @@ class CurrentSong(APIView):
 
         return Response(song, status=status.HTTP_200_OK)
 
-
 class TopSongs(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         key = self.request.session.session_key
         target_playlists = [
@@ -162,111 +196,207 @@ class TopSongs(APIView):
         return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
 
 
+
+
 class SpotifyWrappedView(APIView):
+    #permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         key = self.request.session.session_key
 
-        # Fetch top artists
-        top_artists_endpoint = "me/top/artists?limit=5"
+        # Fetch all necessary data from Spotify API
+
+        # 1. Top Artists (long_term)
+        top_artists_endpoint = "me/top/artists?time_range=long_term&limit=50"
         top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
-        top_artists = [
-            {
-                "name": artist["name"],
-                "genres": artist.get("genres", []),
-                "image": artist["images"][0]["url"] if artist.get("images") else None
-            }
-            for artist in top_artists_response.get("items", [])
-        ]
 
-        # Fetch top tracks
-        top_tracks_endpoint = "me/top/tracks?limit=5"
+        # 2. Top Tracks (long_term)
+        top_tracks_endpoint = "me/top/tracks?time_range=long_term&limit=50"
         top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
-        top_tracks = [
-            {
-                "name": track["name"],
-                "artists": ", ".join([artist["name"] for artist in track["artists"]]),
-                "album_cover": track["album"]["images"][0]["url"] if track["album"].get("images") else None
-            }
-            for track in top_tracks_response.get("items", [])
-        ]
 
-        # Aggregate genres from top artists
-        genres = set()
+        # 3. Recently played tracks (for discovering new artists)
+        recent_tracks_endpoint = "me/player/recently-played?limit=50"
+        recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)
+
+        # 4. Get user's playlists
+        playlists_endpoint = "me/playlists"
+        playlists_response = spotify_requests_execution(key, playlists_endpoint)
+
+        # 5. Get user profile
+        profile_endpoint = "me"
+        profile_response = spotify_requests_execution(key, profile_endpoint)
+
+        # Process the data
+
+        # Artist-related metrics
+        all_artists = set()
         for artist in top_artists_response.get("items", []):
-            genres.update(artist.get("genres", []))
-        top_genres = list(genres)[:5]  # Limit to top 5 genres
+            all_artists.add(artist["id"])
 
-        # Calculate listening time from playback history
-        playback_history_endpoint = "me/player/recently-played?limit=50"
-        playback_history_response = spotify_requests_execution(key, playback_history_endpoint)
+        # Add artists from top tracks
+        for track in top_tracks_response.get("items", []):
+            for artist in track["artists"]:
+                all_artists.add(artist["id"])
+
+        # Calculate new artists discovered (from recent tracks)
+        recent_artists = set()
+        for item in recent_tracks_response.get("items", []):
+            for artist in item["track"]["artists"]:
+                recent_artists.add(artist["id"])
+
+        new_artists = recent_artists - all_artists
+
+        # Track-related metrics
+        all_tracks = set(track["id"] for track in top_tracks_response.get("items", []))
+
+        # Album-related metrics
+        all_albums = set(track["album"]["id"] for track in top_tracks_response.get("items", []))
+
+        # Location/Market metrics
+        all_markets = set()
+        for track in top_tracks_response.get("items", []):
+            all_markets.update(track.get("available_markets", []))
+
+        # Calculate listening time
         total_listening_time = sum(
-            item["track"]["duration_ms"] for item in playback_history_response.get("items", [])
+            item["track"]["duration_ms"]
+            for item in recent_tracks_response.get("items", [])
         )
-        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)  # Convert ms to hours
+        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)
 
-        # Count new artists discovered
-        new_artists = len({track["track"]["artists"][0]["id"] for track in playback_history_response.get("items", [])})
+        # Process top genres
+        genres = []
+        for artist in top_artists_response.get("items", []):
+            genres.extend(artist.get("genres", []))
+        top_genres = Counter(genres).most_common(5)
 
-        # Mock data for other metrics
-        music_trends = "Trending tracks of the year and global chart highlights"
-        sound_town = "Your Sound Town: Nashville"
-        listening_character = "The Adventurer - You explore a wide range of genres and discover new artists often."
+        # Structure the data for the frontend
+        wrapped_data = {
+            # Total counts
+            "totalArtists": len(all_artists),
+            "totalTracks": len(all_tracks),
+            "totalAlbums": len(all_albums),
+            "totalLocations": len(all_markets),
+            "newArtistsCount": len(new_artists),
 
-        # Context for Wrapped data
-        context = {
-            "top_artists": top_artists,
-            "top_tracks": top_tracks,
-            "top_genres": top_genres,
-            "listening_time_hours": listening_time_hours,
-            "new_artists": new_artists,
-            "music_trends": music_trends,
-            "sound_town": sound_town,
-            "listening_character": listening_character,
+            # Listening statistics
+            "listeningTimeHours": listening_time_hours,
+            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
+
+            # Top Artists
+            "topArtists": [
+                {
+                    "name": artist["name"],
+                    "subtitle": ", ".join(artist.get("genres", [])[:2]),
+                    "image": artist["images"][0]["url"] if artist.get("images") else None,
+                    "popularity": artist.get("popularity", 0),
+                    "genres": artist.get("genres", []),
+                    "spotifyUrl": artist["external_urls"]["spotify"]
+                }
+                for artist in top_artists_response.get("items", [])[:5]
+            ],
+
+            # Top Tracks
+            "topTracks": [
+                {
+                    "name": track["name"],
+                    "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "popularity": track.get("popularity", 0),
+                    "previewUrl": track.get("preview_url"),
+                    "spotifyUrl": track["external_urls"]["spotify"],
+                    "albumName": track["album"]["name"],
+                    "duration": track["duration_ms"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ],
+
+            # Top Albums
+            "topAlbums": [
+                {
+                    "name": track["album"]["name"],
+                    "subtitle": track["album"]["artists"][0]["name"],
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "releaseDate": track["album"].get("release_date"),
+                    "totalTracks": track["album"].get("total_tracks"),
+                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ],
+
+            # Top Locations
+            "topLocations": [
+                {
+                    "name": market,
+                    "count": len([
+                        track for track in top_tracks_response.get("items", [])
+                        if market in track.get("available_markets", [])
+                    ])
+                }
+                for market in list(all_markets)[:5]
+            ],
+
+            # Additional user context
+            "userProfile": {
+                "name": profile_response.get("display_name"),
+                "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
+                "country": profile_response.get("country"),
+                "product": profile_response.get("product"),
+                "followersCount": profile_response.get("followers", {}).get("total", 0)
+            }
         }
 
-        print("dablt")
-        import sqlite3
-
-        # Connect to the SQLite database
-        conn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed
-        cursor = conn.cursor()
-
-        # Get the list of all table names in the database
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        tables = cursor.fetchall()
-
-        # Iterate through each table and display its contents
-        for table in tables:
-            table_name = table[0]
-            print(f"Displaying data from table: {table_name}")
-
-            try:
-                # Query to select everything from the current table
-                cursor.execute(f"SELECT * FROM {table_name}")
-
-                # Fetch all rows from the table
-                rows = cursor.fetchall()
-
-                # If the table is empty, print a message
-                if not rows:
-                    print(f"Table {table_name} is empty.")
-                else:
-                    # Print each row in the table
-                    for row in rows:
-                        print(row)
-
-            except sqlite3.Error as e:
-                # Handle the case where a table can't be queried
-                print(f"Error querying table {table_name}: {e}")
-
-            print("\n" + "-" * 50 + "\n")
-
-        # Close the connection when done
-        conn.close()
 
 
+        # If you want to return JSON for API consumption
+
+        if request.headers.get('Accept') == 'application/json':
+            return JsonResponse(wrapped_data)
+
+        # Otherwise render the template
+        return render(request, "wrapped.html", {
+            "wrapped_data": wrapped_data,
+            "page_title": "Your Spotify Wrapped",
+            "current_year": datetime.now().year
 
 
+        })
 
-        # Render the wrapped.html template with context
-        return render(request, "wrapped.html", context)
+
+print("dablt")
+
+# Connect to the SQLite database
+conn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed
+cursor = conn.cursor()
+
+# Get the list of all table names in the database
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+tables = cursor.fetchall()
+
+# Iterate through each table and display its contents
+for table in tables:
+    table_name = table[0]
+    print(f"Displaying data from table: {table_name}")
+
+    try:
+        # Query to select everything from the current table
+        cursor.execute(f"SELECT * FROM {table_name}")
+
+        # Fetch all rows from the table
+        rows = cursor.fetchall()
+
+        # If the table is empty, print a message
+        if not rows:
+            print(f"Table {table_name} is empty.")
+        else:
+            # Print each row in the table
+            for row in rows:
+                print(row)
+
+    except sqlite3.Error as e:
+        # Handle the case where a table can't be queried
+        print(f"Error querying table {table_name}: {e}")
+
+    print("\n" + "-" * 50 + "\n")
+
+# Close the connection when done
+conn.close()
