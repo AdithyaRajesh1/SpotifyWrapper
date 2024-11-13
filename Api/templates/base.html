@@ -9,15 +9,17 @@
 </head>
 <body>
     <nav>
-            {% if user.is_authenticated %}
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <a href="{% url 'home' %}">Home</a>
-                    <button type="submit" class="btn btn-secondary">Log out</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
-            {% endif %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <a href="{% url 'home' %}">Home</a>
+                <button type="submit" class="btn btn-secondary">Log out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+        {% endif %}
+        <!-- Dark mode toggle button -->
+        <button id="theme-toggle" class="btn btn-secondary">Toggle Dark Mode</button>
     </nav>
 
     <div class="content">
@@ -27,5 +29,8 @@
     <footer>
         <p>&copy; 2024 My Music App. All rights reserved.</p>
     </footer>
+
+    <!-- Include JS at the end of the body to ensure all HTML is loaded -->
+    <script src="{% static 'js/theme-toggle.js' %}"></script>
 </body>
 </html>

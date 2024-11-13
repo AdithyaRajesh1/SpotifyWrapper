@@ -1,139 +1,59 @@
-/* Reset some default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Define color variables for light and dark themes */
+:root {
+    --bg-color: #f4f4f4;
+    --text-color: #333;
+    --nav-bg-color: #333;
+    --nav-text-color: #fff;
+    --link-color: #1db954;
+    --link-hover-color: #14833b;
+    --content-bg-color: #fff;
+    --footer-bg-color: #333;
 }
 
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #f4f4f4;
+    --nav-bg-color: #222;
+    --nav-text-color: #bbb;
+    --link-color: #8bc34a;
+    --link-hover-color: #a5d6a7;
+    --content-bg-color: #333;
+    --footer-bg-color: #222;
+}
+
+/* Apply variables throughout your CSS */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
-/* Navigation Bar */
 nav {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--nav-bg-color);
+    color: var(--nav-text-color);
     padding: 1em;
 }
 
-nav ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-around;
-}
-
-nav ul li {
-    display: inline;
-}
-
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 16px;
+    color: var(--nav-text-color);
     transition: background 0.3s ease;
 }
 
 nav ul li a:hover {
-    background-color: #555;
-    border-radius: 5px;
+    background-color: var(--link-hover-color);
 }
 
-/* Main Content Area */
 .content {
-    max-width: 800px;
-    margin: 2em auto;
-    padding: 1em;
-    background-color: #fff;
+    background-color: var(--content-bg-color);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 1em;
+    color: var(--text-color);
 }
 
-h2 {
-    color: #444;
-    border-bottom: 2px solid #333;
-    padding-bottom: 0.2em;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    background-color: #fafafa;
-}
-
-ul li img {
-    border-radius: 5px;
-    margin-right: 15px;
-}
-
-ul li strong {
-    font-size: 1.1em;
-}
-
-ul li a {
-    color: #1db954;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-ul li a:hover {
-    color: #14833b;
-}
-
-/* Footer */
 footer {
-    text-align: center;
-    padding: 1em;
-    background-color: #333;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-details {
-    margin-bottom: 1em;
-    border: 1px solid #ddd;
-    padding: 0.5em;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-summary {
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-summary h2 {
-    display: inline;
-}
-
-details[open] summary {
-    color: #1db954;
-}
-
-details ul {
-    margin-top: 1em;
+    background-color: var(--footer-bg-color);
+    color: var(--text-color);
 }
