@@ -15,7 +15,8 @@ import sqlite3
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
-import json
+from django.core.serializers.json import DjangoJSONEncoder
+import urllib.parse
 
 
 
@@ -196,24 +197,28 @@ class TopSongs(APIView):
         return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
 
 
-
-
 class SpotifyWrappedView(APIView):
-    #permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         key = self.request.session.session_key
 
-        # Fetch all necessary data from Spotify API
+        # Get time range from query parameters, default to medium_term
+        time_range = request.GET.get('time_range', 'medium_term')
 
-        # 1. Top Artists (long_term)
-        top_artists_endpoint = "me/top/artists?time_range=long_term&limit=50"
+        # Validate time range
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
+
+        # Fetch all necessary data from Spotify API with selected time range
+        # 1. Top Artists
+        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
         top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
 
-        # 2. Top Tracks (long_term)
-        top_tracks_endpoint = "me/top/tracks?time_range=long_term&limit=50"
+        # 2. Top Tracks
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
         top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
 
-        # 3. Recently played tracks (for discovering new artists)
+        # 3. Recently played tracks (this endpoint doesn't use time_range)
         recent_tracks_endpoint = "me/player/recently-played?limit=50"
         recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)
 
@@ -226,18 +231,15 @@ class SpotifyWrappedView(APIView):
         profile_response = spotify_requests_execution(key, profile_endpoint)
 
         # Process the data
-
-        # Artist-related metrics
         all_artists = set()
         for artist in top_artists_response.get("items", []):
             all_artists.add(artist["id"])
 
-        # Add artists from top tracks
         for track in top_tracks_response.get("items", []):
             for artist in track["artists"]:
                 all_artists.add(artist["id"])
 
-        # Calculate new artists discovered (from recent tracks)
+        # Calculate new artists discovered
         recent_artists = set()
         for item in recent_tracks_response.get("items", []):
             for artist in item["track"]["artists"]:
@@ -269,8 +271,23 @@ class SpotifyWrappedView(APIView):
             genres.extend(artist.get("genres", []))
         top_genres = Counter(genres).most_common(5)
 
+        # Time range display names
+        time_range_display = {
+            'short_term': 'Last 4 Weeks',
+            'medium_term': 'Last 6 Months',
+            'long_term': 'All Time'
+        }
+
         # Structure the data for the frontend
         wrapped_data = {
+            # Time range information
+            "currentTimeRange": time_range,
+            "timeRangeDisplay": time_range_display[time_range],
+            "availableTimeRanges": [
+                {'value': tr, 'display': time_range_display[tr]}
+                for tr in valid_ranges
+            ],
+
             # Total counts
             "totalArtists": len(all_artists),
             "totalTracks": len(all_tracks),
@@ -310,7 +327,7 @@ class SpotifyWrappedView(APIView):
                 for track in top_tracks_response.get("items", [])[:5]
             ],
 
-            # Top Albums
+            # Top Albums (unchanged)
             "topAlbums": [
                 {
                     "name": track["album"]["name"],
@@ -335,7 +352,7 @@ class SpotifyWrappedView(APIView):
                 for market in list(all_markets)[:5]
             ],
 
-            # Additional user context
+            # User Profile
             "userProfile": {
                 "name": profile_response.get("display_name"),
                 "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
@@ -345,21 +362,53 @@ class SpotifyWrappedView(APIView):
             }
         }
 
+        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
 
-
-        # If you want to return JSON for API consumption
-
+        # Return JSON for API consumption
         if request.headers.get('Accept') == 'application/json':
-            return JsonResponse(wrapped_data)
+            return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)
 
         # Otherwise render the template
         return render(request, "wrapped.html", {
             "wrapped_data": wrapped_data,
-            "page_title": "Your Spotify Wrapped",
-            "current_year": datetime.now().year
-
-
+            "page_title": f"Your Spotify Wrapped - {time_range_display[time_range]}",
+            "current_year": datetime.now().year,
+            "request": request  # Pass request to template for building absolute URLs
         })
+
+    def generate_sharing_data(self, wrapped_data, request):
+        """Generate sharing text and URLs for social media platforms"""
+
+        # Base sharing text
+        share_text = (
+            f"🎵 My Spotify Wrapped Stats:\n"
+            f"• {wrapped_data['listeningTimeHours']} hours of music\n"
+            f"• Top Artist: {wrapped_data['topArtists'][0]['name']}\n"
+            f"• Top Track: {wrapped_data['topTracks'][0]['name']}\n"
+            f"• {wrapped_data['totalArtists']} different artists\n"
+            f"#SpotifyWrapped"
+        )
+
+        # Get the current page's URL
+        current_url = request.build_absolute_uri()
+
+        # Generate platform-specific sharing URLs
+        sharing_data = {
+            'twitter': {
+                'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}&url={urllib.parse.quote(current_url)}"
+            },
+            'linkedin': {
+                'url': f"https://www.linkedin.com/sharing/share-offsite/?url={urllib.parse.quote(current_url)}"
+            },
+            'instagram': {
+                'text': share_text,  # For copying to clipboard since Instagram doesn't have a direct sharing API
+                'url': current_url
+            }
+        }
+        print(sharing_data)
+        return sharing_data
+
+
 
 
 print("dablt")
