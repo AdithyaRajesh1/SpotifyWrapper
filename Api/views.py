@@ -17,6 +17,8 @@ from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
 import urllib.parse
+import google.generativeai as genai
+
 
 
 
@@ -200,7 +202,7 @@ class TopSongs(APIView):
 class SpotifyWrappedView(APIView):
     def get(self, request, format=None):
         key = self.request.session.session_key
-
+        # Configure the API key for the genai module
         # Get time range from query parameters, default to medium_term
         time_range = request.GET.get('time_range', 'medium_term')
 
@@ -229,7 +231,19 @@ class SpotifyWrappedView(APIView):
         # 5. Get user profile
         profile_endpoint = "me"
         profile_response = spotify_requests_execution(key, profile_endpoint)
+        # Extract top song names and their artists
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        top_songs_and_artists = [
+            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
+            for track in top_tracks_response.get("items", [])[:5]
+        ]
+        top_songs_and_artists_str = "; ".join(top_songs_and_artists)
 
+        # Generate dynamic description based on top songs and artists
+        response = model.generate_content(
+            f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
+            f"These are my top songs and artists: {top_songs_and_artists_str}."
+        )
         # Process the data
         all_artists = set()
         for artist in top_artists_response.get("items", []):
@@ -360,6 +374,7 @@ class SpotifyWrappedView(APIView):
                 "product": profile_response.get("product"),
                 "followersCount": profile_response.get("followers", {}).get("total", 0)
             }
+
         }
 
         wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
