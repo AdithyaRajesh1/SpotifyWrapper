@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="short/med/long term done and insta/linkedin/x share functionality added">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcff646e-f419-4c25-8c9b-ec4479c08dae.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcff646e-f419-4c25-8c9b-ec4479c08dae.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Api/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +209,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731532204879</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="short/med/long term done and insta/linkedin/x share functionality added">
+      <option name="closed" value="true" />
+      <created>1731801564117</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731801564117</updated>
+    </task>
+    <task id="LOCAL-00012" summary="short/med/long term done and insta/linkedin/x share functionality added">
+      <option name="closed" value="true" />
+      <created>1731801572362</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731801572362</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
