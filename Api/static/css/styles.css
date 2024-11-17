@@ -101,17 +101,6 @@ ul li a:hover {
     color: #14833b;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 1em;
-    background-color: #333;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
 details {
     margin-bottom: 1em;
     border: 1px solid #ddd;
