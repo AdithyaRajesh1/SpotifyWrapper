@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate"> <!-- Prevent translation of the entire page -->
     <title>{% block title %}My Music App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
@@ -22,6 +23,11 @@
         .goog-te-combo {
             overflow-y: auto;
             max-height: 200px; /* Limit the dropdown height */
+        }
+
+        /* Add custom styles to hide Google Translate banner */
+        .goog-te-banner-frame {
+            display: none !important; /* Ensure it is hidden */
         }
     </style>
 </head>
@@ -60,19 +66,39 @@
                 },
                 'google_translate_element'
             );
-
-            // Hide the Google Translate bar after the widget has loaded
-            setTimeout(function() {
-                var googleTranslateBanner = document.querySelector('.goog-te-banner-frame');
-                if (googleTranslateBanner) {
-                    googleTranslateBanner.style.display = 'none';
-                }
-            }, 1000); // Delay to ensure the Google Translate bar has loaded
         }
     </script>
+
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <!-- Include the theme-toggle.js script -->
     <script src="{% static 'js/theme-toggle.js' %}"></script>
+
+    <script>
+        // Hide the Google Translate bar when a language is selected
+        function hideTranslateBar() {
+            var translateBar = document.querySelector('.goog-te-banner-frame');
+            if (translateBar) {
+                translateBar.style.display = 'none'; // Hide it
+            }
+        }
+
+        // Listen for Google Translate language changes and hide the banner
+        window.addEventListener('load', function() {
+            // Initially hide the banner
+            hideTranslateBar();
+
+            // Watch for language changes by Google Translate
+            var observer = new MutationObserver(function() {
+                hideTranslateBar();
+            });
+
+            // Observe changes to the DOM
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    </script>
 </body>
 </html>
