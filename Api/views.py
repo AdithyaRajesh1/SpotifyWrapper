@@ -20,10 +20,31 @@ import urllib.parse
 #import google.generativeai as genai
 
 
+from django.shortcuts import render
+from .utils import translate_text  # Assuming the function is in utils.py
+
+from django.shortcuts import render, redirect
+from .utils import translate_text
 
 
+def translate_view(request):
+    """
+    Handles translation requests.
+    """
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        target_language = request.POST.get('language', 'en')  # Default to English
+        try:
+            translated_text = translate_text(text, target_language)
+        except Exception as e:
+            translated_text = f"Error: {str(e)}"
+        return render(request, 'base.html', {
+            'translated_text': translated_text,
+            'original_text': text,
+        })
 
-
+    # Redirect to home if accessed via GET
+    return redirect('home')
 def home(request):
     if request.user.is_authenticated:
         return redirect('spotify/check-auth')  # Replace 'dashboard' with your dashboard route name

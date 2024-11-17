@@ -266,7 +266,7 @@
 {% block scripts %}
     <script>
         function copyInstagramText() {
-            const text = `{{ wrapped_data.sharing.instagram.text|escapejs }}`;
+            const text = {{ wrapped_data.sharing.instagram.text|escapejs }};
             navigator.clipboard.writeText(text).then(() => {
                 alert('Text copied! You can now paste it in Instagram.');
             }).catch(err => {

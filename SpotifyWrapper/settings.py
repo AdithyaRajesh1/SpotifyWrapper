@@ -39,6 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Api.apps.ApiConfig',
+    'tailwind',
+    'theme',
+]
+
+TAILWIND_APP_NAME = 'theme'
+
+GOOGLE_TRANSLATE_API_KEY = "AIzaSyBah0p1IvbEtMnSGAOwbM6iYd1UwBKPkmU"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 MIDDLEWARE = [

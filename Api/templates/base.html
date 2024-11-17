@@ -6,23 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Music App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Style the Google Translate dropdown to be more compact and scrollable */
+        .goog-te-combo {
+            max-width: 150px; /* Reduce the width */
+            font-size: 14px; /* Adjust font size for readability */
+        }
+        #google_translate_element {
+            position: relative;
+            display: inline-block;
+            max-height: 50px;
+            overflow: hidden; /* Prevent overflow if too large */
+        }
+        /* Add a scrollbar for better navigation */
+        .goog-te-combo {
+            overflow-y: auto;
+            max-height: 200px; /* Limit the dropdown height */
+        }
+    </style>
 </head>
-<body>
+<body class="light-theme"> <!-- Default theme set to light-theme, can be toggled -->
     <nav>
-            {% if user.is_authenticated %}
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <a href="{% url 'home' %}">Home</a>
-                    <button type="submit" class="btn btn-secondary">Log out</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
-            {% endif %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <a href="{% url 'home' %}">Home</a>
+                <button type="submit" class="btn btn-secondary">Log out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+        {% endif %}
+
+        <!-- Add Google Translate widget -->
+        <div id="google_translate_element" style="margin-left: 20px;"></div>
+
+        <!-- Add a button to toggle themes -->
+        <button id="theme-toggle" class="btn btn-toggle">Change Theme</button>
     </nav>
 
     <div class="content">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
 
+    <!-- Include the Google Translate script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,es,zh-CN,hi,ta',  // Specify the languages: English, Spanish, Chinese, Hindi, Tamil
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                'google_translate_element'
+            );
+
+            // Hide the Google Translate bar after the widget has loaded
+            setTimeout(function() {
+                var googleTranslateBanner = document.querySelector('.goog-te-banner-frame');
+                if (googleTranslateBanner) {
+                    googleTranslateBanner.style.display = 'none';
+                }
+            }, 1000); // Delay to ensure the Google Translate bar has loaded
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Include the theme-toggle.js script -->
+    <script src="{% static 'js/theme-toggle.js' %}"></script>
 </body>
 </html>
