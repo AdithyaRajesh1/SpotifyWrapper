@@ -17,7 +17,7 @@ from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
 import urllib.parse
-import google.generativeai as genai
+#import google.generativeai as genai
 
 
 
@@ -232,7 +232,7 @@ class SpotifyWrappedView(APIView):
         profile_endpoint = "me"
         profile_response = spotify_requests_execution(key, profile_endpoint)
         # Extract top song names and their artists
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        '''model = genai.GenerativeModel("gemini-1.5-flash")
         top_songs_and_artists = [
             f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
             for track in top_tracks_response.get("items", [])[:5]
@@ -243,7 +243,7 @@ class SpotifyWrappedView(APIView):
         response = model.generate_content(
             f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
             f"These are my top songs and artists: {top_songs_and_artists_str}."
-        )
+        )'''
         # Process the data
         all_artists = set()
         for artist in top_artists_response.get("items", []):
