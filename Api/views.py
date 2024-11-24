@@ -169,7 +169,6 @@ class CurrentSong(APIView):
         return Response(song, status=status.HTTP_200_OK)
 
 class TopSongs(APIView):
-    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         key = self.request.session.session_key
         target_playlists = [
