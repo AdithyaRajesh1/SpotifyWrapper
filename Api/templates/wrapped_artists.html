@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container">
+        <h1>Your Top Artists</h1>
+        <p>These artists have been on repeat!</p>
+        <div class="card-container">
+            {% for artist in wrapped_data.topArtists %}
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="{{ artist.image }}" alt="{{ artist.name }}" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ artist.name }}</h3>
+                        <p class="genre">{{ artist.subtitle }}</p>
+                        <p class="popularity">Popularity: {{ artist.popularity }}</p>
+                        <a href="{{ artist.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'wrapped_tracks' %}" class="btn">Next: Top Tracks</a>
+    </div>
+{% endblock %}

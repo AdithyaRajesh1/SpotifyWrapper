@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="wrapped-container">
+        <h1 class="title">Your Top Listening Locations</h1>
+        <p class="intro-text">Check out where you’ve been listening to music the most!</p>
+
+        <div class="location-list">
+            {% if wrapped_data.topLocations %}
+                {% for location in wrapped_data.topLocations %}
+                    <div class="location-card">
+                        <h2 class="location-city">{{ location.name }}</h2>
+                        <p class="location-count">Listened: {{ location.count }} times</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No top locations available.</p>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'wrapped_profile' %}" class="btn">Next: Profile</a>
+    </div>
+{% endblock %}

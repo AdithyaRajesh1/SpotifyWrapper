@@ -1,0 +1,64 @@
+<!-- wrap_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ page_title }}</h1>
+        
+        <p><strong>Time Range:</strong> {{ wrap.time_range|capfirst }}</p>
+        <p><strong>Total Artists:</strong> {{ wrap.total_artists }}</p>
+        <p><strong>Total Tracks:</strong> {{ wrap.total_tracks }}</p>
+        <p><strong>Total Albums:</strong> {{ wrap.total_albums }}</p>
+        <p><strong>Total Locations:</strong> {{ wrap.total_locations }}</p>
+        <p><strong>New Artists Count:</strong> {{ wrap.new_artists_count }}</p>
+        <p><strong>Listening Time:</strong> {{ wrap.listening_time_hours }} hours</p>
+        
+        <h3>Top Genres</h3>
+        <ul>
+            {% for genre in wrap.top_genres %}
+                <li>{{ genre.name }} ({{ genre.count }})</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Top Artists</h3>
+        <ul>
+            {% for artist in wrap.top_artists %}
+                <li>{{ artist.name }} - {{ artist.subtitle }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Top Tracks</h3>
+        <ul>
+            {% for track in wrap.top_tracks %}
+                <li>{{ track.name }} - {{ track.subtitle }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Top Albums</h3>
+        <ul>
+            {% for album in wrap.top_albums %}
+                <li>{{ album.name }} - {{ album.subtitle }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Top Locations</h3>
+        <ul>
+            {% for location in wrap.top_locations %}
+                <li>{{ location.name }} ({{ location.count }})</li>
+            {% endfor %}
+        </ul>
+
+        <h3>User Profile</h3>
+        <p><strong>Name:</strong> {{ wrap.user_profile.name }}</p>
+        <p><strong>Country:</strong> {{ wrap.user_profile.country }}</p>
+        <p><strong>Followers:</strong> {{ wrap.user_profile.followersCount }}</p>
+
+        <a href="{% url 'savedwraps' %}">Back to Saved Wraps</a>
+    </div>
+</body>
+</html>

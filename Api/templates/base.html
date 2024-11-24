@@ -7,6 +7,12 @@
     <meta name="google" content="notranslate"> <!-- Prevent translation of the entire page -->
     <title>{% block title %}My Music App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <!-- Conditionally add wrapped.css if it's needed for Spotify Wrapped pages -->
+    {% block extra_styles %}
+        <link rel="stylesheet" href="{% static 'css/wrapped.css' %}">
+    {% endblock %}
+
     <style>
         /* Style the Google Translate dropdown to be more compact and scrollable */
         .goog-te-combo {

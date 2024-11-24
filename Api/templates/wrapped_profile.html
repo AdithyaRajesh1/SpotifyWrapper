@@ -1,0 +1,22 @@
+
+<!-- profile.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <h2>Your Profile</h2>
+    <p>Name: {{ wrapped_data.userProfile.name }}</p>
+    <p>Country: {{ wrapped_data.userProfile.country }}</p>
+    <p>Followers: {{ wrapped_data.userProfile.followersCount }}</p>
+    <img src="{{ wrapped_data.userProfile.image }}" alt="{{ wrapped_data.userProfile.name }}">
+
+    <h3>Share Your Spotify Wrapped</h3>
+    <p>Share your stats on social media:</p>
+    <ul>
+        <li><a href="{{ wrapped_data.sharing.twitter.url }}">Share on Twitter</a></li>
+        <li><a href="{{ wrapped_data.sharing.linkedin.url }}">Share on LinkedIn</a></li>
+        <li><a href="{{ wrapped_data.sharing.instagram.url }}" target="_blank">Copy to Instagram</a></li>
+    </ul>
+{% endblock %}

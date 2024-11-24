@@ -11,14 +11,14 @@
                 background: #f8f9fa;
                 border-radius: 8px;
             }
-            
+
             .share-buttons {
                 display: flex;
                 gap: 1rem;
                 flex-wrap: wrap;
                 margin-top: 1rem;
             }
-            
+
             .share-button {
                 display: inline-flex;
                 align-items: center;
@@ -32,25 +32,25 @@
                 cursor: pointer;
                 transition: opacity 0.2s;
             }
-            
+
             .share-button:hover {
                 opacity: 0.9;
             }
-            
+
             .share-icon {
                 width: 1.25rem;
                 height: 1.25rem;
                 fill: currentColor;
             }
-            
+
             .twitter {
                 background-color: #1DA1F2;
             }
-            
+
             .linkedin {
                 background-color: #0077B5;
             }
-            
+
             .instagram {
                 background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
             }
@@ -61,8 +61,8 @@
         <h2>Share Your Wrapped</h2>
         <div class="share-buttons">
             <!-- Twitter Share Button -->
-            <a href="{{ wrapped_data.sharing.twitter.url }}" 
-               target="_blank" 
+            <a href="{{ wrapped_data.sharing.twitter.url }}"
+               target="_blank"
                class="share-button twitter"
                title="Share on Twitter">
                 <svg class="share-icon" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@
                 </svg>
                 Share on X
             </a>
-    
+
             <!-- LinkedIn Share Button -->
             <a href="{{ wrapped_data.sharing.linkedin.url }}"
                target="_blank"
@@ -83,9 +83,9 @@
                 </svg>
                 Share on LinkedIn
             </a>
-    
+
             <!-- Instagram Share Button -->
-            <button onclick="copyInstagramText()" 
+            <button onclick="copyInstagramText()"
                     class="share-button instagram"
                     title="Copy text for Instagram">
                 <svg class="share-icon" viewBox="0 0 24 24">
@@ -165,7 +165,7 @@
                     {% if track.image %}
                         <img src="{{ track.image }}" alt="{{ track.name }}" width="50" height="50">
                     {% endif %}
-                    <strong>{{ track.name }}</strong> 
+                    <strong>{{ track.name }}</strong>
                     by {{ track.subtitle }}
                     {% if track.spotifyUrl %}
                         <a href="{{ track.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
@@ -184,7 +184,7 @@
                     {% if album.image %}
                         <img src="{{ album.image }}" alt="{{ album.name }}" width="50" height="50">
                     {% endif %}
-                    <strong>{{ album.name }}</strong> 
+                    <strong>{{ album.name }}</strong>
                     by {{ album.subtitle }}
                     {% if album.releaseDate %}
                         (Released: {{ album.releaseDate }})
@@ -223,9 +223,9 @@
             <h2>Your Profile</h2>
             <div>
                 {% if wrapped_data.userProfile.image %}
-                    <img src="{{ wrapped_data.userProfile.image }}" 
-                         alt="{{ wrapped_data.userProfile.name }}" 
-                         width="100" 
+                    <img src="{{ wrapped_data.userProfile.image }}"
+                         alt="{{ wrapped_data.userProfile.name }}"
+                         width="100"
                          height="100">
                 {% endif %}
                 <p><strong>Name:</strong> {{ wrapped_data.userProfile.name }}</p>
@@ -233,6 +233,30 @@
                 <p><strong>Followers:</strong> {{ wrapped_data.userProfile.followersCount }}</p>
                 <p><strong>Account Type:</strong> {{ wrapped_data.userProfile.product|title }}</p>
             </div>
+<!-- Save Button -->
+            <a href="{% url 'savedwraps' %}" class="save-button" title="Save your Wrapped data">
+            Save Your Wrapped
+            </a>
+
+            <style>
+                .save-button {
+                    display: inline-block;
+                    padding: 0.75rem 1.5rem;
+                    background-color: #1DB954; /* Spotify green */
+                    color: white;
+                    font-weight: bold;
+                    border: none;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    text-align: center;
+                    text-decoration: none;
+                    transition: background-color 0.2s ease-in-out;
+                }
+            
+                .save-button:hover {
+                    background-color: #14833B; /* Darker Spotify green */
+                }
+            </style>
         </section>
     {% endif %}
 

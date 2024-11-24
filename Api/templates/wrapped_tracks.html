@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>Your Top Tracks</h1>
+        <p>Here’s what you’ve been vibing to:</p>
+        <div class="card-container">
+            {% for track in wrapped_data.topTracks %}
+                <div class="card">
+                    <img src="{{ track.image }}" alt="{{ track.name }}" class="card-image">
+                    <div class="card-content">
+                        <h3>{{ track.name }}</h3>
+                        <p>Album: {{ track.albumName }}</p> <!-- Corrected to match view field -->
+                        <p>Artist: {{ track.subtitle }}</p>  <!-- Using subtitle to display artist -->
+                        <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">Play on Spotify</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'wrapped_albums' %}" class="btn">Next: Top Albums</a>
+    </div>
+{% endblock %}

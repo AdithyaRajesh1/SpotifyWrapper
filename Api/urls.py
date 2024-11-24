@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+
+from Api import views
 from Api.views import spotify_redirect, CheckAuthentication, CurrentSong, Authentication, home, TopSongs, \
-    SpotifyWrappedView, register, translate_view
+    SpotifyWrappedView, register
 
 urlpatterns = [
 
@@ -23,5 +25,17 @@ urlpatterns = [
     path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 
-    path('translate/', translate_view, name='translate'),
+    path('wrapped/intro/', views.SpotifyWrappedOverviewView.as_view(), name='wrapped_intro'),
+    path('wrapped/artists/', views.SpotifyWrappedArtistsView.as_view(), name='wrapped_artists'),
+    path('wrapped/tracks/', views.SpotifyWrappedTracksView.as_view(), name='wrapped_tracks'),
+    path('wrapped/albums/', views.SpotifyWrappedAlbumsView.as_view(), name='wrapped_albums'),
+    path('wrapped/profile/', views.SpotifyWrappedProfileView.as_view(), name='wrapped_profile'),
+
+    path('wrapped/genres', views.TopGenresView.as_view(), name='wrapped_genres'),
+
+    path('wrapped/locations', views.TopLocationsView.as_view(), name='wrapped_locations'),
+
+    path('savedwraps/', views.savedwraps, name='savedwraps'),
+    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),  # Detailed view for each wrap
+
 ]

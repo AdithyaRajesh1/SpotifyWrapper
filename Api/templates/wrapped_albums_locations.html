@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>Your Top Tracks and Albums</h1>
+        
+        <!-- Track Preview Section -->
+        <div class="track-preview">
+            {% if wrapped_data.topTracks %}
+                <h2>First Track Preview</h2>
+                <div class="track-card">
+                    <h3>{{ wrapped_data.topTracks.0.name }}</h3>
+                    <p>Artist: {{ wrapped_data.topTracks.0.subtitle }}</p>
+                    {% if wrapped_data.topTracks.0.previewUrl %}
+                        <audio id="trackPreview" controls autoplay>
+                            <source src="{{ wrapped_data.topTracks.0.previewUrl }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    {% else %}
+                        <p>No preview available for this track.</p>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>No tracks available.</p>
+            {% endif %}
+        </div>
+
+        <!-- Albums Section -->
+        <div class="albums-section">
+            <h2>Your Top Albums</h2>
+            {% if wrapped_data.topAlbums %}
+                <ul>
+                    {% for album in wrapped_data.topAlbums %}
+                        <li>{{ album.name }} by {{ album.subtitle }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No albums available.</p>
+            {% endif %}
+        </div>
+
+        <!-- Tracks Section -->
+        <div class="tracks-section">
+            <h2>Your Top Tracks</h2>
+            {% if wrapped_data.topTracks %}
+                <ul>
+                    {% for track in wrapped_data.topTracks %}
+                        <li>{{ track.name }} by {{ track.subtitle }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tracks available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Automatically play the first track's preview
+        window.onload = function() {
+            var audioElement = document.getElementById('trackPreview');
+            if (audioElement) {
+                audioElement.play();
+            }
+        };
+    </script>
+{% endblock %}

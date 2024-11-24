@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="wrapped-container">
+        <h1 class="title">Your Top Genres</h1>
+        <p class="intro-text">Here are the genres you’ve been listening to the most!</p>
+
+        <div class="genre-list">
+            {% for genre in wrapped_data.top_genres %}
+                <div class="genre-card">
+                    <h2 class="genre-name">{{ genre.name }}</h2>
+                    <p class="genre-count">Played: {{ genre.count }} times</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'wrapped_locations' %}" class="btn">Next: Top Listening Locations</a>
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.reverse import reverse_lazy
 from rest_framework.views import APIView
@@ -20,31 +20,11 @@ import urllib.parse
 #import google.generativeai as genai
 
 
-from django.shortcuts import render
-from .utils import translate_text  # Assuming the function is in utils.py
+from django.shortcuts import render  # Assuming the function is in utils.py
 
 from django.shortcuts import render, redirect
-from .utils import translate_text
 
 
-def translate_view(request):
-    """
-    Handles translation requests.
-    """
-    if request.method == 'POST':
-        text = request.POST.get('text')
-        target_language = request.POST.get('language', 'en')  # Default to English
-        try:
-            translated_text = translate_text(text, target_language)
-        except Exception as e:
-            translated_text = f"Error: {str(e)}"
-        return render(request, 'base.html', {
-            'translated_text': translated_text,
-            'original_text': text,
-        })
-
-    # Redirect to home if accessed via GET
-    return redirect('home')
 def home(request):
     if request.user.is_authenticated:
         return redirect('spotify/check-auth')  # Replace 'dashboard' with your dashboard route name
@@ -399,6 +379,26 @@ class SpotifyWrappedView(APIView):
 
         wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
 
+        if request.user.is_authenticated:
+            # Save the data to the database
+            SpotifyWrapped.objects.create(
+                user=request.user,
+                time_range=wrapped_data["currentTimeRange"],
+                total_artists=wrapped_data["totalArtists"],
+                total_tracks=wrapped_data["totalTracks"],
+                total_albums=wrapped_data["totalAlbums"],
+                total_locations=wrapped_data["totalLocations"],
+                new_artists_count=wrapped_data["newArtistsCount"],
+                listening_time_hours=wrapped_data["listeningTimeHours"],
+                top_genres=wrapped_data["topGenres"],
+                top_artists=wrapped_data["topArtists"],
+                top_tracks=wrapped_data["topTracks"],
+                top_albums=wrapped_data["topAlbums"],
+                top_locations=wrapped_data["topLocations"],
+                user_profile=wrapped_data["userProfile"]
+            )
+
+
         # Return JSON for API consumption
         if request.headers.get('Accept') == 'application/json':
             return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)
@@ -442,8 +442,261 @@ class SpotifyWrappedView(APIView):
         }
         print(sharing_data)
         return sharing_data
+    
+
+from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import SpotifyWrapped
+
+from django.shortcuts import render
+from .models import SpotifyWrapped
+
+def savedwraps(request):
+    # Fetch all saved SpotifyWrapped data for the logged-in user
+    wraps = SpotifyWrapped.objects.filter(user=request.user).order_by('-created_at')
+
+    # Structure the data to pass into the template
+    context = {
+        'wraps': wraps,
+        'page_title': 'Your Saved Spotify Wrapped'
+    }
+
+    return render(request, "savedwraps.html", context)
+
+def wrap_detail(request, id):
+    # Get the SpotifyWrapped entry based on the provided id
+    wrap = get_object_or_404(SpotifyWrapped, id=id)
+
+    # Create context with the data for the selected wrap
+    context = {
+        'wrap': wrap,
+        'page_title': f"Details for {wrap.time_range.capitalize()} Wrapped"
+    }
+
+    # Render the 'wrap_detail.html' template with the context
+    return render(request, "wrap_detail.html", context)
+
+class SpotifyWrappedOverviewView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        time_range = request.GET.get('time_range', 'medium_term')
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        time_range_display = {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}
+
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
+
+        # Fetch general stats from the session or cached endpoints
+        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+
+        all_artists = {artist["id"] for artist in top_artists_response.get("items", [])}
+        all_tracks = {track["id"] for track in top_tracks_response.get("items", [])}
+        all_albums = {track["album"]["id"] for track in top_tracks_response.get("items", [])}
+
+        genres = []
+        for artist in top_artists_response.get("items", []):
+            genres.extend(artist.get("genres", []))
+        top_genres = Counter(genres).most_common(5)
+
+        wrapped_data = {
+            "currentTimeRange": time_range,
+            "timeRangeDisplay": time_range_display[time_range],
+            "availableTimeRanges": [{'value': tr, 'display': time_range_display[tr]} for tr in valid_ranges],
+            "totalArtists": len(all_artists),
+            "totalTracks": len(all_tracks),
+            "totalAlbums": len(all_albums),
+            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
+        }
+
+        return render(request, "wrapped_overview.html", {"wrapped_data": wrapped_data, "page_title": "Your Spotify Wrapped Overview"})
 
 
+class SpotifyWrappedArtistsView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        # Get time range from query parameters, default to medium_term
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        # Validate time range
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
+
+        # Fetch top artists data from Spotify API
+        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
+
+        # Process top artists data
+        wrapped_data = {
+            "topArtists": [
+                {
+                    "name": artist["name"],
+                    "subtitle": ", ".join(artist.get("genres", [])[:2]),  # Displaying up to 2 genres
+                    "image": artist["images"][0]["url"] if artist.get("images") else None,
+                    "popularity": artist.get("popularity", 0),
+                    "spotifyUrl": artist["external_urls"]["spotify"]
+                }
+                for artist in top_artists_response.get("items", [])[:5]  # Limit to top 5 artists
+            ]
+        }
+
+        # Render the template with the data
+        return render(request, "wrapped_artists.html", {
+            "wrapped_data": wrapped_data,
+            "page_title": "Your Top Artists"
+        })
+
+
+class SpotifyWrappedTracksView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+
+        wrapped_data = {
+            "topTracks": [
+                {
+                    "name": track["name"],
+                    "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "spotifyUrl": track["external_urls"]["spotify"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ]
+        }
+
+        return render(request, "wrapped_tracks.html", {"wrapped_data": wrapped_data, "page_title": "Your Top Tracks"})
+
+class SpotifyWrappedAlbumsView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+
+        wrapped_data = {
+            "topAlbums": [
+                {
+                    "name": track["album"]["name"],
+                    "subtitle": track["album"]["artists"][0]["name"],
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ]
+        }
+
+        return render(request, "wrapped_albums_locations.html", {"wrapped_data": wrapped_data, "page_title": "Your Top Albums"})
+
+
+
+class SpotifyWrappedProfileView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+
+        profile_endpoint = "me"
+        profile_response = spotify_requests_execution(key, profile_endpoint)
+
+        wrapped_data = {
+            "userProfile": {
+                "name": profile_response.get("display_name"),
+                "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
+                "country": profile_response.get("country"),
+                "followersCount": profile_response.get("followers", {}).get("total", 0)
+            }
+        }
+
+        return render(request, "wrapped_profile.html", {"wrapped_data": wrapped_data, "page_title": "Your Spotify Profile"})
+
+
+from django.shortcuts import render
+from django.http import JsonResponse
+import requests
+
+class TopLocationsView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
+
+        # Fetch Top Tracks data directly
+        top_tracks_endpoint = f"https://api.spotify.com/v1/me/top/tracks?time_range={time_range}&limit=50"
+        headers = {'Authorization': f'Bearer {key}'}
+        top_tracks_response = requests.get(top_tracks_endpoint, headers=headers).json()
+
+        # Process top locations (markets)
+        all_markets = set()
+        for track in top_tracks_response.get("items", []):
+            all_markets.update(track.get("available_markets", []))
+
+        # Get the top locations (markets)
+        top_locations = [
+            {
+                "name": market,
+                "count": len([track for track in top_tracks_response.get("items", []) if market in track.get("available_markets", [])])
+            }
+            for market in list(all_markets)[:5]
+        ]
+
+        # Log data for debugging
+        print("Wrapped Data:", {
+            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],
+            "topLocations": top_locations
+        })
+
+        # Structure the data for the frontend
+        wrapped_data = {
+            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],
+            "topLocations": top_locations
+        }
+
+        # Return JSON or render template
+        if request.headers.get('Accept') == 'application/json':
+            return JsonResponse(wrapped_data)
+
+        return render(request, "top_locations.html", {"wrapped_data": wrapped_data})
+
+
+class TopGenresView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
+
+        # Fetch Top Artists data
+        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
+
+        # Process top genres
+        genres = []
+        for artist in top_artists_response.get("items", []):
+            genres.extend(artist.get("genres", []))
+        top_genres = Counter(genres).most_common(5)
+
+        # Structure the data for the frontend
+        wrapped_data = {
+            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[
+                time_range],
+            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres]
+        }
+
+        # Return JSON or render template
+        if request.headers.get('Accept') == 'application/json':
+            return JsonResponse(wrapped_data)
+
+        return render(request, "top_genres.html", {"wrapped_data": wrapped_data})
 
 
 print("dablt")
