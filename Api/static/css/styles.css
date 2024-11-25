@@ -42,7 +42,7 @@ nav.blue-theme {
 
 /* Main Content Area */
 .content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 2em auto;
     padding: 1em;
     background-color: #fff; /* Light background */
@@ -252,4 +252,58 @@ details ul {
 body.dark-theme details[open] summary,
 body.blue-theme details[open] summary {
     color: #99e5a1; /* Lighter summary color for dark and blue themes */
+}
+
+/* Login Button */
+.login-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #1db954; /* Spotify green */
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-right: 20px;
+}
+
+.login-btn:hover {
+    background-color: #1aa13f;
+    transform: scale(1.05);
+}
+
+.login-btn:active {
+    transform: scale(0.95);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #444; /* Default dark theme background */
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+body.dark-theme .theme-toggle-btn {
+    background-color: #333;
+}
+
+body.blue-theme .theme-toggle-btn {
+    background-color: #4682b4;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
 }

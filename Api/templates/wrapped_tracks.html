@@ -2,22 +2,30 @@
 {% load static %}
 
 {% block content %}
+    <link rel="stylesheet" href="{% static 'css/tracks.css' %}">
     <div class="container">
-        <h1>Your Top Tracks</h1>
-        <p>Here’s what you’ve been vibing to:</p>
+        <h1 class="page-title">Your Top Tracks</h1>
+        <p class="section-subtitle">Here’s what you’ve been vibing to:</p>
+        
         <div class="card-container">
             {% for track in wrapped_data.topTracks %}
                 <div class="card">
-                    <img src="{{ track.image }}" alt="{{ track.name }}" class="card-image">
+                    <div class="card-image-container">
+                        <img src="{{ track.image }}" alt="{{ track.name }}" class="card-image">
+                    </div>
                     <div class="card-content">
                         <h3>{{ track.name }}</h3>
-                        <p>Album: {{ track.albumName }}</p> <!-- Corrected to match view field -->
-                        <p>Artist: {{ track.subtitle }}</p>  <!-- Using subtitle to display artist -->
+                        <p class="album-name">Album: {{ track.albumName }}</p>
+                        <p class="artist-name">Artist: {{ track.subtitle }}</p>
                         <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">Play on Spotify</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
-        <a href="{% url 'wrapped_albums' %}" class="btn">Next: Top Albums</a>
+
+        <div class="next-section">
+            <!-- Include time_range in the URL when navigating to the next page -->
+            <a href="{% url 'wrapped_albums' %}?time_range={{ time_range }}" class="btn next-btn">Next: Top Albums</a>
+        </div>
     </div>
 {% endblock %}

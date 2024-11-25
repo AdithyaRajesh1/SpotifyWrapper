@@ -8,52 +8,126 @@
     <title>{% block title %}My Music App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     
-    <!-- Conditionally add wrapped.css if it's needed for Spotify Wrapped pages -->
-    {% block extra_styles %}
-        <link rel="stylesheet" href="{% static 'css/wrapped.css' %}">
-    {% endblock %}
-
     <style>
-        /* Style the Google Translate dropdown to be more compact and scrollable */
+        /* Google Translate dropdown styling */
         .goog-te-combo {
-            max-width: 150px; /* Reduce the width */
-            font-size: 14px; /* Adjust font size for readability */
+            max-width: 150px;
+            font-size: 14px;
         }
         #google_translate_element {
             position: relative;
             display: inline-block;
             max-height: 50px;
-            overflow: hidden; /* Prevent overflow if too large */
-        }
-        /* Add a scrollbar for better navigation */
-        .goog-te-combo {
-            overflow-y: auto;
-            max-height: 200px; /* Limit the dropdown height */
+            overflow: hidden;
         }
 
-        /* Add custom styles to hide Google Translate banner */
+        /* Hide Google Translate banner */
         .goog-te-banner-frame {
-            display: none !important; /* Ensure it is hidden */
+            display: none !important;
         }
+
+        /* Navbar styling */
+        nav {
+            background-color: #333 !important;
+            color: #fff !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 1rem 2rem !important; /* Ensure consistent padding */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            position: relative !important;
+            height: 60px !important; /* Set the height explicitly */
+        }
+
+        /* Navbar link styling */
+        nav a {
+            color: #fff !important;
+            text-decoration: none !important;
+            font-weight: bold !important;
+            margin-right: 2rem !important;
+            padding: 10px 20px !important;
+            border-radius: 30px !important;
+            font-size: 1rem !important;
+            transition: background-color 0.3s, transform 0.3s !important;
+        }
+
+        nav a:hover {
+            background-color: #555 !important;
+            transform: scale(1.05) !important;
+        }
+
+        /* Navbar button styling */
+        nav button {
+            color: #fff !important;
+            padding: 10px 20px !important;
+            border-radius: 30px !important;
+            font-size: 1rem !important;
+            cursor: pointer !important;
+            transition: background-color 0.3s, transform 0.3s !important;
+            border: none !important;
+        }
+
+        /* Green button for login */
+        nav .btn-primary {
+            background-color: #1db954 !important;
+        }
+
+        nav .btn-primary:hover {
+            background-color: #1aa13f !important;
+        }
+
+        /* Red button for logout */
+        nav .btn-secondary {
+            background-color: #dc3545 !important;
+        }
+
+        nav .btn-secondary:hover {
+            background-color: #c82333 !important;
+        }
+
+        /* Button for theme toggle */
+        .btn-toggle {
+            background-color: #444 !important;
+        }
+
+        .btn-toggle:hover {
+            background-color: #555 !important;
+        }
+
+        /* Ensure buttons are aligned to the right */
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 1rem !important; /* Space between buttons */
+            margin-left: auto !important; /* Pushes these elements to the far right */
+        }
+
+        /* Add padding to the content container to prevent clipping */
     </style>
 </head>
-<body class="light-theme"> <!-- Default theme set to light-theme, can be toggled -->
+<body class="light-theme">
     <nav>
-        {% if user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <a href="{% url 'home' %}">Home</a>
-                <button type="submit" class="btn btn-secondary">Log out</button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
-        {% endif %}
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <!-- Google Translate widget -->
+            <div id="google_translate_element"></div>
+        </div>
 
-        <!-- Add Google Translate widget -->
-        <div id="google_translate_element" style="margin-left: 20px;"></div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <!-- Logout button aligned to the right -->
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">Log out</button>
+                </form>
+            {% else %}
+                <!-- Login button aligned to the right -->
+                <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+            {% endif %}
 
-        <!-- Add a button to toggle themes -->
-        <button id="theme-toggle" class="btn btn-toggle">Change Theme</button>
+            <!-- Theme toggle button -->
+            <button id="theme-toggle" class="btn btn-toggle">Change Theme</button>
+        </div>
     </nav>
 
     <div class="content">
@@ -61,13 +135,12 @@
         {% endblock %}
     </div>
 
-    <!-- Include the Google Translate script -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement(
                 {
                     pageLanguage: 'en',
-                    includedLanguages: 'en,es,zh-CN,hi,ta,te',  // Specify the languages: English, Spanish, Chinese, Hindi, Tamil
+                    includedLanguages: 'en,es,zh-CN,hi,ta,te',
                     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
                 },
                 'google_translate_element'
@@ -76,8 +149,6 @@
     </script>
 
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-    <!-- Include the theme-toggle.js script -->
     <script src="{% static 'js/theme-toggle.js' %}"></script>
 
     <script>

@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
-    <div class="container">
-        <h1>Your Top Artists</h1>
-        <p>These artists have been on repeat!</p>
-        <div class="card-container">
+    <link rel="stylesheet" href="{% static 'css/artists.css' %}">
+    <div class="top-artists-container">
+        <h1 class="section-title">Your Top Artists</h1>
+        <p class="section-subtitle">These artists have been on repeat!</p>
+
+        <!-- Card Grid -->
+        <div class="card-grid">
             {% for artist in wrapped_data.topArtists %}
-                <div class="card">
+                <div class="artist-card">
                     <div class="card-image-container">
                         <img src="{{ artist.image }}" alt="{{ artist.name }}" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3>{{ artist.name }}</h3>
+                        <h3 class="artist-name">{{ artist.name }}</h3>
                         <p class="genre">{{ artist.subtitle }}</p>
                         <p class="popularity">Popularity: {{ artist.popularity }}</p>
                         <a href="{{ artist.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
@@ -21,6 +23,10 @@
                 </div>
             {% endfor %}
         </div>
-        <a href="{% url 'wrapped_tracks' %}" class="btn">Next: Top Tracks</a>
+
+        <div class="next-section">
+            <!-- Include time_range in the URL when navigating to the next page -->
+            <a href="{% url 'wrapped_tracks' %}?time_range={{ time_range }}" class="btn next-btn">Top Tracks</a>
+        </div>
     </div>
 {% endblock %}

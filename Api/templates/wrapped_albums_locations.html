@@ -2,66 +2,37 @@
 {% load static %}
 
 {% block content %}
+    <link rel="stylesheet" href="{% static 'css/albums.css' %}">
     <div class="container">
-        <h1>Your Top Tracks and Albums</h1>
-        
-        <!-- Track Preview Section -->
-        <div class="track-preview">
-            {% if wrapped_data.topTracks %}
-                <h2>First Track Preview</h2>
-                <div class="track-card">
-                    <h3>{{ wrapped_data.topTracks.0.name }}</h3>
-                    <p>Artist: {{ wrapped_data.topTracks.0.subtitle }}</p>
-                    {% if wrapped_data.topTracks.0.previewUrl %}
-                        <audio id="trackPreview" controls autoplay>
-                            <source src="{{ wrapped_data.topTracks.0.previewUrl }}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    {% else %}
-                        <p>No preview available for this track.</p>
-                    {% endif %}
-                </div>
-            {% else %}
-                <p>No tracks available.</p>
-            {% endif %}
-        </div>
+        <!-- Page Title -->
+        <h1 class="page-title">Your Top Albums</h1>
+        <p class="section-subtitle">Discover your favorite albums from the past year in one place</p>
 
         <!-- Albums Section -->
-        <div class="albums-section">
-            <h2>Your Top Albums</h2>
+        <div class="card-container">
             {% if wrapped_data.topAlbums %}
-                <ul>
-                    {% for album in wrapped_data.topAlbums %}
-                        <li>{{ album.name }} by {{ album.subtitle }}</li>
-                    {% endfor %}
-                </ul>
+                {% for album in wrapped_data.topAlbums %}
+                    <div class="card">
+                        <!-- Album Image -->
+                        <div class="card-image-container">
+                            <img src="{{ album.image }}" alt="{{ album.name }}" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <!-- Album Title -->
+                            <h3>{{ album.name }}</h3>
+                            <p class="artist-name">{{ album.subtitle }}</p>
+                            <a href="{{ album.spotifyUrl }}" class="btn" target="_blank">Listen on Spotify</a>
+                        </div>
+                    </div>
+                {% endfor %}
             {% else %}
-                <p>No albums available.</p>
+                <p class="no-albums-message">It looks like you haven't listened to any albums this year. Start exploring!</p>
             {% endif %}
         </div>
 
-        <!-- Tracks Section -->
-        <div class="tracks-section">
-            <h2>Your Top Tracks</h2>
-            {% if wrapped_data.topTracks %}
-                <ul>
-                    {% for track in wrapped_data.topTracks %}
-                        <li>{{ track.name }} by {{ track.subtitle }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No tracks available.</p>
-            {% endif %}
+        <!-- Button to Wrapped Page -->
+        <div class="next-section">
+            <a href="{% url 'wrapped' %}" class="btn next-btn">View Your Full Wrapped</a>
         </div>
     </div>
-
-    <script>
-        // Automatically play the first track's preview
-        window.onload = function() {
-            var audioElement = document.getElementById('trackPreview');
-            if (audioElement) {
-                audioElement.play();
-            }
-        };
-    </script>
 {% endblock %}

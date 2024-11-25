@@ -14,7 +14,7 @@ urlpatterns = [
     path('check-auth/', Authentication.as_view(), name='check-auth'),
     path('current-song/', CurrentSong.as_view()),
     path('top/', TopSongs.as_view()),
-    path('wrapped/', SpotifyWrappedView.as_view()),
+    path('wrapped/', SpotifyWrappedView.as_view(), name = 'wrapped'),
 
 
     path('register/',register, name='register'),

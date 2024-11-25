@@ -1,22 +1,27 @@
-
-<!-- profile.html -->
 {% extends 'base.html' %}
-
 {% load static %}
 
-
 {% block content %}
-    <h2>Your Profile</h2>
-    <p>Name: {{ wrapped_data.userProfile.name }}</p>
-    <p>Country: {{ wrapped_data.userProfile.country }}</p>
-    <p>Followers: {{ wrapped_data.userProfile.followersCount }}</p>
-    <img src="{{ wrapped_data.userProfile.image }}" alt="{{ wrapped_data.userProfile.name }}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <div class="wrapped-overview-container">
+        <h1 class="landing-title">Your Spotify Wrapped</h1>
+        <p class="description">A personalized look back at your music journey</p>
 
-    <h3>Share Your Spotify Wrapped</h3>
-    <p>Share your stats on social media:</p>
-    <ul>
-        <li><a href="{{ wrapped_data.sharing.twitter.url }}">Share on Twitter</a></li>
-        <li><a href="{{ wrapped_data.sharing.linkedin.url }}">Share on LinkedIn</a></li>
-        <li><a href="{{ wrapped_data.sharing.instagram.url }}" target="_blank">Copy to Instagram</a></li>
-    </ul>
+        <section class="stats-overview">
+            <h2 class="section-title">Your Stats</h2>
+            
+            <!-- Stats list with fade-in animation -->
+            <ul class="stats-list">
+                <li class="stat-item"><span class="stat-title">Total Artists:</span> {{ wrapped_data.totalArtists }}</li>
+                <li class="stat-item"><span class="stat-title">Total Tracks:</span> {{ wrapped_data.totalTracks }}</li>
+                <li class="stat-item"><span class="stat-title">Total Albums:</span> {{ wrapped_data.totalAlbums }}</li>
+                <li class="stat-item"><span class="stat-title">Total Listening Time:</span> {{ wrapped_data.listeningTimeHours }} hours</li>
+                <li class="stat-item"><span class="stat-title">New Artists Discovered:</span> {{ wrapped_data.newArtistsCount }}</li>
+                <li class="stat-item"><span class="stat-title">Available In:</span> {{ wrapped_data.totalLocations }} countries</li>
+            </ul>
+
+            <!-- Button to navigate to top artists -->
+            <a href="{% url 'wrapped_artists' %}?time_range={{ time_range }}" class="btn navigate-artists">See Your Top Artists</a>
+        </section>
+    </div>
 {% endblock %}
