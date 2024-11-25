@@ -199,7 +199,13 @@ class TopSongs(APIView):
         return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
 
 
-class SpotifyWrappedView(APIView):
+import random
+from collections import defaultdict
+
+import random
+
+
+class GameView(APIView):
     def get(self, request, format=None):
         key = self.request.session.session_key
         # Configure the API key for the genai module
@@ -232,6 +238,7 @@ class SpotifyWrappedView(APIView):
         profile_endpoint = "me"
         profile_response = spotify_requests_execution(key, profile_endpoint)
         # Extract top song names and their artists
+        genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
         model = genai.GenerativeModel("gemini-1.5-flash")
         top_songs_and_artists = [
             f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
@@ -242,8 +249,9 @@ class SpotifyWrappedView(APIView):
         # Generate dynamic description based on top songs and artists
         response = model.generate_content(
             f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
-            f"These are my top songs and artists: {top_songs_and_artists_str}."
+            f"These are my top songs and artists: {top_songs_and_artists_str}. Limit the response to less than 100 words."
         )
+        print(response)
         # Process the data
         all_artists = set()
         for artist in top_artists_response.get("items", []):
@@ -294,6 +302,233 @@ class SpotifyWrappedView(APIView):
 
         # Structure the data for the frontend
         wrapped_data = {
+            "response": response,
+            # Time range information
+            "currentTimeRange": time_range,
+            "timeRangeDisplay": time_range_display[time_range],
+            "availableTimeRanges": [
+                {'value': tr, 'display': time_range_display[tr]}
+                for tr in valid_ranges
+            ],
+
+            # Total counts
+            "totalArtists": len(all_artists),
+            "totalTracks": len(all_tracks),
+            "totalAlbums": len(all_albums),
+            "totalLocations": len(all_markets),
+            "newArtistsCount": len(new_artists),
+
+            # Listening statistics
+            "listeningTimeHours": listening_time_hours,
+            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
+
+            # Top Artists
+            "topArtists": [
+                {
+                    "name": artist["name"],
+                    "subtitle": ", ".join(artist.get("genres", [])[:2]),
+                    "image": artist["images"][0]["url"] if artist.get("images") else None,
+                    "popularity": artist.get("popularity", 0),
+                    "genres": artist.get("genres", []),
+                    "spotifyUrl": artist["external_urls"]["spotify"]
+                }
+                for artist in top_artists_response.get("items", [])[:5]
+            ],
+
+            # Top Tracks
+            "topTracks": [
+                {
+                    "name": track["name"],
+                    "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "popularity": track.get("popularity", 0),
+                    "previewUrl": track.get("preview_url"),
+                    "spotifyUrl": track["external_urls"]["spotify"],
+                    "albumName": track["album"]["name"],
+                    "duration": track["duration_ms"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ],
+
+            # Top Albums (unchanged)
+            "topAlbums": [
+                {
+                    "name": track["album"]["name"],
+                    "subtitle": track["album"]["artists"][0]["name"],
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "releaseDate": track["album"].get("release_date"),
+                    "totalTracks": track["album"].get("total_tracks"),
+                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ],
+
+            # Top Locations
+            "topLocations": [
+                {
+                    "name": market,
+                    "count": len([
+                        track for track in top_tracks_response.get("items", [])
+                        if market in track.get("available_markets", [])
+                    ])
+                }
+                for market in list(all_markets)[:5]
+            ],
+
+            # User Profile
+            "userProfile": {
+                "name": profile_response.get("display_name"),
+                "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
+                "country": profile_response.get("country"),
+                "product": profile_response.get("product"),
+                "followersCount": profile_response.get("followers", {}).get("total", 0)
+            }
+
+        }
+
+        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
+
+        # Return JSON for API consumption
+        if request.headers.get('Accept') == 'application/json':
+            return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)
+
+        # Otherwise render the template
+        return render(request, "guessing_game.html", {
+            "wrapped_data": wrapped_data,
+            "page_title": f"Your Spotify Wrapped - {time_range_display[time_range]}",
+            "current_year": datetime.now().year,
+            "request": request  # Pass request to template for building absolute URLs
+        })
+    def generate_sharing_data(self, wrapped_data, request):
+        """Generate sharing text and URLs for social media platforms"""
+
+        # Base sharing text
+        share_text = (
+            f"🎵 My Spotify Wrapped Stats:\n"
+            f"• {wrapped_data['listeningTimeHours']} hours of music\n"
+            f"• Top Artist: {wrapped_data['topArtists'][0]['name']}\n"
+            f"• Top Track: {wrapped_data['topTracks'][0]['name']}\n"
+            f"• {wrapped_data['totalArtists']} different artists\n"
+            f"#SpotifyWrapped"
+        )
+
+        # Get the current page's URL
+        current_url = request.build_absolute_uri()
+
+        # Generate platform-specific sharing URLs
+        sharing_data = {
+            'twitter': {
+                'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}&url={urllib.parse.quote(current_url)}"
+            },
+            'linkedin': {
+                'url': f"https://www.linkedin.com/sharing/share-offsite/?url={urllib.parse.quote(current_url)}"
+            },
+            'instagram': {
+                'text': share_text,  # For copying to clipboard since Instagram doesn't have a direct sharing API
+                'url': current_url
+            }
+        }
+        print(sharing_data)
+        return sharing_data
+class SpotifyWrappedView(APIView):
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        # Configure the API key for the genai module
+        # Get time range from query parameters, default to medium_term
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        # Validate time range
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
+
+        # Fetch all necessary data from Spotify API with selected time range
+        # 1. Top Artists
+        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
+
+        # 2. Top Tracks
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+
+        # 3. Recently played tracks (this endpoint doesn't use time_range)
+        recent_tracks_endpoint = "me/player/recently-played?limit=50"
+        recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)
+
+        # 4. Get user's playlists
+        playlists_endpoint = "me/playlists"
+        playlists_response = spotify_requests_execution(key, playlists_endpoint)
+
+        # 5. Get user profile
+        profile_endpoint = "me"
+        profile_response = spotify_requests_execution(key, profile_endpoint)
+        # Extract top song names and their artists
+        genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        top_songs_and_artists = [
+            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
+            for track in top_tracks_response.get("items", [])[:5]
+        ]
+        top_songs_and_artists_str = "; ".join(top_songs_and_artists)
+
+
+        # Generate dynamic description based on top songs and artists
+        response = model.generate_content(
+            f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
+            f"These are my top songs and artists: {top_songs_and_artists_str}. Limit the response to less than 100 words."
+        )
+        print(response)
+        # Process the data
+        all_artists = set()
+        for artist in top_artists_response.get("items", []):
+            all_artists.add(artist["id"])
+
+        for track in top_tracks_response.get("items", []):
+            for artist in track["artists"]:
+                all_artists.add(artist["id"])
+
+        # Calculate new artists discovered
+        recent_artists = set()
+        for item in recent_tracks_response.get("items", []):
+            for artist in item["track"]["artists"]:
+                recent_artists.add(artist["id"])
+
+        new_artists = recent_artists - all_artists
+
+        # Track-related metrics
+        all_tracks = set(track["id"] for track in top_tracks_response.get("items", []))
+
+        # Album-related metrics
+        all_albums = set(track["album"]["id"] for track in top_tracks_response.get("items", []))
+
+        # Location/Market metrics
+        all_markets = set()
+        for track in top_tracks_response.get("items", []):
+            all_markets.update(track.get("available_markets", []))
+
+        # Calculate listening time
+        total_listening_time = sum(
+            item["track"]["duration_ms"]
+            for item in recent_tracks_response.get("items", [])
+        )
+        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)
+
+        # Process top genres
+        genres = []
+        for artist in top_artists_response.get("items", []):
+            genres.extend(artist.get("genres", []))
+        top_genres = Counter(genres).most_common(5)
+
+        # Time range display names
+        time_range_display = {
+            'short_term': 'Last 4 Weeks',
+            'medium_term': 'Last 6 Months',
+            'long_term': 'All Time'
+        }
+
+        # Structure the data for the frontend
+        wrapped_data = {
+            "response": response,
             # Time range information
             "currentTimeRange": time_range,
             "timeRangeDisplay": time_range_display[time_range],
@@ -426,7 +661,6 @@ class SpotifyWrappedView(APIView):
 
 
 
-print("dablt")
 
 # Connect to the SQLite database
 conn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed

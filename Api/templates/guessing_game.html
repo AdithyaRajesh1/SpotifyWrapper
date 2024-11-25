@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Album</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        .album-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .album-grid img {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .album-grid img:hover {
+            transform: scale(1.1);
+        }
+
+        .hint {
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .guess-input {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .guess-input input {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .guess-input button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .guess-input button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin: 20px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Album</h1>
+
+    <section>
+        <h2>Top Albums</h2>
+        <div class="album-grid">
+            {% for album in album_images %}
+                    {% if album.image %}
+                        <img src="{{ album.image }}" alt="{{ album.name }}" width="50" height="50">
+                    {% endif %}            
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <div class="hint">
+            <strong>Hint:</strong> The album name starts with "<strong>{{ snippet }}</strong>..."
+        </div>
+
+        <div class="guess-input">
+            <input type="text" id="guess" placeholder="Enter your guess here..." required>
+            <button onclick="submitGuess()">Submit Guess</button>
+        </div>
+
+        <div id="result" class="result"></div>
+    </section>
+
+    <script>
+        const correctAlbum = "{{ correct_album|escapejs }}";
+
+        function submitGuess() {
+            const userGuess = document.getElementById('guess').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            if (!userGuess) {
+                resultDiv.textContent = "Please enter a guess!";
+                resultDiv.style.color = "red";
+                return;
+            }
+
+            if (userGuess.toLowerCase() === correctAlbum.toLowerCase()) {
+                resultDiv.textContent = "Correct! 🎉 You guessed the album correctly.";
+                resultDiv.style.color = "green";
+            } else {
+                resultDiv.textContent = `Wrong guess. 😔 The correct album was: "${correctAlbum}".`;
+                resultDiv.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
