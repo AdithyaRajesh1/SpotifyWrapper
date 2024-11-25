@@ -1,0 +1,97 @@
+/* General styles for the login content */
+.login-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 0 auto;  /* Center the content */
+}
+
+/* Text color for light theme */
+body.light-theme .login-content h2,
+body.light-theme .login-content .text {
+    color: #333;  /* Dark text for light theme */
+}
+
+/* Text color for dark theme */
+body.dark-theme .login-content h2,
+body.dark-theme .login-content .text {
+    color: #fff;  /* Light text for dark theme */
+}
+
+.login-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-form .form-fields {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+/* Style the input fields */
+.login-form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Focus effect for input fields */
+.login-form input:focus {
+    border-color: #1db954;
+    outline: none;
+    box-shadow: 0 0 5px rgba(29, 185, 84, 0.6);
+    background-color: #fff;
+}
+
+/* Dark theme specific styles for input fields */
+body.dark-theme .login-form input {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* Dark theme specific focus effect for input fields */
+body.dark-theme .login-form input:focus {
+    border-color: #1db954;
+    box-shadow: 0 0 5px rgba(29, 185, 84, 0.6);
+    background-color: #444;
+}
+
+/* Style the login button */
+.login-button {
+    background-color: #1db954;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #1aa13f;
+}
+
+/* Text and link styling */
+.text {
+    margin-top: 1rem;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.text .link {
+    color: #1db954;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.text .link:hover {
+    text-decoration: underline;
+}

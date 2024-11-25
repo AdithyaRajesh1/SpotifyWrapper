@@ -101,7 +101,7 @@ def spotify_redirect(request):
     )
 
     # Return redirect URL as JSON, handle on frontend
-    redirect_url = f"http://localhost:8000/spotify/wrapped/?code={code}"
+    redirect_url = f"http://localhost:8000/spotify/wrapped/intro?code={code}"
     return redirect(redirect_url)
 
 
