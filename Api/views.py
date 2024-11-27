@@ -292,6 +292,7 @@ class GameView(APIView):
             ],
             "gameData": {
                 "currentAlbum": selected_albums[0],
+                "allAlbums": selected_albums,
                 "gameSession": {
                     "current_round": 0,
                     "total_rounds": len(selected_albums),
@@ -307,8 +308,7 @@ class GameView(APIView):
         # Otherwise render the template
         return render(request, "album_guessing_game.html", {
             "trapped_data": trapped_data,
-            "page_title": f"Spotify Album Guessing Game - {time_range_display[time_range]}",
-            "current_year": datetime.now().year
+            "page_title": f"Spotify Album Guessing Game",
         })
 
     def post(self, request, format=None):
