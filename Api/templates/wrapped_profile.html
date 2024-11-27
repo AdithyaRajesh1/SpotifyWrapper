@@ -2,26 +2,222 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <div class="wrapped-overview-container">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<style>
+    .stat-item {
+        color:black
+    }
+    /* General Slideshow Styles */
+    .slideshow-container {
+        width: 100%;
+        height: 100vh; /* Full viewport height */
+        position: fixed; /* Fixed position to cover the screen */
+        top: 0;
+        left: 0;
+        background: linear-gradient(135deg, #ff0080, #ff8c00); /* Vibrant Spotify-style gradient */
+        z-index: 999; /* Ensure it stays on top */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        align-content: center;
+        overflow: hidden;
+        font-family: 'Arial', sans-serif; /* Clean font for a modern look */
+        color: white; /* Text color */
+    }
+
+    /* Slide Styling */
+    .slideshow-item {
+        text-align: center;
+        display: none; /* Hidden by default */
+        width: 80%;
+        padding: 80px;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background for the content */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add depth */
+        font-size: 4.5rem; /* Bold, large text for impact */
+        line-height: 1.5;
+        transform: scale(0.8);
+        transition: transform 0.5s, opacity 0.5s; /* Smooth scaling and fade-in effects */
+        opacity: 0;
+    }
+
+    .slideshow-item.active {
+        display: block; /* Ensure slide is visible */
+        opacity: 1; /* Fade in */
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        transform: translateY(0); /* Move to center */
+    }
+
+    .slideshow-item.inactive {
+        opacity: 0; /* Fade out */
+        transform: translateY(-10px); /* Move slightly above the center */
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and slide-out effect */
+    }
+    
+    /* Image Styling */
+    .slide-image {
+        width: 500px;
+        height: 500px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    .slideshow-item.active .slide-image {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .slideshow-item.inactive .slide-image {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    /* Animation for cycling through slides */
+    @keyframes slideFade {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        50% {
+            opacity: 1;
+            transform: translateX(0%);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+    }
+
+    /* Add subtle motion for transitions */
+    .slideshow-item.animate {
+        animation: slideFade 2s ease-in-out;
+    }
+
+    /* Navigation Button Styling */
+    .slideshow-container:hover {
+        cursor: pointer; /* Indicate interaction */
+    }
+</style>
+
+
+<div class="wrapped-overview-container">
+    <!-- Content for slideshow view -->
+    <div class="slideshow-container" id="slideshowContainer">
+        <div class="slideshow-item active">
+            <img src="{% static 'images/microphone.jpeg' %}" alt="Slide Image" class="slide-image">
+            <br/>
+            <span class="stat-title">Total Artists:</span> {{ wrapped_data.totalArtists }}</div>
+        <div class="slideshow-item">
+            <img src="{% static 'images/tracks.jpeg' %}" alt="Slide Image" class="slide-image">
+            <br/>
+            <span class="stat-title">Total Tracks:</span>
+            {% if wrapped_data.totalTracks >= 50 %}
+                50+
+            {% else %}
+                {{ wrapped_data.totalTracks }}
+            {% endif %}
+        </div>
+        <div class="slideshow-item">
+            <img src="{% static 'images/albums.jpeg' %}" alt="Slide Image" class="slide-image">
+            <br/>
+            <span class="stat-title">Total Albums:</span> {{ wrapped_data.totalAlbums }}</div>
+        <div class="slideshow-item">
+            <img src="{% static 'images/headphones.jpeg' %}" alt="Slide Image" class="slide-image">
+            <br/>
+            <span class="stat-title">Total Recent Listening Time:</span> {{ wrapped_data.listeningTimeHours }} hours</div>
+        <div class="slideshow-item">
+            <img src="{% static 'images/discovered.jpeg' %}" alt="Slide Image" class="slide-image">
+            <br/>
+            <span class="stat-title">New Artists Discovered:</span> {{ wrapped_data.newArtistsCount }}</div>
+        <div class="slideshow-item">
+            <img src="{% static 'images/map.jpeg' %}" alt="Slide Image" class="slide-image">
+            <br/>
+            <span class="stat-title">Available In:</span> {{ wrapped_data.totalLocations }} countries</div>
+    </div>
+
+    <!-- Hidden content for list view -->
+    <div class="other-content" id="otherContent">
         <h1 class="landing-title">Your Spotify Wrapped</h1>
         <p class="description">A personalized look back at your music journey</p>
 
-        <section class="stats-overview">
-            <h2 class="section-title">Your Stats</h2>
-            
-            <!-- Stats list with fade-in animation -->
-            <ul class="stats-list">
-                <li class="stat-item"><span class="stat-title">Total Artists:</span> {{ wrapped_data.totalArtists }}</li>
-                <li class="stat-item"><span class="stat-title">Total Tracks:</span> {{ wrapped_data.totalTracks }}</li>
-                <li class="stat-item"><span class="stat-title">Total Albums:</span> {{ wrapped_data.totalAlbums }}</li>
-                <li class="stat-item"><span class="stat-title">Total Listening Time:</span> {{ wrapped_data.listeningTimeHours }} hours</li>
-                <li class="stat-item"><span class="stat-title">New Artists Discovered:</span> {{ wrapped_data.newArtistsCount }}</li>
-                <li class="stat-item"><span class="stat-title">Available In:</span> {{ wrapped_data.totalLocations }} countries</li>
-            </ul>
-
-            <!-- Button to navigate to top artists -->
-            <a href="{% url 'wrapped_artists' %}?time_range={{ time_range }}" class="btn navigate-artists">See Your Top Artists</a>
-        </section>
+        <!-- Stats list -->
+        <ul class="stats-list" id="statsList">
+            <li class="stat-item"><span class="stat-title">Total Artists:</span> {{ wrapped_data.totalArtists }}</li>
+            <li class="stat-item">
+                <span class="stat-title">Total Tracks:</span>
+                {% if wrapped_data.totalTracks >= 50 %}
+                    50+
+                {% else %}
+                    {{ wrapped_data.totalTracks }}
+                {% endif %}
+            </li>
+            <li class="stat-item"><span class="stat-title">Total Albums:</span> {{ wrapped_data.totalAlbums }}</li>
+            <li class="stat-item"><span class="stat-title">Total Recent Listening Time:</span> {{ wrapped_data.listeningTimeHours }} hours</li>
+            <li class="stat-item"><span class="stat-title">New Artists Discovered:</span> {{ wrapped_data.newArtistsCount }}</li>
+            <li class="stat-item"><span class="stat-title">Available In:</span> {{ wrapped_data.totalLocations }} countries</li>
+        </ul>
     </div>
+    <a href="{% url 'wrapped_artists' %}?time_range={{ time_range }}" class="btn navigate-artists">See Your Top Artists</a>
+</div>
+
+<script>
+    const slideshowContainer = document.getElementById('slideshowContainer');
+    const otherContent = document.getElementById('otherContent');
+    const slides = document.querySelectorAll('.slideshow-item');
+    const gradients = [
+        "linear-gradient(135deg, #ff0080, #ff8c00)",
+        "linear-gradient(135deg, #00f260, #0575e6)",
+        "linear-gradient(135deg, #8e2de2, #4a00e0)",
+        "linear-gradient(135deg, #fc466b, #3f5efb)",
+        "linear-gradient(135deg, #ee9ca7, #ffdde1)"
+    ];
+    let currentIndex = 0;
+
+    function showNextSlide() {
+        if (currentIndex < slides.length) {
+            const currentSlide = slides[currentIndex];
+            currentSlide.classList.remove('active');
+            currentSlide.classList.add('inactive');
+
+            setTimeout(() => {
+                currentSlide.style.display = 'none';
+                currentSlide.classList.remove('inactive');
+
+                currentIndex++;
+
+                if (currentIndex < slides.length) {
+                    const nextSlide = slides[currentIndex];
+                    nextSlide.style.display = 'block';
+                    nextSlide.classList.add('active');
+
+                    // Update gradient
+                    slideshowContainer.style.background = gradients[currentIndex % gradients.length];
+                } else {
+                    // Show list view after all slides
+                    slideshowContainer.style.display = 'none';
+                    otherContent.style.display = 'block';
+                }
+            }, 500);
+        }
+    }
+
+    slideshowContainer.addEventListener('click', showNextSlide);
+
+    window.onload = () => {
+        slideshowContainer.style.display = 'flex';
+        otherContent.style.display = 'none';
+
+        slides[currentIndex].style.display = 'block';
+        slides[currentIndex].classList.add('active');
+        slideshowContainer.style.background = gradients[0];
+    };
+</script>
+
+
+
 {% endblock %}

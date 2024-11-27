@@ -1,104 +1,104 @@
 
-        /* General Body Styling */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-        /* Landing Page Container */
-        .landing-page-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px;
-            text-align: center;
-        }
+/* Landing Page Container */
+.landing-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+}
 
-        /* Title Styling */
-        .landing-page-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #1db954;
-            animation: fadeIn 1s ease-out;
-        }
+/* Title Styling */
+.landing-page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1db954;
+    animation: fadeIn 1s ease-out;
+}
 
-        /* Description Styling */
-        .landing-page-description {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 40px;
-            animation: fadeIn 2s ease-out;
-        }
+/* Description Styling */
+.landing-page-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 40px;
+    animation: fadeIn 2s ease-out;
+}
 
-        /* Time Range Form Styling */
-        .time-range-form {
-            display: inline-block;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+/* Time Range Form Styling */
+.time-range-form {
+    display: inline-block;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
 
-        .time-range-form:hover {
-            transform: scale(1.05);
-        }
+.time-range-form:hover {
+    transform: scale(1.05);
+}
 
-        /* Time Range Label Styling */
-        .time-range-label {
-            font-size: 1.1rem;
-            color: #333;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
+/* Time Range Label Styling */
+.time-range-label {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+    display: inline-block;
+}
 
-        /* Time Range Select Styling */
-        .time-range-select {
-            padding: 10px;
-            margin-top: 10px;
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
+/* Time Range Select Styling */
+.time-range-select {
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
 
-        /* Discover Button Styling */
-        .discover-button {
-            display: inline-block;
-            background-color: #1db954;
-            color: white;
-            padding: 15px 30px;
-            margin-top: 20px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
+/* Discover Button Styling */
+.discover-button {
+    display: inline-block;
+    background-color: #1db954;
+    color: white;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
-        .discover-button:hover {
-            background-color: #1aa13f;
-            transform: scale(1.05);
-        }
+.discover-button:hover {
+    background-color: #1aa13f;
+    transform: scale(1.05);
+}
 
-        .discover-button:active {
-            transform: scale(0.95);
-        }
+.discover-button:active {
+    transform: scale(0.95);
+}
 
-        /* Animation for Fade In Effect */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+/* Animation for Fade In Effect */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

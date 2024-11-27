@@ -511,7 +511,9 @@ class SpotifyWrappedOverviewView(APIView):
             "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
         }
 
-        return render(request, "wrapped_overview.html", {"wrapped_data": wrapped_data, "time_range" : time_range, "page_title": "Your Spotify Wrapped Overview"})
+        wraps = SpotifyWrapped.objects.filter(user=request.user).order_by('-created_at')
+
+        return render(request, "wrapped_overview.html", {"wrapped_data": wrapped_data, "wraps": wraps, "time_range" : time_range, "page_title": "Your Spotify Wrapped Overview"})
 
 
 import logging
@@ -583,6 +585,7 @@ class SpotifyWrappedTracksView(APIView):
                     "name": track["name"],
                     "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
                     "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "albumName": track["album"]["name"],
                     "spotifyUrl": track["external_urls"]["spotify"],
                     "preview_url": track["preview_url"],  # Include preview URL
                 }
@@ -933,4 +936,4 @@ def delete_spotify_wrap(request, id):
     wrap.delete()
 
     # Redirect back to the list of wraps
-    return redirect('savedwraps')
+    return redirect('wrapped_intro')

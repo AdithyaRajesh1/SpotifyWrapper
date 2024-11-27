@@ -3,7 +3,41 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/artists.css' %}">
-    <div class="top-artists-container">
+
+    <!-- Full-screen Slide for Top Artist -->
+    <div class="fullscreen-slide" id="fullscreenSlide">
+        {% if wrapped_data.topArtists %}
+           
+            <div class="artist-card fullscreen-card">
+            <h1 class="your_top"> Your Top Artist: </h1>
+                <div class="card-image-container">
+                    
+                    <img src="{{ wrapped_data.topArtists.0.image }}" alt="{{ wrapped_data.topArtists.0.name }}" class="card-image">
+
+                </div>
+                <br/>
+                <div class="card-content">
+                    <h1 class="artist-name">{{ wrapped_data.topArtists.0.name }}</h1>
+                    <p class="genre">{{ wrapped_data.topArtists.0.subtitle }}</p>
+                    <p class="popularity">Popularity: {{ wrapped_data.topArtists.0.popularity }}</p>
+                    <a href="{{ wrapped_data.topArtists.0.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                </div>
+            </div>
+            
+            <!-- Audio Player -->
+            <audio id="backgroundMusic" autoplay loop>
+                <source src="{{ wrapped_data.topArtists.0.previewUrl }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            
+        {% else %}
+            <p>No artists available to display.</p>
+        {% endif %}
+    </div>
+
+    <!-- Top Artists Container -->
+    <div class="top-artists-container" id="listView" style="display: none;">
         <h1 class="section-title">Your Top Artists</h1>
         <p class="section-subtitle">These artists have been on repeat!</p>
 
@@ -22,11 +56,27 @@
                     </div>
                 </div>
             {% endfor %}
+        
         </div>
 
         <div class="next-section">
-            <!-- Include time_range in the URL when navigating to the next page -->
             <a href="{% url 'wrapped_tracks' %}?time_range={{ time_range }}" class="btn next-btn">Top Tracks</a>
         </div>
     </div>
+
+    <script>
+        // JavaScript to toggle between full-screen slide and list view
+        document.addEventListener("DOMContentLoaded", () => {
+            const fullscreenSlide = document.getElementById("fullscreenSlide");
+            const listView = document.getElementById("listView");
+            const backgroundMusic = document.getElementById("backgroundMusic");
+
+            // On click, hide the slide and show the list view
+            fullscreenSlide.addEventListener("click", () => {
+                fullscreenSlide.style.display = "none";
+                listView.style.display = "block";
+                if (backgroundMusic) backgroundMusic.pause(); // Stop music when leaving slideshow
+            });
+        });
+    </script>
 {% endblock %}

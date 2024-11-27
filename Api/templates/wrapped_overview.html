@@ -18,4 +18,34 @@
             <button type="submit" class="discover-button">Discover Now</button>
         </form>
     </div>
+    
+
+    <link rel="stylesheet" href="{% static 'css/saved.css' %}">
+    <div class="page-title">{{ page_title }}</div>
+    <div class="section-subtitle">Here are your saved Spotify Wrapped data</div>
+
+    {% if wraps %}
+        <div class="card-container">
+            {% for wrap in wraps %}
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="{{ wrap.top_artists.0.image }}" class="card-image" alt="{{ wrap.top_artists.0.name }}">
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ wrap.user.username }}'s Spotify Wrapped</h3>
+                        <p class="created-at">{{ wrap.created_at|date:"F j, Y" }}</p>
+                        <a href="{% url 'saved_spotify_wrapped_profile' wrap.id %}" class="btn">View Details</a>
+
+                        <!-- Delete button inside a form to handle the POST request -->
+                        <form action="{% url 'delete_spotify_wrap' wrap.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">You have no saved Spotify Wrapped data.</p>
+    {% endif %}
 {% endblock %}

@@ -1,117 +1,150 @@
-.page-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.page-header h1 {
-    font-size: 2.5rem;
+/* Title and Subtitle */
+.page-title {
+    font-size: 3rem;
     font-weight: bold;
+    color: #1db954;
     margin-bottom: 10px;
+    animation: slideUp 1s ease-out;
 }
 
-.page-header p {
-    font-size: 1.2rem;
-    color: #555;
+.section-subtitle {
+    font-size: 1.25rem;
+    color: #b3b3b3;
+    margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-out;
 }
 
-/* Container for the wrap cards */
-.wraps-container {
+/* Card Layout */
+.card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    animation: fadeIn 2s ease-out;
 }
 
-/* Styling for each wrap card */
-.wrap-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+/* Card Styles */
+.card {
+    background-color: #181818;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effect for wrap cards */
-.wrap-card:hover {
+.card:hover {
     transform: scale(1.05);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Styling for wrap image container */
-.wrap-image-container {
+/* Card Image */
+.card-image-container {
     width: 100%;
-    height: 200px;
+    height: 250px;
     overflow: hidden;
 }
 
-.wrap-image {
+.card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/* Styling for wrap details */
-.wrap-details {
+.card:hover .card-image {
+    transform: scale(1.1);
+}
+
+/* Card Content */
+.card-content {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
+    text-align: left;
 }
 
-.wrap-details h2 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
+.card-content h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 10px 0;
 }
 
-.wrap-year {
+.album-name, .artist-name {
     font-size: 1.1rem;
-    color: #777;
-    margin-bottom: 15px;
+    color: #b3b3b3;
 }
 
-.wrap-details p {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.btn-details {
+/* Button Styles */
+.btn {
+    display: inline-block;
     background-color: #1db954;
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
     border-radius: 30px;
     text-decoration: none;
-    text-align: center;
-    font-size: 1rem;
-    transition: background-color 0.3s;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.btn-details:hover {
+.btn:hover {
     background-color: #1aa13f;
+    transform: scale(1.05);
 }
 
-/* Media Queries for responsiveness */
-@media (max-width: 768px) {
-    .wrap-card {
-        padding: 15px;
-    }
+.btn:active {
+    transform: scale(0.95);
+}
 
-    .wrap-details h2 {
-        font-size: 1.4rem;
-    }
+/* Next Section Button */
+.next-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
 
-    .wrap-year {
-        font-size: 1rem;
-    }
+.next-btn {
+    background-color: #1db954;
+    font-size: 1.2rem;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
 
-    .wrap-details p {
-        font-size: 0.9rem;
+.next-btn:hover {
+    background-color: #1aa13f;
+    transform: scale(1.05);
+}
+
+.next-btn:active {
+    transform: scale(0.95);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media (max-width: 480px) {
-    .wraps-container {
-        grid-template-columns: 1fr; /* Stacking the cards on small screens */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
+
+
+

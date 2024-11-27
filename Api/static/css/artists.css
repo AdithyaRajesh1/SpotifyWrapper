@@ -1,3 +1,67 @@
+/* Fullscreen Slideshow Mode */
+.fullscreen-slide {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #1DB954, #191414); /* Spotify Wrapped Style */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    color: white;
+}
+
+.fullscreen-card .card-image-container {
+    height: 400px;
+}
+.fullscreen-card {
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.your_top {
+    font-size: 50px;
+    color: lightgreen;
+    margin-bottom: 10px;
+}
+
+
+
+.fullscreen-card .artist-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.fullscreen-card .genre,
+.fullscreen-card .popularity {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.fullscreen-card .btn {
+    background-color: #1DB954;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 1rem;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.fullscreen-card .btn:hover {
+    background-color: #14843b;
+}
+
+/* List View Cards */
 
 
 /* Add a wrapper class to prevent conflict with navbar styles */
