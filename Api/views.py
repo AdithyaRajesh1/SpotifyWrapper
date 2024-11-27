@@ -204,12 +204,16 @@ from collections import defaultdict
 
 import random
 
+import random
+from django.core.cache import cache
+
 
 class GameView(APIView):
     def get(self, request, format=None):
-        key = self.request.session.session_key
-        # Configure the API key for the genai module
-        # Get time range from query parameters, default to medium_term
+        # Ensure we have a session
+        if not request.session.session_key:
+            request.session.create()
+
         time_range = request.GET.get('time_range', 'medium_term')
 
         # Validate time range
@@ -217,81 +221,50 @@ class GameView(APIView):
         if time_range not in valid_ranges:
             time_range = 'medium_term'
 
-        # Fetch all necessary data from Spotify API with selected time range
-        # 1. Top Artists
-        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
-        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
-
-        # 2. Top Tracks
+        # Fetch top tracks
+        key = request.session.session_key
         top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
         top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
 
-        # 3. Recently played tracks (this endpoint doesn't use time_range)
-        recent_tracks_endpoint = "me/player/recently-played?limit=50"
-        recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)
-
-        # 4. Get user's playlists
-        playlists_endpoint = "me/playlists"
-        playlists_response = spotify_requests_execution(key, playlists_endpoint)
-
-        # 5. Get user profile
-        profile_endpoint = "me"
-        profile_response = spotify_requests_execution(key, profile_endpoint)
-        # Extract top song names and their artists
-        genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        top_songs_and_artists = [
-            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
-            for track in top_tracks_response.get("items", [])[:5]
-        ]
-        top_songs_and_artists_str = "; ".join(top_songs_and_artists)
-
-        # Generate dynamic description based on top songs and artists
-        response = model.generate_content(
-            f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
-            f"These are my top songs and artists: {top_songs_and_artists_str}. Limit the response to less than 100 words."
-        )
-        print(response)
-        # Process the data
-        all_artists = set()
-        for artist in top_artists_response.get("items", []):
-            all_artists.add(artist["id"])
-
+        # Prepare album data for the game
+        album_game_data = []
         for track in top_tracks_response.get("items", []):
-            for artist in track["artists"]:
-                all_artists.add(artist["id"])
+            album = track.get("album", {})
 
-        # Calculate new artists discovered
-        recent_artists = set()
-        for item in recent_tracks_response.get("items", []):
-            for artist in item["track"]["artists"]:
-                recent_artists.add(artist["id"])
+            # Ensure we have all required fields
+            if (album.get("name") and
+                    album.get("artists") and
+                    album.get("images")):
+                album_entry = {
+                    "album_name": album["name"],
+                    "artist": album["artists"][0]["name"],
+                    "image": album["images"][0]["url"],
+                    "album_id": album.get("id", str(hash(album["name"])))
+                }
+                album_game_data.append(album_entry)
 
-        new_artists = recent_artists - all_artists
+        # Shuffle the albums to randomize game
+        random.shuffle(album_game_data)
 
-        # Track-related metrics
-        all_tracks = set(track["id"] for track in top_tracks_response.get("items", []))
+        # Select first 10 albums for the game or fewer if not enough
+        selected_albums = album_game_data[:10]
 
-        # Album-related metrics
-        all_albums = set(track["album"]["id"] for track in top_tracks_response.get("items", []))
+        # Prepare albums with blanked-out names
+        for album in selected_albums:
+            # Create a blanked-out version of the album name
+            words = album['album_name'].split()
 
-        # Location/Market metrics
-        all_markets = set()
-        for track in top_tracks_response.get("items", []):
-            all_markets.update(track.get("available_markets", []))
+            # Choose a random word to blank out
+            blank_index = random.randint(0, len(words) - 1)
+            original_word = words[blank_index]
 
-        # Calculate listening time
-        total_listening_time = sum(
-            item["track"]["duration_ms"]
-            for item in recent_tracks_response.get("items", [])
-        )
-        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)
+            # Replace the chosen word with underscores
+            words[blank_index] = '_' * len(original_word)
 
-        # Process top genres
-        genres = []
-        for artist in top_artists_response.get("items", []):
-            genres.extend(artist.get("genres", []))
-        top_genres = Counter(genres).most_common(5)
+            # Store additional game information
+            album['blanked_name'] = ' '.join(words)
+            album['correct_word'] = original_word
+            album['word_index'] = blank_index
 
         # Time range display names
         time_range_display = {
@@ -300,136 +273,94 @@ class GameView(APIView):
             'long_term': 'All Time'
         }
 
+        # Store game state in session
+        request.session['spotify_game_albums'] = selected_albums
+        request.session['spotify_game_session'] = {
+            "current_round": 0,
+            "total_rounds": len(selected_albums),
+            "score": 0
+        }
+        request.session.modified = True
+
         # Structure the data for the frontend
-        wrapped_data = {
-            "response": response,
-            # Time range information
+        trapped_data = {
             "currentTimeRange": time_range,
             "timeRangeDisplay": time_range_display[time_range],
             "availableTimeRanges": [
                 {'value': tr, 'display': time_range_display[tr]}
                 for tr in valid_ranges
             ],
-
-            # Total counts
-            "totalArtists": len(all_artists),
-            "totalTracks": len(all_tracks),
-            "totalAlbums": len(all_albums),
-            "totalLocations": len(all_markets),
-            "newArtistsCount": len(new_artists),
-
-            # Listening statistics
-            "listeningTimeHours": listening_time_hours,
-            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
-
-            # Top Artists
-            "topArtists": [
-                {
-                    "name": artist["name"],
-                    "subtitle": ", ".join(artist.get("genres", [])[:2]),
-                    "image": artist["images"][0]["url"] if artist.get("images") else None,
-                    "popularity": artist.get("popularity", 0),
-                    "genres": artist.get("genres", []),
-                    "spotifyUrl": artist["external_urls"]["spotify"]
+            "gameData": {
+                "currentAlbum": selected_albums[0],
+                "gameSession": {
+                    "current_round": 0,
+                    "total_rounds": len(selected_albums),
+                    "score": 0
                 }
-                for artist in top_artists_response.get("items", [])[:5]
-            ],
-
-            # Top Tracks
-            "topTracks": [
-                {
-                    "name": track["name"],
-                    "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
-                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                    "popularity": track.get("popularity", 0),
-                    "previewUrl": track.get("preview_url"),
-                    "spotifyUrl": track["external_urls"]["spotify"],
-                    "albumName": track["album"]["name"],
-                    "duration": track["duration_ms"]
-                }
-                for track in top_tracks_response.get("items", [])[:5]
-            ],
-
-            # Top Albums (unchanged)
-            "topAlbums": [
-                {
-                    "name": track["album"]["name"],
-                    "subtitle": track["album"]["artists"][0]["name"],
-                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                    "releaseDate": track["album"].get("release_date"),
-                    "totalTracks": track["album"].get("total_tracks"),
-                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
-                }
-                for track in top_tracks_response.get("items", [])[:5]
-            ],
-
-            # Top Locations
-            "topLocations": [
-                {
-                    "name": market,
-                    "count": len([
-                        track for track in top_tracks_response.get("items", [])
-                        if market in track.get("available_markets", [])
-                    ])
-                }
-                for market in list(all_markets)[:5]
-            ],
-
-            # User Profile
-            "userProfile": {
-                "name": profile_response.get("display_name"),
-                "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
-                "country": profile_response.get("country"),
-                "product": profile_response.get("product"),
-                "followersCount": profile_response.get("followers", {}).get("total", 0)
             }
-
         }
-
-        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
 
         # Return JSON for API consumption
         if request.headers.get('Accept') == 'application/json':
-            return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)
+            return JsonResponse(trapped_data, encoder=DjangoJSONEncoder)
 
         # Otherwise render the template
-        return render(request, "guessing_game.html", {
-            "wrapped_data": wrapped_data,
-            "page_title": f"Your Spotify Wrapped - {time_range_display[time_range]}",
-            "current_year": datetime.now().year,
-            "request": request  # Pass request to template for building absolute URLs
+        return render(request, "album_guessing_game.html", {
+            "trapped_data": trapped_data,
+            "page_title": f"Spotify Album Guessing Game - {time_range_display[time_range]}",
+            "current_year": datetime.now().year
         })
-    def generate_sharing_data(self, wrapped_data, request):
-        """Generate sharing text and URLs for social media platforms"""
 
-        # Base sharing text
-        share_text = (
-            f"🎵 My Spotify Wrapped Stats:\n"
-            f"• {wrapped_data['listeningTimeHours']} hours of music\n"
-            f"• Top Artist: {wrapped_data['topArtists'][0]['name']}\n"
-            f"• Top Track: {wrapped_data['topTracks'][0]['name']}\n"
-            f"• {wrapped_data['totalArtists']} different artists\n"
-            f"#SpotifyWrapped"
-        )
+    def post(self, request, format=None):
+        # Retrieve game state from session
+        try:
+            albums = request.session.get('spotify_game_albums', [])
+            game_session = request.session.get('spotify_game_session', {})
 
-        # Get the current page's URL
-        current_url = request.build_absolute_uri()
+            if not albums or not game_session:
+                return JsonResponse({"error": "Game session not found"}, status=400)
 
-        # Generate platform-specific sharing URLs
-        sharing_data = {
-            'twitter': {
-                'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}&url={urllib.parse.quote(current_url)}"
-            },
-            'linkedin': {
-                'url': f"https://www.linkedin.com/sharing/share-offsite/?url={urllib.parse.quote(current_url)}"
-            },
-            'instagram': {
-                'text': share_text,  # For copying to clipboard since Instagram doesn't have a direct sharing API
-                'url': current_url
+            # Get submitted answer
+            submitted_word = request.data.get('submittedWord', '').strip()
+
+            # Check if answer is correct
+            current_album = albums[game_session['current_round']]
+            is_correct = (
+                    submitted_word.lower() == current_album['correct_word'].lower()
+            )
+
+            # Update score
+            if is_correct:
+                game_session['score'] += 1
+
+            # Move to next round
+            game_session['current_round'] += 1
+
+            # Check if game is over
+            is_game_over = game_session['current_round'] >= game_session['total_rounds']
+
+            # Prepare response
+            response_data = {
+                "isCorrect": is_correct,
+                "correctWord": current_album['correct_word'],
+                "score": game_session['score'],
+                "currentRound": game_session['current_round'],
+                "totalRounds": game_session['total_rounds'],
+                "isGameOver": is_game_over
             }
-        }
-        print(sharing_data)
-        return sharing_data
+
+            # If not game over, include next album
+            if not is_game_over:
+                response_data['nextAlbum'] = albums[game_session['current_round']]
+
+            # Update session
+            request.session['spotify_game_session'] = game_session
+            request.session.modified = True
+
+            return JsonResponse(response_data)
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
 class SpotifyWrappedView(APIView):
     def get(self, request, format=None):
         key = self.request.session.session_key
