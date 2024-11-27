@@ -923,7 +923,7 @@ def saved_spotify_wrapped_profile(request, id):
     })
 
 
-def delete_spotify_wrap(request):
+def delete_spotify_wrap(request, id):
     try:
         wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
     except SpotifyWrapped.DoesNotExist:
