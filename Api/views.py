@@ -583,7 +583,8 @@ class SpotifyWrappedTracksView(APIView):
                     "name": track["name"],
                     "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
                     "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                    "spotifyUrl": track["external_urls"]["spotify"]
+                    "spotifyUrl": track["external_urls"]["spotify"],
+                    "preview_url": track["preview_url"],  # Include preview URL
                 }
                 for track in top_tracks_response.get("items", [])[:5]
             ]
