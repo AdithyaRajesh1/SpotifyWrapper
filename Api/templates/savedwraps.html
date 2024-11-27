@@ -20,7 +20,13 @@
                     <div class="card-content">
                         <h3>{{ wrap.user.username }}'s Spotify Wrapped</h3>
                         <p class="created-at">{{ wrap.created_at|date:"F j, Y" }}</p>
-                        <a href="{% url 'wrap_detail' wrap.id %}" class="btn">View Details</a>
+                        <a href="{% url 'saved_spotify_wrapped_profile' wrap.id %}" class="btn">View Details</a>
+
+                        <!-- Delete button inside a form to handle the POST request -->
+                        <form action="{% url 'delete_spotify_wrap' wrap.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}

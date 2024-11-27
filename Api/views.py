@@ -5,7 +5,7 @@ from rest_framework.reverse import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework import status
 from requests import Request, post
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from .models import Token
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
@@ -867,3 +867,69 @@ for table in tables:
 
 # Close the connection when done
 conn.close()
+
+
+def saved_spotify_wrapped_artists(request, id):
+    user = request.user
+
+    # Get the specific wrap by id
+    wrap = get_object_or_404(SpotifyWrapped, id=id, user=user)
+
+    # Render the wrapped_profile.html template with the wrap context
+    return render(request, "saved_artists.html", {
+        "wrap": wrap,
+        "page_title": "Your Saved Spotify Profile",
+    })
+
+
+
+def saved_spotify_wrapped_tracks(request, id):
+    user = request.user
+
+    # Get the specific wrap by id
+    wrap = get_object_or_404(SpotifyWrapped, id=id, user=user)
+
+    # Render the wrapped_profile.html template with the wrap context
+    return render(request, "saved_tracks.html", {
+        "wrap": wrap,
+        "page_title": "Your Saved Spotify Profile",
+    })
+
+
+def saved_spotify_wrapped_albums(request, id):
+    user = request.user
+
+    # Get the specific wrap by id
+    wrap = get_object_or_404(SpotifyWrapped, id=id, user=user)
+
+    # Render the wrapped_profile.html template with the wrap context
+    return render(request, "saved_albums.html", {
+        "wrap": wrap,
+        "page_title": "Your Saved Spotify Profile",
+    })
+
+
+def saved_spotify_wrapped_profile(request, id):
+    user = request.user
+
+    # Get the specific wrap by id
+    wrap = get_object_or_404(SpotifyWrapped, id=id, user=user)
+
+    # Render the wrapped_profile.html template with the wrap context
+    return render(request, "saved_profile.html", {
+        "wrap": wrap,
+        "page_title": "Your Saved Spotify Profile",
+    })
+
+
+def delete_spotify_wrap(request):
+    try:
+        wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
+    except SpotifyWrapped.DoesNotExist:
+        raise Http404("Spotify Wrapped data not found.")
+
+        # Delete the wrap
+    wrap.delete()
+
+    # Redirect back to the list of wraps
+    return redirect('savedwraps')

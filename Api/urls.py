@@ -36,6 +36,13 @@ urlpatterns = [
     path('wrapped/locations', views.TopLocationsView.as_view(), name='wrapped_locations'),
 
     path('savedwraps/', views.savedwraps, name='savedwraps'),
-    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),  # Detailed view for each wrap
+    path('savedwraps/artists/<int:id>/', views.saved_spotify_wrapped_artists, name='saved_spotify_wrapped_artists'),
+    path('savedwraps/tracks/<int:id>/', views.saved_spotify_wrapped_tracks, name='saved_spotify_wrapped_tracks'),
+    path('savedwraps/albums/<int:id>/', views.saved_spotify_wrapped_albums, name='saved_spotify_wrapped_albums'),
+    path('savedwraps/profile/<int:id>/', views.saved_spotify_wrapped_profile, name='saved_spotify_wrapped_profile'),
 
+    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),
+
+    path('delete_wrap/<int:id>/', views.delete_spotify_wrap, name='delete_spotify_wrap'),
 ]
+# Detailed view for each wrap
