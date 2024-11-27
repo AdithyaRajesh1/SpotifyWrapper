@@ -18,7 +18,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
 import urllib.parse
 #import google.generativeai as genai
-
+import google.generativeai as genai
 
 from django.shortcuts import render  # Assuming the function is in utils.py
 
@@ -717,6 +717,64 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 
 logger = logging.getLogger(__name__)
+class SpotifyWrappedGenAIView(APIView):
+    def get(self, request, format=None):
+        # Get the session key for the request
+        key = self.request.session.session_key
+
+        # Get time range from query parameters, default to medium_term
+        time_range = request.GET.get('time_range', 'medium_term')
+
+        # Validate time range
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            logger.warning(f"Invalid time range: {time_range}. Defaulting to 'medium_term'.")
+            time_range = 'medium_term'
+
+        try:
+            # Fetch top tracks data from Spotify API
+            top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+            top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+
+            # Extract top song names and their artists
+            top_songs_and_artists = [
+                f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
+                for track in top_tracks_response.get("items", [])[:5]
+            ]
+            top_songs_and_artists_str = "; ".join(top_songs_and_artists)
+
+            # Configure GenAI
+            import google.generativeai as genai
+            genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+            model = genai.GenerativeModel("gemini-1.5-flash")
+
+            # Generate dynamic description based on top songs and artists
+            response = model.generate_content(
+                f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
+                f"These are my top songs and artists: {top_songs_and_artists_str}. Limit the response to less than 100 words."
+            )
+
+            # Process the GenAI response
+            wrapped_data = {
+                "genaiResponse": response.text,
+                "topSongsAndArtists": top_songs_and_artists
+            }
+
+            logger.info(f"Successfully generated GenAI response for top tracks")
+
+        except Exception as e:
+            logger.error(f"Error generating GenAI response: {str(e)}")
+            wrapped_data = {
+                "genaiResponse": "Unable to generate description.",
+                "topSongsAndArtists": []
+            }
+
+        # Render the template with the data
+        return render(request, "wrapped_genai.html", {
+            "wrapped_data": wrapped_data,
+            "page_title": "Your Music Personality",
+            "time_range": time_range
+        })
 
 
 class SpotifyWrappedArtistsView(APIView):

@@ -12,6 +12,7 @@
             
             <!-- Stats list with fade-in animation -->
             <ul class="stats-list">
+                
                 <li class="stat-item"><span class="stat-title">Total Artists:</span> {{ wrapped_data.totalArtists }}</li>
                 <li class="stat-item"><span class="stat-title">Total Tracks:</span> {{ wrapped_data.totalTracks }}</li>
                 <li class="stat-item"><span class="stat-title">Total Albums:</span> {{ wrapped_data.totalAlbums }}</li>
@@ -21,7 +22,7 @@
             </ul>
 
             <!-- Button to navigate to top artists -->
-            <a href="{% url 'wrapped_artists' %}?time_range={{ time_range }}" class="btn navigate-artists">See Your Top Artists</a>
+            <a href="{% url 'wrapped_response' %}?time_range={{ time_range }}" class="btn navigate-response">See Your AI response</a>
         </section>
     </div>
 {% endblock %}
