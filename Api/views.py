@@ -18,8 +18,7 @@ from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
 import urllib.parse
-#import google.generativeai as genai
-import google.generativeai as genai
+
 
 from django.shortcuts import render  # Assuming the function is in utils.py
 
@@ -590,6 +589,25 @@ class SpotifyWrappedView(APIView):
 
 
        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
+
+       if request.user.is_authenticated:
+           # Save the data to the database
+           SpotifyWrapped.objects.create(
+               user=request.user,
+               time_range=wrapped_data["currentTimeRange"],
+               total_artists=wrapped_data["totalArtists"],
+               total_tracks=wrapped_data["totalTracks"],
+               total_albums=wrapped_data["totalAlbums"],
+               total_locations=wrapped_data["totalLocations"],
+               new_artists_count=wrapped_data["newArtistsCount"],
+               listening_time_hours=wrapped_data["listeningTimeHours"],
+               top_genres=wrapped_data["topGenres"],
+               top_artists=wrapped_data["topArtists"],
+               top_tracks=wrapped_data["topTracks"],
+               top_albums=wrapped_data["topAlbums"],
+               top_locations=wrapped_data["topLocations"],
+               user_profile=wrapped_data["userProfile"]
+           )
 
 
        # Return JSON for API consumption
