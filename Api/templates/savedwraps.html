@@ -27,6 +27,17 @@
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <a href="{% url 'wrap_detail' wrap.id %}" class="btn">View Details</a>
+
+                        <!-- Post on Website Button -->
+                    <a href="{% url 'post_wrap_to_website' wrap.id %}" class="share-button" style="background-color: #ff6600;" title="Post on Website">
+                        <svg class="share-icon" viewBox="0 0 24 24">
+                            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+                            <line x1="12" y1="6" x2="12" y2="18"></line>
+                            <line x1="6" y1="12" x2="18" y2="12"></line>
+                        </svg>
+                        Post on Website
+                    </a>
                     </div>
                 </div>
             {% endfor %}

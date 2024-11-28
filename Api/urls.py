@@ -6,6 +6,7 @@ from Api import views
 from Api.views import spotify_redirect, CheckAuthentication, CurrentSong, Authentication, home, TopSongs, \
     SpotifyWrappedView, register, GameView, delete_account
 
+    SpotifyWrappedView, register, PostListView
 urlpatterns = [
 
     path('', home, name='home'),
@@ -39,6 +40,11 @@ urlpatterns = [
     path('wrapped/locations', views.TopLocationsView.as_view(), name='wrapped_locations'),
 
     path('savedwraps/', views.savedwraps, name='savedwraps'),
+    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),  # Detailed view for each wrap
+    path('post-wrap/<int:wrap_id>/', views.post_wrap_to_website, name='post_wrap_to_website'),
+    #path('posts/', views.PostListView.as_view(), name='post_list'),
+path('posts/', views.PostListView.as_view(), name='post_list'),
+
     path('savedwraps/artists/<int:id>/', views.saved_spotify_wrapped_artists, name='saved_spotify_wrapped_artists'),
     path('savedwraps/tracks/<int:id>/', views.saved_spotify_wrapped_tracks, name='saved_spotify_wrapped_tracks'),
     path('savedwraps/albums/<int:id>/', views.saved_spotify_wrapped_albums, name='saved_spotify_wrapped_albums'),
