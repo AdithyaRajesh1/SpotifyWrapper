@@ -22,9 +22,9 @@
         align-items: center;
         text-align: center;
         align-content: center;
-        overflow: hidden;
         font-family: 'Arial', sans-serif; /* Clean font for a modern look */
         color: white; /* Text color */
+        overflow: auto;
     }
 
     /* Slide Styling */
@@ -32,7 +32,7 @@
         text-align: center;
         display: none; /* Hidden by default */
         width: 80%;
-        padding: 80px;
+        padding: 40px;
         border-radius: 10px;
         background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background for the content */
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add depth */
@@ -58,15 +58,16 @@
     
     /* Image Styling */
     .slide-image {
-        width: 500px;
-        height: 500px;
-        margin-bottom: 20px;
+        width: 40vw; /* 40% of the viewport width */
+        height: 40vw; /* Maintain a square aspect ratio */
+        max-width: 400px; /* Cap the size to 400px */
+        max-height: 400px;
+        margin-bottom: 0px;
         border-radius: 10px;
         transition: opacity 0.5s ease, transform 0.5s ease;
         opacity: 0;
         transform: scale(0.8);
     }
-
     .slideshow-item.active .slide-image {
         opacity: 1;
         transform: scale(1);
