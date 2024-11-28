@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Socials Data
+{% endblock %}
+
+{% block content %}
+        <head>
+        <style>
+            
+            .green-title {
+                color: #1db954; /* Spotify green color */
+                font-size: 70px; /* Make the text bigger */
+                font-weight: bold; /* Ensure it's bold */
+                text-align: center; /* Center the text */
+                margin-bottom: 20px; /* Add some space below the title */
+                font-family: Arial, sans-serif; /* Match the font style */
+            }
+            /* Overall container for all social cards */
+            .socials-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+                padding: 20px;
+            }
+            
+            /* Each individual social card */
+            .social-card {
+                border: 1px solid #ddd;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: #ffffff;
+                width: 100%;
+                max-width: 400px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+            
+            /* Top tracks container within a social card */
+            .top-tracks-container {
+                margin-top: 15px;
+            }
+            
+            /* Each individual track card */
+            .track-card {
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+                margin-bottom: 15px;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+            }
+            
+            /* Track image styling */
+            .track-image {
+                width: 60px;
+                height: 60px;
+                border-radius: 5px;
+                object-fit: cover;
+            }
+            
+            /* Track details text */
+            .track-details {
+                flex: 1;
+            }
+            
+            /* Spotify button */
+            .btn {
+                display: inline-block;
+                margin-top: 5px;
+                padding: 5px 10px;
+                background-color: #1db954;
+                color: white;
+                text-decoration: none;
+                border-radius: 3px;
+                font-size: 14px;
+            }
+            
+            .btn:hover {
+                background-color: #14843c;
+            }
+            
+            /* Page title styling */
+            .page-title {
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+            
+            /* General styling for strong labels */
+            p > strong {
+                color: #333;
+            }
+
+        </style>
+    </head>
+    <div class="page-title green-title">Welcome to Spotify Wrapped Online</div>
+
+    {% if socials_list %}
+        <div class="socials-container">
+            {% for social in socials_list %}
+                <div class="social-card">
+                    <h3>{{ social.user.username }}'s Social Data</h3>
+                    <p><strong>Time Range:</strong> {{ social.time_range }}</p>
+                    <p><strong>Total Artists:</strong> {{ social.total_artists }}</p>
+                    <p><strong>Total Tracks:</strong> {{ social.total_tracks }}</p>
+                    <p><strong>Total Albums:</strong> {{ social.total_albums }}</p>
+                    <p><strong>Total Locations:</strong> {{ social.total_locations }}</p>
+                    <p><strong>New Artists Count:</strong> {{ social.new_artists_count }}</p>
+                    <p><strong>Listening Time (Hours):</strong> {{ social.listening_time_hours }}</p>
+
+                    <div class="top-tracks-container">
+                        <h4>Top Tracks:</h4>
+                        {% for track in social.top_tracks %}
+                            <div class="track-card">
+                                <img src="{{ track.image }}" alt="{{ track.name }}" class="track-image">
+                                <div class="track-details">
+                                    <p><strong>{{ track.name }}</strong></p>
+                                    <p><em>{{ track.subtitle }}</em></p>
+                                    <p><strong>Album:</strong> {{ track.albumName }}</p>
+                                    <p><strong>Popularity:</strong> {{ track.popularity }}</p>
+                                    <p><strong>Duration:</strong> {{ track.duration|floatformat:0 }} seconds</p>
+                                    <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">Open in Spotify</a>
+                                    {% if track.previewUrl %}
+                                        <audio controls>
+                                            <source src="{{ track.previewUrl }}" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>No top tracks available.</p>
+                        {% endfor %}
+                    </div>
+
+                    <p><strong>Created On:</strong> {{ social.created_on|date:"F j, Y H:i" }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No social data available.</p>
+    {% endif %}
+{% endblock %}

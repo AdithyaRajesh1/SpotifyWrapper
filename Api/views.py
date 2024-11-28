@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.reverse import reverse_lazy
@@ -6,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from requests import Request, post
 from django.http import JsonResponse
-from .models import Token
+from .models import Token, Social
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 from collections import Counter
@@ -17,6 +18,12 @@ from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
 import urllib.parse
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from rest_framework.views import APIView
+from .models import SpotifyWrapped, Social
+from django.views.generic import ListView
+from .models import Social
 #import google.generativeai as genai
 
 
@@ -865,5 +872,42 @@ for table in tables:
 
     print("\n" + "-" * 50 + "\n")
 
+
+class PostListView(ListView):
+    model = Social
+    template_name = 'post_list.html'
+    context_object_name = 'post_list'
+    ordering = ['-created_on']
+
+
+def post_wrap_to_website(request, wrap_id):
+    # Get the SpotifyWrapped object for the current user
+    wrap = get_object_or_404(SpotifyWrapped, id=wrap_id, user=request.user)
+
+    # Copy the data to a new Post object
+    Social.objects.create(
+        user=request.user,
+        time_range=wrap.time_range,
+        total_artists=wrap.total_artists,
+        total_tracks=wrap.total_tracks,
+        total_albums=wrap.total_albums,
+        total_locations=wrap.total_locations,
+        new_artists_count=wrap.new_artists_count,
+        listening_time_hours=wrap.listening_time_hours,
+        top_genres=wrap.top_genres,
+        top_artists=wrap.top_artists,
+        top_tracks=wrap.top_tracks,
+        top_albums=wrap.top_albums,
+        top_locations=wrap.top_locations,
+        user_profile=wrap.user_profile,
+    )
+
+    # Add a success message and redirect to the posts page
+    messages.success(request, "Your Spotify Wrapped data has been posted!")
+    socials_list = Social.objects.all()
+    context = {
+        'socials_list': socials_list,  # Pass the list to the template
+    }
+    return render(request, 'post_list.html', context)  # Ensure 'post_list' matches the URL name for your posts page
 # Close the connection when done
 conn.close()

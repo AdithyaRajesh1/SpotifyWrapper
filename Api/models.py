@@ -40,8 +40,24 @@ class SpotifyWrapped(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.time_range} Wrapped"
 
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 
-
-
-
+class Social(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    time_range = models.CharField(max_length=20)
+    total_artists = models.IntegerField()
+    total_tracks = models.IntegerField()
+    total_albums = models.IntegerField()
+    total_locations = models.IntegerField()
+    new_artists_count = models.IntegerField()
+    listening_time_hours = models.FloatField()
+    top_genres = models.JSONField()
+    top_artists = models.JSONField()
+    top_tracks = models.JSONField()
+    top_albums = models.JSONField()
+    top_locations = models.JSONField()
+    user_profile = models.JSONField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
