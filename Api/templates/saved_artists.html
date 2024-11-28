@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/artists.css' %}">
+    <div class="top-artists-container">
+        <h1 class="section-title">Your Top Artists</h1>
+        <p class="section-subtitle">These artists have been on repeat!</p>
+
+        <!-- Card Grid -->
+        <div class="card-grid">
+            {% for artist in wrap.top_artists%}
+                <div class="artist-card">
+                    <div class="card-image-container">
+                        <img src="{{ artist.image }}" alt="{{ artist.name }}" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="artist-name">{{ artist.name }}</h3>
+                        <p class="genre">{{ artist.subtitle }}</p>
+                        <p class="popularity">Popularity: {{ artist.popularity }}</p>
+                        <a href="{{ artist.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="next-section">
+            <!-- Redirect to the saved top tracks page for this specific wrap -->
+            <a href="{% url 'saved_spotify_wrapped_tracks' id=wrap.id %}" class="btn next-btn">Top Tracks</a>
+        </div>
+    </div>
+{% endblock %}

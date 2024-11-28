@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/tracks.css' %}">
+    <div class="container">
+        <h1 class="page-title">Your Top Tracks</h1>
+        <p class="section-subtitle">Here’s what you’ve been vibing to:</p>
+        
+        <div class="card-container">
+            {% for track in wrap.top_tracks %}
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="{{ track.image }}" alt="{{ track.name }}" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ track.name }}</h3>
+                        <p class="album-name">Album: {{ track.albumName }}</p>
+                        <p class="artist-name">Artist: {{ track.subtitle }}</p>
+                        
+                        {% if track.previewUrl %}
+                            <!-- Audio player for song preview without controls -->
+                            <audio class="track-preview">
+                                <source src="{{ track.previewUrl }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% else %}
+                            <p>Preview not available</p>
+                        {% endif %}
+                        
+                        <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">Play on Spotify</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="next-section">
+            <!-- Include time_range in the URL when navigating to the next page -->
+            <a href="{% url 'saved_spotify_wrapped_albums' id=wrap.id %}" class="btn navigate-artists">See Your Top Albums</a>
+        </div>
+    </div>
+
+    <!-- JavaScript to autoplay the first track and remove controls -->
+    <script>
+        window.onload = function() {
+            var audioElements = document.querySelectorAll('.track-preview');
+            if (audioElements.length > 0) {
+                // Automatically play the first audio element without controls
+                var firstTrack = audioElements[0];
+                firstTrack.play();
+
+                // Optionally, hide the audio player element (no controls)
+                firstTrack.style.display = 'none';
+            }
+        }
+    </script>
+{% endblock %}
