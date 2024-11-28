@@ -8,7 +8,7 @@ from rest_framework import status
 from requests import Request, post
 from django.http import JsonResponse, Http404
 from .models import Token
-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, API_KEY
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 from collections import Counter
 from datetime import datetime, timedelta
@@ -20,7 +20,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 import urllib.parse
 #import google.generativeai as genai
 import google.generativeai as genai
-
+import os
 from django.shortcuts import render  # Assuming the function is in utils.py
 
 from django.shortcuts import render, redirect
@@ -419,7 +419,7 @@ class SpotifyWrappedView(APIView):
        profile_endpoint = "me"
        profile_response = spotify_requests_execution(key, profile_endpoint)
        # Extract top song names and their artists
-       genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+       genai.configure(api_key=API_KEY)
        model = genai.GenerativeModel("gemini-1.5-flash")
        top_songs_and_artists = [
            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
@@ -748,7 +748,7 @@ class SpotifyWrappedGenAIView(APIView):
 
             # Configure GenAI
             import google.generativeai as genai
-            genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+            genai.configure(api_key=API_KEY)
             model = genai.GenerativeModel("gemini-1.5-flash")
 
             # Generate dynamic description based on top songs and artists
