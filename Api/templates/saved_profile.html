@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <div class="wrapped-overview-container">
+        <h1 class="landing-title">Your Spotify Wrapped</h1>
+        <p class="description">A personalized look back at your music journey</p>
+
+        <section class="stats-overview">
+            <h2 class="section-title">Your Stats</h2>
+
+            <!-- Stats list with fade-in animation -->
+            <ul class="stats-list">
+                <li class="stat-item"><span class="stat-title">Total Artists:</span> {{ wrap.total_artists }}</li>
+                <li class="stat-item"><span class="stat-title">Total Tracks:</span> {{ wrap.total_tracks }}</li>
+                <li class="stat-item"><span class="stat-title">Total Albums:</span> {{ wrap.total_albums }}</li>
+                <li class="stat-item"><span class="stat-title">Total Listening Time:</span> {{ wrap.listening_time_hours }} hours</li>
+                <li class="stat-item"><span class="stat-title">New Artists Discovered:</span> {{ wrap.new_artists_count }}</li>
+                <li class="stat-item"><span class="stat-title">Available In:</span> {{ wrap.total_locations }} countries</li>
+            </ul>
+
+            <!-- Button to navigate to top artists -->
+            <a href="{% url 'saved_spotify_wrapped_artists' id=wrap.id %}" class="btn navigate-artists">See Your Top Artists</a>
+        </section>
+    </div>
+{% endblock %}

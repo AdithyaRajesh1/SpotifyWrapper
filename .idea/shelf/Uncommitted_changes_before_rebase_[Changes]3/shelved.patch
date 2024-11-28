@@ -1,0 +1,575 @@
+Index: Api/static/css/tracks.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/* Title and Subtitle */\r\n.page-title {\r\n    font-size: 3rem;\r\n    font-weight: bold;\r\n    color: #1db954;\r\n    margin-bottom: 10px;\r\n    animation: slideUp 1s ease-out;\r\n}\r\n\r\n.section-subtitle {\r\n    font-size: 1.25rem;\r\n    color: #b3b3b3;\r\n    margin-bottom: 40px;\r\n    animation: fadeIn 1.5s ease-out;\r\n}\r\n\r\n/* Card Layout */\r\n.card-container {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\r\n    gap: 30px;\r\n    padding: 0 20px;\r\n    animation: fadeIn 2s ease-out;\r\n}\r\n\r\n/* Card Styles */\r\n.card {\r\n    background-color: #181818;\r\n    border-radius: 12px;\r\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\r\n    overflow: hidden;\r\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\r\n}\r\n\r\n.card:hover {\r\n    transform: scale(1.05);\r\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n/* Card Image */\r\n.card-image-container {\r\n    width: 100%;\r\n    height: 250px;\r\n    overflow: hidden;\r\n}\r\n\r\n.card-image {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n    transition: transform 0.3s ease;\r\n}\r\n\r\n.card:hover .card-image {\r\n    transform: scale(1.1);\r\n}\r\n\r\n/* Card Content */\r\n.card-content {\r\n    padding: 20px;\r\n    text-align: left;\r\n}\r\n\r\n.card-content h3 {\r\n    font-size: 1.75rem;\r\n    font-weight: bold;\r\n    color: #fff;\r\n    margin: 10px 0;\r\n}\r\n\r\n.album-name, .artist-name {\r\n    font-size: 1.1rem;\r\n    color: #b3b3b3;\r\n}\r\n\r\n/* Button Styles */\r\n.btn {\r\n    display: inline-block;\r\n    background-color: #1db954;\r\n    color: #fff;\r\n    padding: 12px 24px;\r\n    font-size: 1rem;\r\n    font-weight: bold;\r\n    border-radius: 30px;\r\n    text-decoration: none;\r\n    margin-top: 20px;\r\n    transition: background-color 0.3s ease, transform 0.3s ease;\r\n}\r\n\r\n.btn:hover {\r\n    background-color: #1aa13f;\r\n    transform: scale(1.05);\r\n}\r\n\r\n.btn:active {\r\n    transform: scale(0.95);\r\n}\r\n\r\n/* Next Section Button */\r\n.next-section {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-top: 50px;\r\n}\r\n\r\n.next-btn {\r\n    background-color: #1db954;\r\n    font-size: 1.2rem;\r\n    padding: 12px 24px;\r\n    border-radius: 30px;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    transition: background-color 0.3s ease, transform 0.3s ease;\r\n    text-align: center;\r\n}\r\n\r\n.next-btn:hover {\r\n    background-color: #1aa13f;\r\n    transform: scale(1.05);\r\n}\r\n\r\n.next-btn:active {\r\n    transform: scale(0.95);\r\n}\r\n\r\n/* Animations */\r\n@keyframes fadeIn {\r\n    0% {\r\n        opacity: 0;\r\n        transform: translateY(20px);\r\n    }\r\n    100% {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n@keyframes slideUp {\r\n    0% {\r\n        opacity: 0;\r\n        transform: translateY(20px);\r\n    }\r\n    100% {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/static/css/tracks.css b/Api/static/css/tracks.css
+--- a/Api/static/css/tracks.css	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/static/css/tracks.css	(date 1732683777717)
+@@ -85,6 +85,8 @@
+     text-decoration: none;
+     margin-top: 20px;
+     transition: background-color 0.3s ease, transform 0.3s ease;
++    text-align: center;
++    border: none; /* Remove the border */
+ }
+ 
+ .btn:hover {
+@@ -96,6 +98,41 @@
+     transform: scale(0.95);
+ }
+ 
++/* Delete button styling */
++.btn-danger {
++    background-color: #e63946; /* Red color */
++    color: #fff;
++    display: inline-block;
++    padding: 12px 24px;
++    font-size: 1rem;
++    font-weight: bold;
++    border-radius: 30px;
++    text-decoration: none;
++    transition: background-color 0.3s ease, transform 0.3s ease;
++    text-align: center;
++    border: none; /* Remove the border */
++}
++
++.btn-danger:hover {
++    background-color: #d62828;
++}
++
++.btn-danger:active {
++    transform: scale(0.95);
++}
++
++/* Container for the buttons */
++.button-container {
++    display: flex;
++    justify-content: space-between; /* This will space the buttons evenly */
++    margin-top: 20px;
++}
++
++.button-container a,
++.button-container .btn-danger {
++    width: 48%; /* Ensures both buttons are equally spaced */
++}
++
+ /* Next Section Button */
+ .next-section {
+     display: flex;
+@@ -145,4 +182,3 @@
+         transform: translateY(0);
+     }
+ }
+-
+Index: Api/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth.models import User\r\nfrom django.db import models\r\n\r\n# Create your models here\r\n\r\nclass Token(models.Model):\r\n    access_token = models.CharField(max_length=500)\r\n    refresh_token = models.CharField(max_length=500)\r\n    expires_in = models.DateTimeField()\r\n    user = models.CharField(max_length=50, unique=True)\r\n    token_type = models.CharField(max_length=50)\r\n    created_at = models.DateTimeField(auto_now_add=True)\r\n\r\n\r\nfrom django.db import models\r\nfrom django.contrib.auth.models import User\r\n\r\nfrom django.db import models\r\n\r\nfrom django.db import models\r\nfrom django.contrib.auth.models import User\r\n\r\nclass SpotifyWrapped(models.Model):\r\n    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='spotify_wraps')\r\n    time_range = models.CharField(max_length=20)  # e.g., 'short_term', 'medium_term', 'long_term'\r\n    total_artists = models.IntegerField()\r\n    total_tracks = models.IntegerField()\r\n    total_albums = models.IntegerField()\r\n    total_locations = models.IntegerField()\r\n    new_artists_count = models.IntegerField()\r\n    listening_time_hours = models.FloatField()\r\n    top_genres = models.JSONField()  # Store genres as a list of dictionaries\r\n    top_artists = models.JSONField()  # Store artists as a list of dictionaries\r\n    top_tracks = models.JSONField()  # Store tracks as a list of dictionaries\r\n    top_albums = models.JSONField()  # Store albums as a list of dictionaries\r\n    top_locations = models.JSONField()  # Store locations as a list of dictionaries\r\n    user_profile = models.JSONField()  # Store user profile details\r\n    created_at = models.DateTimeField(auto_now_add=True)\r\n\r\n    def __str__(self):\r\n        return f\"{self.user.username} - {self.time_range} Wrapped\"\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/models.py b/Api/models.py
+--- a/Api/models.py	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/models.py	(date 1732683777717)
+@@ -34,7 +34,7 @@
+     top_tracks = models.JSONField()  # Store tracks as a list of dictionaries
+     top_albums = models.JSONField()  # Store albums as a list of dictionaries
+     top_locations = models.JSONField()  # Store locations as a list of dictionaries
+-    user_profile = models.JSONField()  # Store user profile details
++    user_profile = models.JSONField()# Store user profile details
+     created_at = models.DateTimeField(auto_now_add=True)
+ 
+     def __str__(self):
+Index: Api/templates/wrapped_profile.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html' %}\r\n{% load static %}\r\n\r\n{% block content %}\r\n    <link rel=\"stylesheet\" href=\"{% static 'css/profile.css' %}\">\r\n    <div class=\"wrapped-overview-container\">\r\n        <h1 class=\"landing-title\">Your Spotify Wrapped</h1>\r\n        <p class=\"description\">A personalized look back at your music journey</p>\r\n\r\n        <section class=\"stats-overview\">\r\n            <h2 class=\"section-title\">Your Stats</h2>\r\n            \r\n            <!-- Stats list with fade-in animation -->\r\n            <ul class=\"stats-list\">\r\n                <li class=\"stat-item\"><span class=\"stat-title\">Total Artists:</span> {{ wrapped_data.totalArtists }}</li>\r\n                <li class=\"stat-item\"><span class=\"stat-title\">Total Tracks:</span> {{ wrapped_data.totalTracks }}</li>\r\n                <li class=\"stat-item\"><span class=\"stat-title\">Total Albums:</span> {{ wrapped_data.totalAlbums }}</li>\r\n                <li class=\"stat-item\"><span class=\"stat-title\">Total Listening Time:</span> {{ wrapped_data.listeningTimeHours }} hours</li>\r\n                <li class=\"stat-item\"><span class=\"stat-title\">New Artists Discovered:</span> {{ wrapped_data.newArtistsCount }}</li>\r\n                <li class=\"stat-item\"><span class=\"stat-title\">Available In:</span> {{ wrapped_data.totalLocations }} countries</li>\r\n            </ul>\r\n\r\n            <!-- Button to navigate to top artists -->\r\n            <a href=\"{% url 'wrapped_artists' %}?time_range={{ time_range }}\" class=\"btn navigate-artists\">See Your Top Artists</a>\r\n        </section>\r\n    </div>\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/templates/wrapped_profile.html b/Api/templates/wrapped_profile.html
+--- a/Api/templates/wrapped_profile.html	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/templates/wrapped_profile.html	(date 1732683777717)
+@@ -9,7 +9,7 @@
+ 
+         <section class="stats-overview">
+             <h2 class="section-title">Your Stats</h2>
+-            
++
+             <!-- Stats list with fade-in animation -->
+             <ul class="stats-list">
+                 <li class="stat-item"><span class="stat-title">Total Artists:</span> {{ wrapped_data.totalArtists }}</li>
+Index: Api/urls.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib import admin\r\nfrom django.urls import path, include\r\nfrom django.contrib.auth import views as auth_views\r\n\r\nfrom Api import views\r\nfrom Api.views import spotify_redirect, CheckAuthentication, CurrentSong, Authentication, home, TopSongs, \\\r\n    SpotifyWrappedView, register\r\n\r\nurlpatterns = [\r\n\r\n    path('', home, name='home'),\r\n    path('admin/', admin.site.urls),\r\n    path('redirect/', spotify_redirect, name='redirect'),\r\n    path('check-auth/', Authentication.as_view(), name='check-auth'),\r\n    path('current-song/', CurrentSong.as_view()),\r\n    path('top/', TopSongs.as_view()),\r\n    path('wrapped/', SpotifyWrappedView.as_view(), name = 'wrapped'),\r\n\r\n\r\n    path('register/',register, name='register'),\r\n    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),\r\n    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),\r\n    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),\r\n    path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),\r\n    path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),\r\n    path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),\r\n\r\n    path('wrapped/intro/', views.SpotifyWrappedOverviewView.as_view(), name='wrapped_intro'),\r\n    path('wrapped/artists/', views.SpotifyWrappedArtistsView.as_view(), name='wrapped_artists'),\r\n    path('wrapped/tracks/', views.SpotifyWrappedTracksView.as_view(), name='wrapped_tracks'),\r\n    path('wrapped/albums/', views.SpotifyWrappedAlbumsView.as_view(), name='wrapped_albums'),\r\n    path('wrapped/profile/', views.SpotifyWrappedProfileView.as_view(), name='wrapped_profile'),\r\n\r\n    path('wrapped/genres', views.TopGenresView.as_view(), name='wrapped_genres'),\r\n\r\n    path('wrapped/locations', views.TopLocationsView.as_view(), name='wrapped_locations'),\r\n\r\n    path('savedwraps/', views.savedwraps, name='savedwraps'),\r\n    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),  # Detailed view for each wrap\r\n\r\n]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/urls.py b/Api/urls.py
+--- a/Api/urls.py	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/urls.py	(date 1732683777717)
+@@ -31,11 +31,13 @@
+     path('wrapped/albums/', views.SpotifyWrappedAlbumsView.as_view(), name='wrapped_albums'),
+     path('wrapped/profile/', views.SpotifyWrappedProfileView.as_view(), name='wrapped_profile'),
+ 
+-    path('wrapped/genres', views.TopGenresView.as_view(), name='wrapped_genres'),
+-
+-    path('wrapped/locations', views.TopLocationsView.as_view(), name='wrapped_locations'),
+-
+     path('savedwraps/', views.savedwraps, name='savedwraps'),
+-    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),  # Detailed view for each wrap
++
++    path('savedwraps/artists/<int:id>/', views.saved_spotify_wrapped_artists, name='saved_spotify_wrapped_artists'),
++    path('savedwraps/tracks/<int:id>/', views.saved_spotify_wrapped_tracks, name='saved_spotify_wrapped_tracks'),
++    path('savedwraps/albums/<int:id>/', views.saved_spotify_wrapped_albums, name='saved_spotify_wrapped_albums'),
++    path('savedwraps/profile/<int:id>/', views.saved_spotify_wrapped_profile, name='saved_spotify_wrapped_profile'),
++    path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),
++    path('delete/<int:id>/', views.delete_spotify_wrap, name='delete_spotify_wrap'),# Detailed view for each wrap
+ 
+ ]
+Index: Api/templates/savedwraps.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html' %}\r\n{% load static %}\r\n\r\n{% block title %}\r\n    {{ page_title }}\r\n{% endblock %}\r\n\r\n{% block content %}\r\n    <link rel=\"stylesheet\" href=\"{% static 'css/tracks.css' %}\">\r\n    <div class=\"page-title\">{{ page_title }}</div>\r\n    <div class=\"section-subtitle\">Here are your saved Spotify Wrapped data</div>\r\n\r\n    {% if wraps %}\r\n        <div class=\"card-container\">\r\n            {% for wrap in wraps %}\r\n                <div class=\"card\">\r\n                    <div class=\"card-image-container\">\r\n                        <img src=\"{{ wrap.top_artists.0.image }}\" class=\"card-image\" alt=\"{{ wrap.top_artists.0.name }}\">\r\n                    </div>\r\n                    <div class=\"card-content\">\r\n                        <h3>{{ wrap.user.username }}'s Spotify Wrapped</h3>\r\n                        <p class=\"created-at\">{{ wrap.created_at|date:\"F j, Y\" }}</p>\r\n                        <a href=\"{% url 'wrap_detail' wrap.id %}\" class=\"btn\">View Details</a>\r\n                    </div>\r\n                </div>\r\n            {% endfor %}\r\n        </div>\r\n    {% else %}\r\n        <p class=\"text-center\">You have no saved Spotify Wrapped data.</p>\r\n    {% endif %}\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/templates/savedwraps.html b/Api/templates/savedwraps.html
+--- a/Api/templates/savedwraps.html	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/templates/savedwraps.html	(date 1732683777717)
+@@ -20,7 +20,16 @@
+                     <div class="card-content">
+                         <h3>{{ wrap.user.username }}'s Spotify Wrapped</h3>
+                         <p class="created-at">{{ wrap.created_at|date:"F j, Y" }}</p>
+-                        <a href="{% url 'wrap_detail' wrap.id %}" class="btn">View Details</a>
++
++                        <div class="button-container">
++                            <a href="{% url 'saved_spotify_wrapped_profile' wrap.id %}" class="btn">View Details</a>
++
++                            <!-- Delete button inside a form to handle the POST request -->
++                            <form action="{% url 'delete_spotify_wrap' wrap.id %}" method="post" style="display: inline;">
++                                {% csrf_token %}
++                                <button type="submit" class="btn btn-danger">Delete</button>
++                            </form>
++                        </div>
+                     </div>
+                 </div>
+             {% endfor %}
+Index: Api/templates/wrapped_tracks.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html' %}\r\n{% load static %}\r\n\r\n{% block content %}\r\n    <link rel=\"stylesheet\" href=\"{% static 'css/tracks.css' %}\">\r\n    <div class=\"container\">\r\n        <h1 class=\"page-title\">Your Top Tracks</h1>\r\n        <p class=\"section-subtitle\">Here’s what you’ve been vibing to:</p>\r\n        \r\n        <div class=\"card-container\">\r\n            {% for track in wrapped_data.topTracks %}\r\n                <div class=\"card\">\r\n                    <div class=\"card-image-container\">\r\n                        <img src=\"{{ track.image }}\" alt=\"{{ track.name }}\" class=\"card-image\">\r\n                    </div>\r\n                    <div class=\"card-content\">\r\n                        <h3>{{ track.name }}</h3>\r\n                        <p class=\"album-name\">Album: {{ track.albumName }}</p>\r\n                        <p class=\"artist-name\">Artist: {{ track.subtitle }}</p>\r\n                        <a href=\"{{ track.spotifyUrl }}\" target=\"_blank\" class=\"btn\">Play on Spotify</a>\r\n                    </div>\r\n                </div>\r\n            {% endfor %}\r\n        </div>\r\n\r\n        <div class=\"next-section\">\r\n            <!-- Include time_range in the URL when navigating to the next page -->\r\n            <a href=\"{% url 'wrapped_albums' %}?time_range={{ time_range }}\" class=\"btn next-btn\">Next: Top Albums</a>\r\n        </div>\r\n    </div>\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/templates/wrapped_tracks.html b/Api/templates/wrapped_tracks.html
+--- a/Api/templates/wrapped_tracks.html	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/templates/wrapped_tracks.html	(date 1732683777717)
+@@ -17,6 +17,17 @@
+                         <h3>{{ track.name }}</h3>
+                         <p class="album-name">Album: {{ track.albumName }}</p>
+                         <p class="artist-name">Artist: {{ track.subtitle }}</p>
++                        
++                        {% if track.preview_url %}
++                            <!-- Audio player for song preview without controls -->
++                            <audio class="track-preview">
++                                <source src="{{ track.preview_url }}" type="audio/mpeg">
++                                Your browser does not support the audio element.
++                            </audio>
++                        {% else %}
++                            <p>Preview not available</p>
++                        {% endif %}
++                        
+                         <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">Play on Spotify</a>
+                     </div>
+                 </div>
+@@ -28,4 +39,19 @@
+             <a href="{% url 'wrapped_albums' %}?time_range={{ time_range }}" class="btn next-btn">Next: Top Albums</a>
+         </div>
+     </div>
++
++    <!-- JavaScript to autoplay the first track and remove controls -->
++    <script>
++        window.onload = function() {
++            var audioElements = document.querySelectorAll('.track-preview');
++            if (audioElements.length > 0) {
++                // Automatically play the first audio element without controls
++                var firstTrack = audioElements[0];
++                firstTrack.play();
++
++                // Optionally, hide the audio player element (no controls)
++                firstTrack.style.display = 'none';
++            }
++        }
++    </script>
+ {% endblock %}
+Index: Api/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth.decorators import login_required\r\nfrom django.shortcuts import render, redirect, get_object_or_404\r\nfrom rest_framework.response import Response\r\nfrom rest_framework.reverse import reverse_lazy\r\nfrom rest_framework.views import APIView\r\nfrom rest_framework import status\r\nfrom requests import Request, post\r\nfrom django.http import JsonResponse\r\nfrom .models import Token\r\nfrom .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI\r\nfrom .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution\r\nfrom collections import Counter\r\nfrom datetime import datetime, timedelta\r\nimport sqlite3\r\nfrom django.contrib.auth.forms import UserCreationForm\r\nfrom django.contrib import messages\r\nfrom rest_framework.permissions import IsAuthenticated\r\nfrom django.core.serializers.json import DjangoJSONEncoder\r\nimport urllib.parse\r\n#import google.generativeai as genai\r\n\r\n\r\nfrom django.shortcuts import render  # Assuming the function is in utils.py\r\n\r\nfrom django.shortcuts import render, redirect\r\n\r\n\r\ndef home(request):\r\n    if request.user.is_authenticated:\r\n        return redirect('spotify/check-auth')  # Replace 'dashboard' with your dashboard route name\r\n    else:\r\n        return redirect('login')  # Replace 'login' with your login route name\r\n\r\n\r\n\r\n\r\ndef register(request):\r\n    if request.method == 'POST':\r\n        form = UserCreationForm(request.POST)\r\n        if form.is_valid():\r\n            form.save()\r\n            messages.success(request, 'Account created successfully. Please log in.')\r\n            return redirect('login')\r\n    else:\r\n        form = UserCreationForm()\r\n    return render(request, 'register.html', {'form': form})\r\n\r\nclass Authentication(APIView):\r\n    permission_classes = [IsAuthenticated]\r\n    def get(self, request, format=None):\r\n        scopes = \"user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read playlist-read-private user-read-recently-played user-read-private user-read-email\"\r\n        url = Request('GET', 'https://accounts.spotify.com/authorize', params={\r\n            'scope': scopes,\r\n            'response_type': 'code',\r\n            'redirect_uri': REDIRECT_URI,\r\n            'client_id': CLIENT_ID,\r\n        }).prepare().url\r\n        #return Response({\"url\": url}, status=status.HTTP_200_OK)\r\n        return render(request, 'auth.html', {\"url\": url})\r\n\r\n\r\n\r\n\r\n@login_required\r\ndef spotify_redirect(request):\r\n    code = request.GET.get('code')\r\n    error = request.GET.get('error')\r\n\r\n    if error:\r\n        return JsonResponse({\"error\": error}, status=status.HTTP_400_BAD_REQUEST)\r\n\r\n    response = post(\r\n    'https://accounts.spotify.com/api/token',\r\n    data={\r\n        'grant_type': 'authorization_code',\r\n        'code': code,\r\n        'redirect_uri': REDIRECT_URI,\r\n        'client_id': CLIENT_ID,\r\n        'client_secret': CLIENT_SECRET,\r\n    }).json()\r\n\r\n\r\n    print(\"Authorization Code:\", code)\r\n\r\n    if not request.session.exists(request.session.session_key):\r\n        request.session.create()\r\n        print('successful')\r\n\r\n    access_token = response.get('access_token')\r\n    refresh_token = response.get('refresh_token')\r\n    expires_in = response.get('expires_in', 3600)\r\n    token_type = response.get('token_type')\r\n    error = response.get('error')\r\n\r\n    create_or_update_tokens(\r\n        session_id=request.session.session_key,\r\n        access_token=access_token,\r\n        refresh_token=refresh_token,\r\n        expires_in=expires_in,\r\n        token_type=token_type,\r\n    )\r\n\r\n    # Return redirect URL as JSON, handle on frontend\r\n    redirect_url = f\"http://localhost:8000/spotify/wrapped/intro?code={code}\"\r\n    return redirect(redirect_url)\r\n\r\n\r\nclass CheckAuthentication(APIView):\r\n    permission_classes = [IsAuthenticated]\r\n    def get(self, request, format=None):\r\n        is_authenticated = is_spotify_authenticated(self.request.session.session_key)\r\n        return Response({\"is_authenticated\": is_authenticated}, status=status.HTTP_200_OK)\r\n\r\nclass CurrentSong(APIView):\r\n    permission_classes = [IsAuthenticated]\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        '''\r\n        try:\r\n            token = Token.objects.get(user=key)\r\n        except Token.DoesNotExist:\r\n            return Response({\"error\": \"Token not found\"}, status=status.HTTP_404_NOT_FOUND)\r\n'''\r\n        endpoint = \"me/player/currently-playing\"\r\n        response = spotify_requests_execution(key, endpoint)\r\n\r\n        if \"error\" in response or \"item\" not in response:\r\n            return Response({}, status=status.HTTP_204_NO_CONTENT)\r\n\r\n        item = response.get(\"item\")\r\n        progress = response.get(\"progress_ms\")\r\n        is_playing = response.get(\"is_playing\")\r\n        duration = item.get(\"duration_ms\")\r\n        song_id = item.get(\"id\")\r\n        title = item.get(\"name\")\r\n        album_cover = item.get(\"album\", {}).get(\"images\", [{}])[0].get(\"url\")\r\n        artists = \", \".join(artist.get(\"name\") for artist in item.get(\"artists\", []))\r\n\r\n        song = {\r\n            \"id\": song_id,\r\n            \"title\": title,\r\n            \"artists\": artists,\r\n            \"duration\": duration,\r\n            \"is_playing\": is_playing,\r\n            \"album_cover\": album_cover,\r\n            \"progress\": progress,\r\n        }\r\n\r\n        return Response(song, status=status.HTTP_200_OK)\r\n\r\nclass TopSongs(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        target_playlists = [\r\n            \"Your Top Songs 2023\",\r\n            \"Your Top Songs 2022\",\r\n            \"Your Top Songs 2021\",\r\n            \"Your Top Songs 2020\",\r\n            \"Your Top Songs 2019\"\r\n        ]\r\n\r\n        endpoint = \"me/playlists/\"\r\n        playlists_response = spotify_requests_execution(key, endpoint)\r\n\r\n        if \"error\" in playlists_response:\r\n            return Response({\"error\": \"Failed to fetch playlists\"}, status=status.HTTP_400_BAD_REQUEST)\r\n\r\n        found_playlists = {}\r\n        for playlist in playlists_response.get(\"items\", []):\r\n            playlist_name = playlist.get(\"name\")\r\n            if playlist_name in target_playlists:\r\n                found_playlists[playlist_name] = playlist\r\n\r\n        playlists_by_year = {}\r\n\r\n        for playlist_name, playlist in found_playlists.items():\r\n            playlist_id = playlist.get(\"id\")\r\n            tracks_endpoint = f\"playlists/{playlist_id}/tracks/\"\r\n            tracks_response = spotify_requests_execution(key, tracks_endpoint)\r\n            items = tracks_response.get(\"items\", [])\r\n\r\n            tracks = []\r\n            for item in items:\r\n                track = item.get(\"track\")\r\n                if track:\r\n                    track_data = {\r\n                        \"id\": track.get(\"id\"),\r\n                        \"name\": track.get(\"name\"),\r\n                        \"artists\": \", \".join(artist.get(\"name\") for artist in track.get(\"artists\", [])),\r\n                        \"album\": track.get(\"album\", {}).get(\"name\"),\r\n                        \"album_cover\": track.get(\"album\", {}).get(\"images\", [{}])[0].get(\"url\"),\r\n                        \"duration_ms\": track.get(\"duration_ms\"),\r\n                        \"preview_url\": track.get(\"preview_url\"),  # Add preview URL for playback\r\n                        \"popularity\": track.get(\"popularity\"),\r\n                    }\r\n                    tracks.append(track_data)\r\n            playlists_by_year[playlist_name] = tracks\r\n\r\n        return render(request, 'dashboard.html', {\"playlists_by_year\": playlists_by_year})\r\n\r\n\r\nclass SpotifyWrappedView(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        # Configure the API key for the genai module\r\n        # Get time range from query parameters, default to medium_term\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        # Validate time range\r\n        valid_ranges = ['short_term', 'medium_term', 'long_term']\r\n        if time_range not in valid_ranges:\r\n            time_range = 'medium_term'\r\n\r\n        # Fetch all necessary data from Spotify API with selected time range\r\n        # 1. Top Artists\r\n        top_artists_endpoint = f\"me/top/artists?time_range={time_range}&limit=50\"\r\n        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)\r\n\r\n        # 2. Top Tracks\r\n        top_tracks_endpoint = f\"me/top/tracks?time_range={time_range}&limit=50\"\r\n        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)\r\n\r\n        # 3. Recently played tracks (this endpoint doesn't use time_range)\r\n        recent_tracks_endpoint = \"me/player/recently-played?limit=50\"\r\n        recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)\r\n\r\n        # 4. Get user's playlists\r\n        playlists_endpoint = \"me/playlists\"\r\n        playlists_response = spotify_requests_execution(key, playlists_endpoint)\r\n\r\n        # 5. Get user profile\r\n        profile_endpoint = \"me\"\r\n        profile_response = spotify_requests_execution(key, profile_endpoint)\r\n        # Extract top song names and their artists\r\n        '''model = genai.GenerativeModel(\"gemini-1.5-flash\")\r\n        top_songs_and_artists = [\r\n            f\"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}\"\r\n            for track in top_tracks_response.get(\"items\", [])[:5]\r\n        ]\r\n        top_songs_and_artists_str = \"; \".join(top_songs_and_artists)\r\n\r\n        # Generate dynamic description based on top songs and artists\r\n        response = model.generate_content(\r\n            f\"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. \"\r\n            f\"These are my top songs and artists: {top_songs_and_artists_str}.\"\r\n        )'''\r\n        # Process the data\r\n        all_artists = set()\r\n        for artist in top_artists_response.get(\"items\", []):\r\n            all_artists.add(artist[\"id\"])\r\n\r\n        for track in top_tracks_response.get(\"items\", []):\r\n            for artist in track[\"artists\"]:\r\n                all_artists.add(artist[\"id\"])\r\n\r\n        # Calculate new artists discovered\r\n        recent_artists = set()\r\n        for item in recent_tracks_response.get(\"items\", []):\r\n            for artist in item[\"track\"][\"artists\"]:\r\n                recent_artists.add(artist[\"id\"])\r\n\r\n        new_artists = recent_artists - all_artists\r\n\r\n        # Track-related metrics\r\n        all_tracks = set(track[\"id\"] for track in top_tracks_response.get(\"items\", []))\r\n\r\n        # Album-related metrics\r\n        all_albums = set(track[\"album\"][\"id\"] for track in top_tracks_response.get(\"items\", []))\r\n\r\n        # Location/Market metrics\r\n        all_markets = set()\r\n        for track in top_tracks_response.get(\"items\", []):\r\n            all_markets.update(track.get(\"available_markets\", []))\r\n\r\n        # Calculate listening time\r\n        total_listening_time = sum(\r\n            item[\"track\"][\"duration_ms\"]\r\n            for item in recent_tracks_response.get(\"items\", [])\r\n        )\r\n        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)\r\n\r\n        # Process top genres\r\n        genres = []\r\n        for artist in top_artists_response.get(\"items\", []):\r\n            genres.extend(artist.get(\"genres\", []))\r\n        top_genres = Counter(genres).most_common(5)\r\n\r\n        # Time range display names\r\n        time_range_display = {\r\n            'short_term': 'Last 4 Weeks',\r\n            'medium_term': 'Last 6 Months',\r\n            'long_term': 'All Time'\r\n        }\r\n\r\n        # Structure the data for the frontend\r\n        wrapped_data = {\r\n            # Time range information\r\n            \"currentTimeRange\": time_range,\r\n            \"timeRangeDisplay\": time_range_display[time_range],\r\n            \"availableTimeRanges\": [\r\n                {'value': tr, 'display': time_range_display[tr]}\r\n                for tr in valid_ranges\r\n            ],\r\n\r\n            # Total counts\r\n            \"totalArtists\": len(all_artists),\r\n            \"totalTracks\": len(all_tracks),\r\n            \"totalAlbums\": len(all_albums),\r\n            \"totalLocations\": len(all_markets),\r\n            \"newArtistsCount\": len(new_artists),\r\n\r\n            # Listening statistics\r\n            \"listeningTimeHours\": listening_time_hours,\r\n            \"topGenres\": [{\"name\": genre, \"count\": count} for genre, count in top_genres],\r\n\r\n            # Top Artists\r\n            \"topArtists\": [\r\n                {\r\n                    \"name\": artist[\"name\"],\r\n                    \"subtitle\": \", \".join(artist.get(\"genres\", [])[:2]),\r\n                    \"image\": artist[\"images\"][0][\"url\"] if artist.get(\"images\") else None,\r\n                    \"popularity\": artist.get(\"popularity\", 0),\r\n                    \"genres\": artist.get(\"genres\", []),\r\n                    \"spotifyUrl\": artist[\"external_urls\"][\"spotify\"]\r\n                }\r\n                for artist in top_artists_response.get(\"items\", [])[:5]\r\n            ],\r\n\r\n            # Top Tracks\r\n            \"topTracks\": [\r\n                {\r\n                    \"name\": track[\"name\"],\r\n                    \"subtitle\": \", \".join(artist[\"name\"] for artist in track[\"artists\"]),\r\n                    \"image\": track[\"album\"][\"images\"][0][\"url\"] if track[\"album\"].get(\"images\") else None,\r\n                    \"popularity\": track.get(\"popularity\", 0),\r\n                    \"previewUrl\": track.get(\"preview_url\"),\r\n                    \"spotifyUrl\": track[\"external_urls\"][\"spotify\"],\r\n                    \"albumName\": track[\"album\"][\"name\"],\r\n                    \"duration\": track[\"duration_ms\"]\r\n                }\r\n                for track in top_tracks_response.get(\"items\", [])[:5]\r\n            ],\r\n\r\n            # Top Albums (unchanged)\r\n            \"topAlbums\": [\r\n                {\r\n                    \"name\": track[\"album\"][\"name\"],\r\n                    \"subtitle\": track[\"album\"][\"artists\"][0][\"name\"],\r\n                    \"image\": track[\"album\"][\"images\"][0][\"url\"] if track[\"album\"].get(\"images\") else None,\r\n                    \"releaseDate\": track[\"album\"].get(\"release_date\"),\r\n                    \"totalTracks\": track[\"album\"].get(\"total_tracks\"),\r\n                    \"spotifyUrl\": track[\"album\"][\"external_urls\"][\"spotify\"]\r\n                }\r\n                for track in top_tracks_response.get(\"items\", [])[:5]\r\n            ],\r\n\r\n            # Top Locations\r\n            \"topLocations\": [\r\n                {\r\n                    \"name\": market,\r\n                    \"count\": len([\r\n                        track for track in top_tracks_response.get(\"items\", [])\r\n                        if market in track.get(\"available_markets\", [])\r\n                    ])\r\n                }\r\n                for market in list(all_markets)[:5]\r\n            ],\r\n\r\n            # User Profile\r\n            \"userProfile\": {\r\n                \"name\": profile_response.get(\"display_name\"),\r\n                \"image\": profile_response.get(\"images\", [{}])[0].get(\"url\") if profile_response.get(\"images\") else None,\r\n                \"country\": profile_response.get(\"country\"),\r\n                \"product\": profile_response.get(\"product\"),\r\n                \"followersCount\": profile_response.get(\"followers\", {}).get(\"total\", 0)\r\n            }\r\n\r\n        }\r\n\r\n        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)\r\n\r\n        if request.user.is_authenticated:\r\n            # Save the data to the database\r\n            SpotifyWrapped.objects.create(\r\n                user=request.user,\r\n                time_range=wrapped_data[\"currentTimeRange\"],\r\n                total_artists=wrapped_data[\"totalArtists\"],\r\n                total_tracks=wrapped_data[\"totalTracks\"],\r\n                total_albums=wrapped_data[\"totalAlbums\"],\r\n                total_locations=wrapped_data[\"totalLocations\"],\r\n                new_artists_count=wrapped_data[\"newArtistsCount\"],\r\n                listening_time_hours=wrapped_data[\"listeningTimeHours\"],\r\n                top_genres=wrapped_data[\"topGenres\"],\r\n                top_artists=wrapped_data[\"topArtists\"],\r\n                top_tracks=wrapped_data[\"topTracks\"],\r\n                top_albums=wrapped_data[\"topAlbums\"],\r\n                top_locations=wrapped_data[\"topLocations\"],\r\n                user_profile=wrapped_data[\"userProfile\"]\r\n            )\r\n\r\n\r\n        # Return JSON for API consumption\r\n        if request.headers.get('Accept') == 'application/json':\r\n            return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)\r\n\r\n        # Otherwise render the template\r\n        return render(request, \"wrapped.html\", {\r\n            \"wrapped_data\": wrapped_data,\r\n            \"page_title\": f\"Your Spotify Wrapped - {time_range_display[time_range]}\",\r\n            \"current_year\": datetime.now().year,\r\n            \"request\": request  # Pass request to template for building absolute URLs\r\n        })\r\n\r\n    def generate_sharing_data(self, wrapped_data, request):\r\n        \"\"\"Generate sharing text and URLs for social media platforms\"\"\"\r\n\r\n        # Base sharing text\r\n        share_text = (\r\n            f\"\uD83C\uDFB5 My Spotify Wrapped Stats:\\n\"\r\n            f\"• {wrapped_data['listeningTimeHours']} hours of music\\n\"\r\n            f\"• Top Artist: {wrapped_data['topArtists'][0]['name']}\\n\"\r\n            f\"• Top Track: {wrapped_data['topTracks'][0]['name']}\\n\"\r\n            f\"• {wrapped_data['totalArtists']} different artists\\n\"\r\n            f\"#SpotifyWrapped\"\r\n        )\r\n\r\n        # Get the current page's URL\r\n        current_url = request.build_absolute_uri()\r\n\r\n        # Generate platform-specific sharing URLs\r\n        sharing_data = {\r\n            'twitter': {\r\n                'url': f\"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}&url={urllib.parse.quote(current_url)}\"\r\n            },\r\n            'linkedin': {\r\n                'url': f\"https://www.linkedin.com/sharing/share-offsite/?url={urllib.parse.quote(current_url)}\"\r\n            },\r\n            'instagram': {\r\n                'text': share_text,  # For copying to clipboard since Instagram doesn't have a direct sharing API\r\n                'url': current_url\r\n            }\r\n        }\r\n        print(sharing_data)\r\n        return sharing_data\r\n    \r\n\r\nfrom django.shortcuts import render\r\nfrom django.shortcuts import render, redirect\r\nfrom .models import SpotifyWrapped\r\n\r\nfrom django.shortcuts import render\r\nfrom .models import SpotifyWrapped\r\n\r\ndef savedwraps(request):\r\n    # Fetch all saved SpotifyWrapped data for the logged-in user\r\n    wraps = SpotifyWrapped.objects.filter(user=request.user).order_by('-created_at')\r\n\r\n    # Structure the data to pass into the template\r\n    context = {\r\n        'wraps': wraps,\r\n        'page_title': 'Your Saved Spotify Wrapped'\r\n    }\r\n\r\n    return render(request, \"savedwraps.html\", context)\r\n\r\ndef wrap_detail(request, id):\r\n    # Get the SpotifyWrapped entry based on the provided id\r\n    wrap = get_object_or_404(SpotifyWrapped, id=id)\r\n\r\n    # Create context with the data for the selected wrap\r\n    context = {\r\n        'wrap': wrap,\r\n        'page_title': f\"Details for {wrap.time_range.capitalize()} Wrapped\"\r\n    }\r\n\r\n    # Render the 'wrap_detail.html' template with the context\r\n    return render(request, \"wrap_detail.html\", context)\r\n\r\nclass SpotifyWrappedOverviewView(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n        valid_ranges = ['short_term', 'medium_term', 'long_term']\r\n        time_range_display = {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}\r\n\r\n        if time_range not in valid_ranges:\r\n            time_range = 'medium_term'\r\n\r\n        # Fetch general stats from the session or cached endpoints\r\n        top_artists_endpoint = f\"me/top/artists?time_range={time_range}&limit=50\"\r\n        top_tracks_endpoint = f\"me/top/tracks?time_range={time_range}&limit=50\"\r\n        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)\r\n        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)\r\n\r\n        all_artists = {artist[\"id\"] for artist in top_artists_response.get(\"items\", [])}\r\n        all_tracks = {track[\"id\"] for track in top_tracks_response.get(\"items\", [])}\r\n        all_albums = {track[\"album\"][\"id\"] for track in top_tracks_response.get(\"items\", [])}\r\n\r\n        genres = []\r\n        for artist in top_artists_response.get(\"items\", []):\r\n            genres.extend(artist.get(\"genres\", []))\r\n        top_genres = Counter(genres).most_common(5)\r\n\r\n        wrapped_data = {\r\n            \"currentTimeRange\": time_range,\r\n            \"timeRangeDisplay\": time_range_display[time_range],\r\n            \"availableTimeRanges\": [{'value': tr, 'display': time_range_display[tr]} for tr in valid_ranges],\r\n            \"totalArtists\": len(all_artists),\r\n            \"totalTracks\": len(all_tracks),\r\n            \"totalAlbums\": len(all_albums),\r\n            \"topGenres\": [{\"name\": genre, \"count\": count} for genre, count in top_genres],\r\n        }\r\n\r\n        return render(request, \"wrapped_overview.html\", {\"wrapped_data\": wrapped_data, \"time_range\" : time_range, \"page_title\": \"Your Spotify Wrapped Overview\"})\r\n\r\n\r\nimport logging\r\nfrom django.shortcuts import render\r\nfrom rest_framework.views import APIView\r\n\r\nlogger = logging.getLogger(__name__)\r\n\r\n\r\nclass SpotifyWrappedArtistsView(APIView):\r\n    def get(self, request, format=None):\r\n        # Get the session key for the request\r\n        key = self.request.session.session_key\r\n\r\n        # Get time range from query parameters, default to medium_term\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        # Validate time range\r\n        valid_ranges = ['short_term', 'medium_term', 'long_term']\r\n        if time_range not in valid_ranges:\r\n            logger.warning(f\"Invalid time range: {time_range}. Defaulting to 'medium_term'.\")\r\n            time_range = 'medium_term'\r\n\r\n        # Fetch top artists data from Spotify API\r\n        top_artists_endpoint = f\"me/top/artists?time_range={time_range}&limit=50\"\r\n\r\n        try:\r\n            # Call the function that interacts with the Spotify API\r\n            top_artists_response = spotify_requests_execution(key, top_artists_endpoint)\r\n            logger.info(f\"Fetched top artists for time range: {time_range}\")\r\n\r\n            # Process top artists data\r\n            wrapped_data = {\r\n                \"topArtists\": [\r\n                    {\r\n                        \"name\": artist[\"name\"],\r\n                        \"subtitle\": \", \".join(artist.get(\"genres\", [])[:2]),  # Displaying up to 2 genres\r\n                        \"image\": artist[\"images\"][0][\"url\"] if artist.get(\"images\") else None,\r\n                        \"popularity\": artist.get(\"popularity\", 0),\r\n                        \"spotifyUrl\": artist[\"external_urls\"][\"spotify\"]\r\n                    }\r\n                    for artist in top_artists_response.get(\"items\", [])[:5]  # Limit to top 5 artists\r\n                ]\r\n            }\r\n\r\n        except Exception as e:\r\n            logger.error(f\"Error fetching top artists: {str(e)}\")\r\n            wrapped_data = {\"topArtists\": []}\r\n\r\n        # Render the template with the data\r\n        return render(request, \"wrapped_artists.html\", {\r\n            \"wrapped_data\": wrapped_data,\r\n            \"page_title\": \"Your Top Artists\",\r\n            \"time_range\": time_range  # Ensure time range is passed to the template\r\n        })\r\n\r\n\r\nclass SpotifyWrappedTracksView(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        top_tracks_endpoint = f\"me/top/tracks?time_range={time_range}&limit=50\"\r\n        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)\r\n\r\n        wrapped_data = {\r\n            \"topTracks\": [\r\n                {\r\n                    \"name\": track[\"name\"],\r\n                    \"subtitle\": \", \".join(artist[\"name\"] for artist in track[\"artists\"]),\r\n                    \"image\": track[\"album\"][\"images\"][0][\"url\"] if track[\"album\"].get(\"images\") else None,\r\n                    \"spotifyUrl\": track[\"external_urls\"][\"spotify\"]\r\n                }\r\n                for track in top_tracks_response.get(\"items\", [])[:5]\r\n            ]\r\n        }\r\n\r\n        return render(request, \"wrapped_tracks.html\", {\"wrapped_data\": wrapped_data, 'time_range': time_range, \"page_title\": \"Your Top Tracks\"})\r\n\r\nclass SpotifyWrappedAlbumsView(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        top_tracks_endpoint = f\"me/top/tracks?time_range={time_range}&limit=50\"\r\n        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)\r\n\r\n        wrapped_data = {\r\n            \"topAlbums\": [\r\n                {\r\n                    \"name\": track[\"album\"][\"name\"],\r\n                    \"subtitle\": track[\"album\"][\"artists\"][0][\"name\"],\r\n                    \"image\": track[\"album\"][\"images\"][0][\"url\"] if track[\"album\"].get(\"images\") else None,\r\n                    \"spotifyUrl\": track[\"album\"][\"external_urls\"][\"spotify\"]\r\n                }\r\n                for track in top_tracks_response.get(\"items\", [])[:5]\r\n            ]\r\n        }\r\n\r\n        return render(request, \"wrapped_albums_locations.html\", {\"wrapped_data\": wrapped_data, 'time_range': time_range, \"page_title\": \"Your Top Albums\"})\r\n\r\n\r\n\r\nfrom collections import Counter\r\nfrom django.shortcuts import render\r\nfrom rest_framework.views import APIView # Assuming spotify_requests_execution is a utility function\r\n\r\nclass SpotifyWrappedProfileView(APIView):\r\n    def get(self, request, *args, **kwargs):\r\n        key = self.request.session.session_key\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        # Configure the API key for the genai module\r\n        # Get time range from query parameters, default to medium_ter\r\n\r\n        # Validate time range\r\n        valid_ranges = ['short_term', 'medium_term', 'long_term']\r\n        if time_range not in valid_ranges:\r\n            time_range = 'medium_term'\r\n\r\n        # Fetch all necessary data from Spotify API with selected time range\r\n        # 1. Top Artists\r\n        top_artists_endpoint = f\"me/top/artists?time_range={time_range}&limit=50\"\r\n        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)\r\n\r\n        # 2. Top Tracks\r\n        top_tracks_endpoint = f\"me/top/tracks?time_range={time_range}&limit=50\"\r\n        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)\r\n\r\n        # 3. Recently played tracks (this endpoint doesn't use time_range)\r\n        recent_tracks_endpoint = \"me/player/recently-played?limit=50\"\r\n        recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)\r\n\r\n        # 4. Get user's playlists\r\n        playlists_endpoint = \"me/playlists\"\r\n        playlists_response = spotify_requests_execution(key, playlists_endpoint)\r\n\r\n        # 5. Get user profile\r\n        profile_endpoint = \"me\"\r\n        profile_response = spotify_requests_execution(key, profile_endpoint)\r\n        # Extract top song names and their artists\r\n        '''model = genai.GenerativeModel(\"gemini-1.5-flash\")\r\n        top_songs_and_artists = [\r\n            f\"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}\"\r\n            for track in top_tracks_response.get(\"items\", [])[:5]\r\n        ]\r\n        top_songs_and_artists_str = \"; \".join(top_songs_and_artists)\r\n\r\n        # Generate dynamic description based on top songs and artists\r\n        response = model.generate_content(\r\n            f\"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. \"\r\n            f\"These are my top songs and artists: {top_songs_and_artists_str}.\"\r\n        )'''\r\n        # Process the data\r\n        all_artists = set()\r\n        for artist in top_artists_response.get(\"items\", []):\r\n            all_artists.add(artist[\"id\"])\r\n\r\n        for track in top_tracks_response.get(\"items\", []):\r\n            for artist in track[\"artists\"]:\r\n                all_artists.add(artist[\"id\"])\r\n\r\n        # Calculate new artists discovered\r\n        recent_artists = set()\r\n        for item in recent_tracks_response.get(\"items\", []):\r\n            for artist in item[\"track\"][\"artists\"]:\r\n                recent_artists.add(artist[\"id\"])\r\n\r\n        new_artists = recent_artists - all_artists\r\n\r\n        # Track-related metrics\r\n        all_tracks = set(track[\"id\"] for track in top_tracks_response.get(\"items\", []))\r\n\r\n        # Album-related metrics\r\n        all_albums = set(track[\"album\"][\"id\"] for track in top_tracks_response.get(\"items\", []))\r\n\r\n        # Location/Market metrics\r\n        all_markets = set()\r\n        for track in top_tracks_response.get(\"items\", []):\r\n            all_markets.update(track.get(\"available_markets\", []))\r\n\r\n        # Calculate listening time\r\n        total_listening_time = sum(\r\n            item[\"track\"][\"duration_ms\"]\r\n            for item in recent_tracks_response.get(\"items\", [])\r\n        )\r\n        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)\r\n\r\n        # Process top genres\r\n        genres = []\r\n        for artist in top_artists_response.get(\"items\", []):\r\n            genres.extend(artist.get(\"genres\", []))\r\n        top_genres = Counter(genres).most_common(5)\r\n\r\n        # Time range display names\r\n        time_range_display = {\r\n            'short_term': 'Last 4 Weeks',\r\n            'medium_term': 'Last 6 Months',\r\n            'long_term': 'All Time'\r\n        }\r\n\r\n        # Structure the data for the frontend\r\n        wrapped_data = {\r\n            # Time range information\r\n            \"currentTimeRange\": time_range,\r\n            \"timeRangeDisplay\": time_range_display[time_range],\r\n            \"availableTimeRanges\": [\r\n                {'value': tr, 'display': time_range_display[tr]}\r\n                for tr in valid_ranges\r\n            ],\r\n\r\n            # Total counts\r\n            \"totalArtists\": len(all_artists),\r\n            \"totalTracks\": len(all_tracks),\r\n            \"totalAlbums\": len(all_albums),\r\n            \"totalLocations\": len(all_markets),\r\n            \"newArtistsCount\": len(new_artists),\r\n\r\n            # Listening statistics\r\n            \"listeningTimeHours\": listening_time_hours,\r\n            \"topGenres\": [{\"name\": genre, \"count\": count} for genre, count in top_genres],\r\n        }\r\n\r\n        # Time range display names\r\n\r\n        time_range_display = {\r\n            'short_term': 'Last 4 Weeks',\r\n            'medium_term': 'Last 6 Months',\r\n            'long_term': 'All Time'\r\n        }\r\n        return render(request, \"wrapped_profile.html\",{\"wrapped_data\": wrapped_data, 'time_range': time_range, \"page_title\": \"Your Spotify Profile\"})\r\n\r\n\r\nfrom django.shortcuts import render\r\nfrom django.http import JsonResponse\r\nimport requests\r\n\r\nclass TopLocationsView(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        valid_ranges = ['short_term', 'medium_term', 'long_term']\r\n        if time_range not in valid_ranges:\r\n            time_range = 'medium_term'\r\n\r\n        # Fetch Top Tracks data directly\r\n        top_tracks_endpoint = f\"https://api.spotify.com/v1/me/top/tracks?time_range={time_range}&limit=50\"\r\n        headers = {'Authorization': f'Bearer {key}'}\r\n        top_tracks_response = requests.get(top_tracks_endpoint, headers=headers).json()\r\n\r\n        # Process top locations (markets)\r\n        all_markets = set()\r\n        for track in top_tracks_response.get(\"items\", []):\r\n            all_markets.update(track.get(\"available_markets\", []))\r\n\r\n        # Get the top locations (markets)\r\n        top_locations = [\r\n            {\r\n                \"name\": market,\r\n                \"count\": len([track for track in top_tracks_response.get(\"items\", []) if market in track.get(\"available_markets\", [])])\r\n            }\r\n            for market in list(all_markets)[:5]\r\n        ]\r\n\r\n        # Log data for debugging\r\n        print(\"Wrapped Data:\", {\r\n            \"timeRangeDisplay\": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],\r\n            \"topLocations\": top_locations\r\n        })\r\n\r\n        # Structure the data for the frontend\r\n        wrapped_data = {\r\n            \"timeRangeDisplay\": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],\r\n            \"topLocations\": top_locations\r\n        }\r\n\r\n        # Return JSON or render template\r\n        if request.headers.get('Accept') == 'application/json':\r\n            return JsonResponse(wrapped_data)\r\n\r\n        return render(request, \"top_locations.html\", {\"wrapped_data\": wrapped_data})\r\n\r\n\r\nclass TopGenresView(APIView):\r\n    def get(self, request, format=None):\r\n        key = self.request.session.session_key\r\n        time_range = request.GET.get('time_range', 'medium_term')\r\n\r\n        valid_ranges = ['short_term', 'medium_term', 'long_term']\r\n        if time_range not in valid_ranges:\r\n            time_range = 'medium_term'\r\n\r\n        # Fetch Top Artists data\r\n        top_artists_endpoint = f\"me/top/artists?time_range={time_range}&limit=50\"\r\n        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)\r\n\r\n        # Process top genres\r\n        genres = []\r\n        for artist in top_artists_response.get(\"items\", []):\r\n            genres.extend(artist.get(\"genres\", []))\r\n        top_genres = Counter(genres).most_common(5)\r\n\r\n        # Structure the data for the frontend\r\n        wrapped_data = {\r\n            \"timeRangeDisplay\": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[\r\n                time_range],\r\n            \"topGenres\": [{\"name\": genre, \"count\": count} for genre, count in top_genres]\r\n        }\r\n\r\n        # Return JSON or render template\r\n        if request.headers.get('Accept') == 'application/json':\r\n            return JsonResponse(wrapped_data)\r\n\r\n        return render(request, \"top_genres.html\", {\"wrapped_data\": wrapped_data})\r\n\r\n\r\nprint(\"dablt\")\r\n\r\n# Connect to the SQLite database\r\nconn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed\r\ncursor = conn.cursor()\r\n\r\n# Get the list of all table names in the database\r\ncursor.execute(\"SELECT name FROM sqlite_master WHERE type='table';\")\r\ntables = cursor.fetchall()\r\n\r\n# Iterate through each table and display its contents\r\nfor table in tables:\r\n    table_name = table[0]\r\n    print(f\"Displaying data from table: {table_name}\")\r\n\r\n    try:\r\n        # Query to select everything from the current table\r\n        cursor.execute(f\"SELECT * FROM {table_name}\")\r\n\r\n        # Fetch all rows from the table\r\n        rows = cursor.fetchall()\r\n\r\n        # If the table is empty, print a message\r\n        if not rows:\r\n            print(f\"Table {table_name} is empty.\")\r\n        else:\r\n            # Print each row in the table\r\n            for row in rows:\r\n                print(row)\r\n\r\n    except sqlite3.Error as e:\r\n        # Handle the case where a table can't be queried\r\n        print(f\"Error querying table {table_name}: {e}\")\r\n\r\n    print(\"\\n\" + \"-\" * 50 + \"\\n\")\r\n\r\n# Close the connection when done\r\nconn.close()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/views.py b/Api/views.py
+--- a/Api/views.py	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/views.py	(date 1732683777717)
+@@ -5,7 +5,7 @@
+ from rest_framework.views import APIView
+ from rest_framework import status
+ from requests import Request, post
+-from django.http import JsonResponse
++from django.http import JsonResponse, Http404
+ from .models import Token
+ from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+ from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
+@@ -190,7 +190,7 @@
+                         "album": track.get("album", {}).get("name"),
+                         "album_cover": track.get("album", {}).get("images", [{}])[0].get("url"),
+                         "duration_ms": track.get("duration_ms"),
+-                        "preview_url": track.get("preview_url"),  # Add preview URL for playback
++                        "preview_url": track["preview_url"],  # Add preview URL for playback
+                         "popularity": track.get("popularity"),
+                     }
+                     tracks.append(track_data)
+@@ -333,7 +333,7 @@
+                     "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
+                     "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                     "popularity": track.get("popularity", 0),
+-                    "previewUrl": track.get("preview_url"),
++                    "preview_url": track["preview_url"],
+                     "spotifyUrl": track["external_urls"]["spotify"],
+                     "albumName": track["album"]["name"],
+                     "duration": track["duration_ms"]
+@@ -583,7 +583,8 @@
+                     "name": track["name"],
+                     "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
+                     "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+-                    "spotifyUrl": track["external_urls"]["spotify"]
++                    "spotifyUrl": track["external_urls"]["spotify"],
++                    "preview_url": track["preview_url"],  # Include preview URL
+                 }
+                 for track in top_tracks_response.get("items", [])[:5]
+             ]
+@@ -744,92 +745,88 @@
+         }
+         return render(request, "wrapped_profile.html",{"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Spotify Profile"})
+ 
++#Saved wraps functionality
+ 
+-from django.shortcuts import render
+-from django.http import JsonResponse
+-import requests
+ 
+-class TopLocationsView(APIView):
+-    def get(self, request, format=None):
+-        key = self.request.session.session_key
+-        time_range = request.GET.get('time_range', 'medium_term')
++from django.shortcuts import render, get_object_or_404
++from django.contrib.auth.decorators import login_required
++from .models import SpotifyWrapped
+ 
+-        valid_ranges = ['short_term', 'medium_term', 'long_term']
+-        if time_range not in valid_ranges:
+-            time_range = 'medium_term'
+ 
+-        # Fetch Top Tracks data directly
+-        top_tracks_endpoint = f"https://api.spotify.com/v1/me/top/tracks?time_range={time_range}&limit=50"
+-        headers = {'Authorization': f'Bearer {key}'}
+-        top_tracks_response = requests.get(top_tracks_endpoint, headers=headers).json()
++def saved_spotify_wrapped_artists(request, id):
++    user = request.user
+ 
+-        # Process top locations (markets)
+-        all_markets = set()
+-        for track in top_tracks_response.get("items", []):
+-            all_markets.update(track.get("available_markets", []))
++    # Get the specific wrap by id
++    wrap = get_object_or_404(SpotifyWrapped, id=id, user=user)
+ 
+-        # Get the top locations (markets)
+-        top_locations = [
+-            {
+-                "name": market,
+-                "count": len([track for track in top_tracks_response.get("items", []) if market in track.get("available_markets", [])])
+-            }
+-            for market in list(all_markets)[:5]
+-        ]
+ 
+-        # Log data for debugging
+-        print("Wrapped Data:", {
+-            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],
+-            "topLocations": top_locations
+-        })
++    return render(request, "saved_artists.html", {
++        "wrap": wrap,
++        "page_title": "Your Saved Top Artists",
++    })
+ 
+-        # Structure the data for the frontend
+-        wrapped_data = {
+-            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],
+-            "topLocations": top_locations
+-        }
++
++def saved_spotify_wrapped_tracks(request, id):
++    user = request.user
++    wrap = get_object_or_404(SpotifyWrapped, id=id, user=user)
++    # Get the specific wrap by id
+ 
+-        # Return JSON or render template
+-        if request.headers.get('Accept') == 'application/json':
+-            return JsonResponse(wrapped_data)
+ 
+-        return render(request, "top_locations.html", {"wrapped_data": wrapped_data})
++    return render(request, "saved_tracks.html", {
++        "wrap": wrap,
++        "page_title": "Your Saved Top Tracks",
++    })
+ 
+ 
+-class TopGenresView(APIView):
+-    def get(self, request, format=None):
+-        key = self.request.session.session_key
+-        time_range = request.GET.get('time_range', 'medium_term')
+-
+-        valid_ranges = ['short_term', 'medium_term', 'long_term']
+-        if time_range not in valid_ranges:
+-            time_range = 'medium_term'
++def saved_spotify_wrapped_albums(request, id):
++    user = request.user
++    time_range = request.GET.get('time_range', 'medium_term')
++    valid_ranges = ['short_term', 'medium_term', 'long_term']
++
++    if time_range not in valid_ranges:
++        time_range = 'medium_term'
+ 
+-        # Fetch Top Artists data
+-        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+-        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
++    # Get the specific wrap by id
++    spotify_wrap = get_object_or_404(SpotifyWrapped, id=id, user = user)
+ 
+-        # Process top genres
+-        genres = []
+-        for artist in top_artists_response.get("items", []):
+-            genres.extend(artist.get("genres", []))
+-        top_genres = Counter(genres).most_common(5)
+-
+-        # Structure the data for the frontend
+-        wrapped_data = {
+-            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[
+-                time_range],
+-            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres]
+-        }
++    wrapped_data = {
++        "topAlbums": spotify_wrap.top_albums  # Assuming top_albums is a JSON field or a list stored
++    }
+ 
+-        # Return JSON or render template
+-        if request.headers.get('Accept') == 'application/json':
+-            return JsonResponse(wrapped_data)
++    return render(request, "wrapped_albums_locations.html", {
++        "wrapped_data": wrapped_data,
++        "page_title": "Your Saved Top Albums",
++        "time_range": time_range
++    })
++
++
++def saved_spotify_wrapped_profile(request, id):
++    user = request.user
++
++    # Get the specific wrap by id
++    wrap = get_object_or_404(SpotifyWrapped, id=id, user = user)
++
++
++    return render(request, "saved_profile.html", {
++        "wrap": wrap,
++        "page_title": "Your Saved Spotify Profile",
++    })
++
++def delete_spotify_wrap(request, id):
++    # Get the specific wrap by id and ensure the current user is the owner
++    try:
++        wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
++    except SpotifyWrapped.DoesNotExist:
++        raise Http404("Spotify Wrapped data not found.")
++
++    # Delete the wrap
++    wrap.delete()
+ 
+-        return render(request, "top_genres.html", {"wrapped_data": wrapped_data})
++    # Redirect back to the list of wraps
++    return redirect('savedwraps')
+ 
+ 
+-print("dablt")
++
+ 
+ # Connect to the SQLite database
+ conn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed
+Index: Api/static/css/saved.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.page-header {\r\n    text-align: center;\r\n    margin-bottom: 30px;\r\n}\r\n\r\n.page-header h1 {\r\n    font-size: 2.5rem;\r\n    font-weight: bold;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.page-header p {\r\n    font-size: 1.2rem;\r\n    color: #555;\r\n}\r\n\r\n/* Container for the wrap cards */\r\n.wraps-container {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));\r\n    gap: 20px;\r\n    padding: 20px;\r\n}\r\n\r\n/* Styling for each wrap card */\r\n.wrap-card {\r\n    background-color: #fff;\r\n    border-radius: 10px;\r\n    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);\r\n    overflow: hidden;\r\n    display: flex;\r\n    flex-direction: column;\r\n    transition: transform 0.3s, box-shadow 0.3s;\r\n}\r\n\r\n/* Hover effect for wrap cards */\r\n.wrap-card:hover {\r\n    transform: scale(1.05);\r\n    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n/* Styling for wrap image container */\r\n.wrap-image-container {\r\n    width: 100%;\r\n    height: 200px;\r\n    overflow: hidden;\r\n}\r\n\r\n.wrap-image {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n}\r\n\r\n/* Styling for wrap details */\r\n.wrap-details {\r\n    padding: 20px;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.wrap-details h2 {\r\n    font-size: 1.6rem;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.wrap-year {\r\n    font-size: 1.1rem;\r\n    color: #777;\r\n    margin-bottom: 15px;\r\n}\r\n\r\n.wrap-details p {\r\n    font-size: 1rem;\r\n    color: #333;\r\n    margin-bottom: 15px;\r\n}\r\n\r\n.btn-details {\r\n    background-color: #1db954;\r\n    color: #fff;\r\n    padding: 10px 20px;\r\n    border-radius: 30px;\r\n    text-decoration: none;\r\n    text-align: center;\r\n    font-size: 1rem;\r\n    transition: background-color 0.3s;\r\n}\r\n\r\n.btn-details:hover {\r\n    background-color: #1aa13f;\r\n}\r\n\r\n/* Media Queries for responsiveness */\r\n@media (max-width: 768px) {\r\n    .wrap-card {\r\n        padding: 15px;\r\n    }\r\n\r\n    .wrap-details h2 {\r\n        font-size: 1.4rem;\r\n    }\r\n\r\n    .wrap-year {\r\n        font-size: 1rem;\r\n    }\r\n\r\n    .wrap-details p {\r\n        font-size: 0.9rem;\r\n    }\r\n}\r\n\r\n@media (max-width: 480px) {\r\n    .wraps-container {\r\n        grid-template-columns: 1fr; /* Stacking the cards on small screens */\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/static/css/saved.css b/Api/static/css/saved.css
+--- a/Api/static/css/saved.css	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/static/css/saved.css	(date 1732683777717)
+@@ -76,6 +76,7 @@
+     margin-bottom: 15px;
+ }
+ 
++/* Styling for the details button */
+ .btn-details {
+     background-color: #1db954;
+     color: #fff;
+@@ -85,12 +86,37 @@
+     text-align: center;
+     font-size: 1rem;
+     transition: background-color 0.3s;
++    margin-bottom: 10px; /* Space between buttons */
+ }
+ 
+ .btn-details:hover {
+     background-color: #1aa13f;
+ }
+ 
++/* Styling for the delete button */
++.btn-delete {
++    background-color: #e63946; /* Red color */
++    color: #fff;
++    padding: 10px 20px;
++    border-radius: 30px;
++    text-decoration: none;
++    text-align: center;
++    font-size: 1rem;
++    border: none;
++    cursor: pointer;
++    transition: background-color 0.3s, transform 0.3s;
++    margin-bottom: 10px; /* Space between delete button and other content */
++}
++
++.btn-delete:hover {
++    background-color: #d62828;
++    transform: scale(1.05);
++}
++
++.btn-delete:focus {
++    outline: none; /* Remove the outline on focus */
++}
++
+ /* Media Queries for responsiveness */
+ @media (max-width: 768px) {
+     .wrap-card {
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <change afterPath=\"$PROJECT_DIR$/Api/static/css/login.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Api/templates/login.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Api/templates/login.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Api/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Api/views.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/db.sqlite3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db.sqlite3\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"DjangoConsoleOptions\" custom-start-script=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\">\r\n    <option name=\"myCustomStartScript\" value=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n        <option value=\"package.json\" />\r\n        <option value=\"HTML File\" />\r\n        <option value=\"CSS File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"eshan1jaffar &lt;80078879+eshan1jaffar@users.noreply.github.com&gt;\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;aishanibal&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper.git&quot;,\r\n    &quot;accountId&quot;: &quot;9c198e46-08e7-49dc-98c8-3c4789907df6&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2oOaUJnnBJkv3cXjpz1xgE4eSAI\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"DefaultHtmlFileTemplate\": \"HTML File\",\r\n    \"Django Server.SpotifyWrapper.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenDjangoStructureViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"django.template.preview.state\": \"SHOW_EDITOR_AND_PREVIEW\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"list.type.of.created.stylesheet\": \"CSS\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"ts.external.directory.path\": \"C:\\\\Program Files\\\\JetBrains\\\\PyCharm 2024.2.1\\\\plugins\\\\javascript-plugin\\\\jsLanguageServicesImpl\\\\external\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Roohi\\SpotifyWrapper\\Api\\static\\css\" />\r\n      <recent name=\"$PROJECT_DIR$/Api/static/js/SpotifyWrapper\" />\r\n      <recent name=\"$PROJECT_DIR$/Api/templates\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"SpotifyWrapper\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\r\n      <module name=\"SpotifyWrapper\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n        <env name=\"DJANGO_SETTINGS_MODULE\" value=\"SpotifyWrapper.settings\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"SDK_NAME\" value=\"Python 3.13 (SpotifyWrapper)\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\r\n      <option name=\"port\" value=\"8000\" />\r\n      <option name=\"host\" value=\"localhost\" />\r\n      <option name=\"additionalOptions\" value=\"\" />\r\n      <option name=\"browserUrl\" value=\"\" />\r\n      <option name=\"runTestServer\" value=\"false\" />\r\n      <option name=\"runNoReload\" value=\"false\" />\r\n      <option name=\"useCustomRunCommand\" value=\"false\" />\r\n      <option name=\"customRunCommand\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153\" />\r\n        <option value=\"bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"8ebb3b2a-d6e2-466a-8852-d90e5934e4e5\" name=\"Changes\" comment=\"\" />\r\n      <created>1730300651790</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1730300651790</updated>\r\n      <workItem from=\"1730300653221\" duration=\"184000\" />\r\n      <workItem from=\"1730743092250\" duration=\"1469000\" />\r\n      <workItem from=\"1730929006524\" duration=\"7785000\" />\r\n      <workItem from=\"1731122513124\" duration=\"9875000\" />\r\n      <workItem from=\"1732475516493\" duration=\"3981000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"partial user auth + redirect\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730309034212</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730309034212</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"fixed random errors\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730743322687</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730743322687</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"fixed random errors\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730754494290</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730754494290</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"fixed random errors\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730754499126</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730754499126</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"current songs works\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730765117689</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730765117689</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"halfway through getting 2023 wrapped\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730767600045</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730767600046</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"halfway through getting 2023 wrapped\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730768328735</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730768328735</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"halfway through getting 2023 wrapped\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730926116380</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730926116380</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"made wrapped show past 5 years\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730928452559</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730928452559</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731532204879</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731532204879</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731801564117</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731801564117</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731801572362</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731801572362</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731801743640</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731801743640</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731801819054</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731801819054</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732431735569</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732431735569</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732432024877</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732432024877</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"short/med/long term done and insta/linkedin/x share functionality added\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732433476161</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732433476161</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"18\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"partial user auth + redirect\" />\r\n    <MESSAGE value=\"client-id\" />\r\n    <MESSAGE value=\"fixed random errors\" />\r\n    <MESSAGE value=\"current songs works\" />\r\n    <MESSAGE value=\"halfway through getting 2023 wrapped\" />\r\n    <MESSAGE value=\"made wrapped show past 5 years\" />\r\n    <MESSAGE value=\"short/med/long term done and insta/linkedin/x share functionality added\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"short/med/long term done and insta/linkedin/x share functionality added\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\r\n          <url>file://$PROJECT_DIR$/Api/views.py</url>\r\n          <line>16</line>\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/.idea/workspace.xml	(date 1732683777717)
+@@ -5,9 +5,15 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="short/med/long term done and insta/linkedin/x share functionality added">
+-      <change afterPath="$PROJECT_DIR$/Api/static/css/login.css" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Api/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/login.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/models.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/static/css/saved.css" beforeDir="false" afterPath="$PROJECT_DIR$/Api/static/css/saved.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/static/css/tracks.css" beforeDir="false" afterPath="$PROJECT_DIR$/Api/static/css/tracks.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/templates/savedwraps.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/savedwraps.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/templates/wrap_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrap_detail.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_profile.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_tracks.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_tracks.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/urls.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+     </list>
+@@ -24,8 +30,8 @@
+       <list>
+         <option value="Python Script" />
+         <option value="package.json" />
+-        <option value="HTML File" />
+         <option value="CSS File" />
++        <option value="HTML File" />
+       </list>
+     </option>
+   </component>
+@@ -71,7 +77,7 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+-    "git-widget-placeholder": "main",
++    "git-widget-placeholder": "music__functionality",
+     "list.type.of.created.stylesheet": "CSS",
+     "node.js.detected.package.eslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+@@ -137,6 +143,8 @@
+       <workItem from="1730929006524" duration="7785000" />
+       <workItem from="1731122513124" duration="9875000" />
+       <workItem from="1732475516493" duration="3981000" />
++      <workItem from="1732584160611" duration="1000000" />
++      <workItem from="1732658012404" duration="15543000" />
+     </task>
+     <task id="LOCAL-00001" summary="partial user auth + redirect">
+       <option name="closed" value="true" />
+@@ -274,7 +282,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1732433476161</updated>
+     </task>
+-    <option name="localTasksCounter" value="18" />
++    <task id="LOCAL-00018" summary="short/med/long term done and insta/linkedin/x share functionality added">
++      <option name="closed" value="true" />
++      <created>1732567336208</created>
++      <option name="number" value="00018" />
++      <option name="presentableId" value="LOCAL-00018" />
++      <option name="project" value="LOCAL" />
++      <updated>1732567336208</updated>
++    </task>
++    <option name="localTasksCounter" value="19" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+Index: Api/templates/wrap_detail.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!-- wrap_detail.html -->\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>{{ page_title }}</title>\r\n</head>\r\n<body>\r\n    <div class=\"container\">\r\n        <h1>{{ page_title }}</h1>\r\n        \r\n        <p><strong>Time Range:</strong> {{ wrap.time_range|capfirst }}</p>\r\n        <p><strong>Total Artists:</strong> {{ wrap.total_artists }}</p>\r\n        <p><strong>Total Tracks:</strong> {{ wrap.total_tracks }}</p>\r\n        <p><strong>Total Albums:</strong> {{ wrap.total_albums }}</p>\r\n        <p><strong>Total Locations:</strong> {{ wrap.total_locations }}</p>\r\n        <p><strong>New Artists Count:</strong> {{ wrap.new_artists_count }}</p>\r\n        <p><strong>Listening Time:</strong> {{ wrap.listening_time_hours }} hours</p>\r\n        \r\n        <h3>Top Genres</h3>\r\n        <ul>\r\n            {% for genre in wrap.top_genres %}\r\n                <li>{{ genre.name }} ({{ genre.count }})</li>\r\n            {% endfor %}\r\n        </ul>\r\n\r\n        <h3>Top Artists</h3>\r\n        <ul>\r\n            {% for artist in wrap.top_artists %}\r\n                <li>{{ artist.name }} - {{ artist.subtitle }}</li>\r\n            {% endfor %}\r\n        </ul>\r\n\r\n        <h3>Top Tracks</h3>\r\n        <ul>\r\n            {% for track in wrap.top_tracks %}\r\n                <li>{{ track.name }} - {{ track.subtitle }}</li>\r\n            {% endfor %}\r\n        </ul>\r\n\r\n        <h3>Top Albums</h3>\r\n        <ul>\r\n            {% for album in wrap.top_albums %}\r\n                <li>{{ album.name }} - {{ album.subtitle }}</li>\r\n            {% endfor %}\r\n        </ul>\r\n\r\n        <h3>Top Locations</h3>\r\n        <ul>\r\n            {% for location in wrap.top_locations %}\r\n                <li>{{ location.name }} ({{ location.count }})</li>\r\n            {% endfor %}\r\n        </ul>\r\n\r\n        <h3>User Profile</h3>\r\n        <p><strong>Name:</strong> {{ wrap.user_profile.name }}</p>\r\n        <p><strong>Country:</strong> {{ wrap.user_profile.country }}</p>\r\n        <p><strong>Followers:</strong> {{ wrap.user_profile.followersCount }}</p>\r\n\r\n        <a href=\"{% url 'savedwraps' %}\">Back to Saved Wraps</a>\r\n    </div>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/templates/wrap_detail.html b/Api/templates/wrap_detail.html
+--- a/Api/templates/wrap_detail.html	(revision 617c717c3decccb5b2e4df37e96616b6e1d54db3)
++++ b/Api/templates/wrap_detail.html	(date 1732683777717)
+@@ -35,14 +35,20 @@
+         <h3>Top Tracks</h3>
+         <ul>
+             {% for track in wrap.top_tracks %}
+-                <li>{{ track.name }} - {{ track.subtitle }}</li>
++                <li>
++                    <img src="{{ track.image }}" alt="{{ track.name }}" style="width: 50px; height: 50px;">
++                    {{ track.name }} - {{ track.subtitle }}
++                </li>
+             {% endfor %}
+         </ul>
+ 
+         <h3>Top Albums</h3>
+         <ul>
+             {% for album in wrap.top_albums %}
+-                <li>{{ album.name }} - {{ album.subtitle }}</li>
++                <li>
++                    <img src="{{ album.image }}" alt="{{ album.name }}" style="width: 50px; height: 50px;">
++                    {{ album.name }} - {{ album.subtitle }}
++                </li>
+             {% endfor %}
+         </ul>
+ 

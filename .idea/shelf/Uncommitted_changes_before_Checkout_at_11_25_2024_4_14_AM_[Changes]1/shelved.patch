@@ -1,0 +1,77 @@
+Index: Api/static/css/styles.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/* Reset some default browser styles */\r\n* {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\r\n}\r\n\r\n/* Light Theme */\r\nbody {\r\n    font-family: Arial, sans-serif;\r\n    line-height: 1.6;\r\n    background-color: #f4f4f4; /* Light background */\r\n    color: #333; /* Dark text */\r\n}\r\n\r\n/* Navigation Bar */\r\nnav {\r\n    background-color: #333; /* Dark background */\r\n    color: #fff;\r\n    padding: 1em;\r\n}\r\n\r\n/* Dark Theme */\r\nbody.dark-theme {\r\n    background-color: #121212; /* Dark background */\r\n    color: #fff; /* Light text */\r\n}\r\n\r\nnav.dark-theme {\r\n    background-color: #222; /* Dark navigation bar */\r\n}\r\n\r\n/* Blue Theme */\r\nbody.blue-theme {\r\n    background-color: #add8e6; /* Light blue background */\r\n    color: #333; /* Dark text */\r\n}\r\n\r\nnav.blue-theme {\r\n    background-color: #4682b4; /* Blue navigation bar */\r\n}\r\n\r\n/* Main Content Area */\r\n.content {\r\n    max-width: 800px;\r\n    margin: 2em auto;\r\n    padding: 1em;\r\n    background-color: #fff; /* Light background */\r\n    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\r\n    border-radius: 8px;\r\n}\r\n\r\nbody.dark-theme .content {\r\n    background-color: #333; /* Dark content area */\r\n    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for dark theme */\r\n}\r\n\r\nbody.blue-theme .content {\r\n    background-color: #87cefa; /* Light blue content area */\r\n    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for blue theme */\r\n}\r\n\r\n/* Headers */\r\nh1 {\r\n    text-align: center;\r\n    color: #333;\r\n    margin-bottom: 1em;\r\n}\r\n\r\nbody.dark-theme h1,\r\nbody.blue-theme h1 {\r\n    color: #fff; /* Light text for dark and blue theme */\r\n}\r\n\r\n/* Share Section */\r\n.share-section {\r\n    margin: 2rem 0;\r\n    padding: 1.5rem;\r\n    background: #f8f9fa; /* Light background by default */\r\n    border-radius: 8px;\r\n    color: #333; /* Dark text by default */\r\n    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for light mode */\r\n}\r\n\r\nbody.dark-theme .share-section {\r\n    background-color: #333; /* Dark background for dark theme */\r\n    color: #fff; /* Light text for dark theme */\r\n}\r\n\r\nbody.blue-theme .share-section {\r\n    background-color: #87cefa; /* Light blue background for blue theme */\r\n    color: #333; /* Dark text for blue theme */\r\n}\r\n\r\n/* Share Buttons */\r\n.share-buttons {\r\n    display: flex;\r\n    gap: 1rem;\r\n    flex-wrap: wrap;\r\n    margin-top: 1rem;\r\n}\r\n\r\n/* Share Button */\r\n.share-button {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    padding: 0.75rem 1.5rem;\r\n    border: none;\r\n    border-radius: 25px;\r\n    color: white;\r\n    font-weight: 600;\r\n    text-decoration: none;\r\n    cursor: pointer;\r\n    transition: opacity 0.2s;\r\n}\r\n\r\nbody.dark-theme .share-button {\r\n    color: #fff; /* Light text for dark theme */\r\n}\r\n\r\nbody.blue-theme .share-button {\r\n    color: #333; /* Dark text for blue theme */\r\n}\r\n\r\n/* Hover Effect */\r\n.share-button:hover {\r\n    opacity: 0.9;\r\n}\r\n\r\n/* Share Icon */\r\n.share-icon {\r\n    width: 1.25rem;\r\n    height: 1.25rem;\r\n    fill: currentColor;\r\n}\r\n\r\nbody.dark-theme .share-icon {\r\n    fill: #fff; /* White icons in dark theme */\r\n}\r\n\r\nbody.blue-theme .share-icon {\r\n    fill: #333; /* Dark icons in blue theme */\r\n}\r\n\r\n/* Specific Button Colors */\r\n.twitter {\r\n    background-color: #1DA1F2;\r\n}\r\n\r\n.linkedin {\r\n    background-color: #0077B5;\r\n}\r\n\r\n.instagram {\r\n    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);\r\n}\r\n\r\n/* Lists */\r\nul {\r\n    list-style-type: none;\r\n    padding: 0;\r\n}\r\n\r\nul li {\r\n    padding: 10px;\r\n    margin: 10px 0;\r\n    border: 1px solid #ddd;\r\n    border-radius: 5px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #fafafa; /* Light background */\r\n}\r\n\r\nbody.dark-theme ul li {\r\n    background-color: #444; /* Dark list item background */\r\n    border-color: #666; /* Lighter border in dark theme */\r\n}\r\n\r\nbody.blue-theme ul li {\r\n    background-color: #b0e0e6; /* Light blue list item background */\r\n    border-color: #4682b4; /* Blue border in blue theme */\r\n}\r\n\r\nul li img {\r\n    border-radius: 5px;\r\n    margin-right: 15px;\r\n}\r\n\r\nul li strong {\r\n    font-size: 1.1em;\r\n}\r\n\r\nul li a {\r\n    color: #1db954;\r\n    text-decoration: none;\r\n    font-weight: bold;\r\n    transition: color 0.3s ease;\r\n}\r\n\r\nbody.dark-theme ul li a,\r\nbody.blue-theme ul li a {\r\n    color: #1db954; /* Green link color in both themes */\r\n}\r\n\r\nul li a:hover {\r\n    color: #14833b;\r\n}\r\n\r\nbody.dark-theme ul li a:hover,\r\nbody.blue-theme ul li a:hover {\r\n    color: #99e5a1; /* Lighter hover color for dark and blue themes */\r\n}\r\n\r\n/* Details Section */\r\ndetails {\r\n    margin-bottom: 1em;\r\n    border: 1px solid #ddd;\r\n    padding: 0.5em;\r\n    border-radius: 5px;\r\n    background-color: #f9f9f9; /* Light background */\r\n}\r\n\r\nbody.dark-theme details {\r\n    background-color: #333; /* Dark background for details section */\r\n    border-color: #666; /* Lighter border for dark theme */\r\n}\r\n\r\nbody.blue-theme details {\r\n    background-color: #b0e0e6; /* Light blue background for details section */\r\n    border-color: #4682b4; /* Blue border for blue theme */\r\n}\r\n\r\nsummary {\r\n    font-size: 1.2em;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\nsummary h2 {\r\n    display: inline;\r\n}\r\n\r\ndetails[open] summary {\r\n    color: #1db954;\r\n}\r\n\r\ndetails ul {\r\n    margin-top: 1em;\r\n}\r\n\r\nbody.dark-theme details[open] summary,\r\nbody.blue-theme details[open] summary {\r\n    color: #99e5a1; /* Lighter summary color for dark and blue themes */\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/static/css/styles.css b/Api/static/css/styles.css
+--- a/Api/static/css/styles.css	(revision 0e57d82cc7d9cfbb7aee9d3c6109c1a0d4c16183)
++++ b/Api/static/css/styles.css	(date 1732526077339)
+@@ -42,7 +42,7 @@
+ 
+ /* Main Content Area */
+ .content {
+-    max-width: 800px;
++    max-width: 1200px;
+     margin: 2em auto;
+     padding: 1em;
+     background-color: #fff; /* Light background */
+@@ -253,3 +253,57 @@
+ body.blue-theme details[open] summary {
+     color: #99e5a1; /* Lighter summary color for dark and blue themes */
+ }
++
++/* Login Button */
++.login-btn {
++    display: inline-block;
++    padding: 12px 24px;
++    background-color: #1db954; /* Spotify green */
++    color: #fff;
++    font-weight: bold;
++    font-size: 1rem;
++    border-radius: 30px;
++    text-decoration: none;
++    transition: background-color 0.3s ease, transform 0.3s ease;
++    margin-right: 20px;
++}
++
++.login-btn:hover {
++    background-color: #1aa13f;
++    transform: scale(1.05);
++}
++
++.login-btn:active {
++    transform: scale(0.95);
++}
++
++/* Theme Toggle Button */
++.theme-toggle-btn {
++    display: inline-block;
++    padding: 12px 24px;
++    background-color: #444; /* Default dark theme background */
++    color: #fff;
++    font-weight: bold;
++    font-size: 1rem;
++    border-radius: 30px;
++    text-decoration: none;
++    cursor: pointer;
++    transition: background-color 0.3s ease, transform 0.3s ease;
++}
++
++body.dark-theme .theme-toggle-btn {
++    background-color: #333;
++}
++
++body.blue-theme .theme-toggle-btn {
++    background-color: #4682b4;
++}
++
++.theme-toggle-btn:hover {
++    background-color: #555;
++    transform: scale(1.05);
++}
++
++.theme-toggle-btn:active {
++    transform: scale(0.95);
++}
