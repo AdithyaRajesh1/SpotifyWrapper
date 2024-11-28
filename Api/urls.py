@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 from Api import views
 from Api.views import spotify_redirect, CheckAuthentication, CurrentSong, Authentication, home, TopSongs, \
-    SpotifyWrappedView, register
+    SpotifyWrappedView, register, GameView
 
 urlpatterns = [
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('current-song/', CurrentSong.as_view()),
     path('top/', TopSongs.as_view()),
     path('wrapped/', SpotifyWrappedView.as_view(), name = 'wrapped'),
+    path('game/', GameView.as_view(), name='game'),
 
 
     path('register/',register, name='register'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('wrapped/tracks/', views.SpotifyWrappedTracksView.as_view(), name='wrapped_tracks'),
     path('wrapped/albums/', views.SpotifyWrappedAlbumsView.as_view(), name='wrapped_albums'),
     path('wrapped/profile/', views.SpotifyWrappedProfileView.as_view(), name='wrapped_profile'),
+    path('wrapped/response/', views.SpotifyWrappedGenAIView.as_view(), name='wrapped_response'),
 
     path('wrapped/genres', views.TopGenresView.as_view(), name='wrapped_genres'),
 

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+
+    .genai-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #1DB954;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        letter-spacing: -0.05rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #535353;
+        margin-bottom: 2rem;
+        font-weight: 300;
+    }
+
+    .genai-card {
+        background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .genai-card:hover {
+        transform: scale(1.02);
+    }
+
+    .card-title {
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .genai-description {
+        color: #e0e0e0;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        font-style: italic;
+    }
+
+    .navigation-section {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #1DB954;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #1ed760;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 600px) {
+        .genai-container {
+            padding: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .genai-card {
+            padding: 1.5rem;
+        }
+
+        .btn-group {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="genai-container">
+    <h1 class="section-title">Your Music Personality</h1>
+    <p class="section-subtitle">A unique glimpse into your musical soul</p>
+
+    <div class="genai-card">
+        <div class="card-content">
+            <h2 class="card-title">Your Musical Persona</h2>
+            <p class="genai-description">{{ wrapped_data.genaiResponse }}</p>
+        </div>
+    </div>
+
+    <div class="navigation-section">
+        <div class="btn-group">
+            <a href="{% url 'wrapped_artists' %}?time_range={{ time_range }}" class="btn next-btn">Top Artists</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
