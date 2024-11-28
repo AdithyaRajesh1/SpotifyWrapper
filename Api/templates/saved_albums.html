@@ -2,32 +2,48 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/albums.css' %}">
-    <div class="container">
-        <!-- Page Title -->
-        <h1 class="page-title">Your Top Albums</h1>
+    <link rel="stylesheet" href="{% static 'css/artists.css' %}">
+
+    <!-- Full-screen Slide for Top Artist -->
+    <div class="fullscreen-slide" id="fullscreenSlide">
+        {% if wrap.top_albums %}
+            <div class="artist-card fullscreen-card">
+             <h1 class="your_top"> Your Top Album: </h1>
+                <div class="card-image-container">
+                    <img src="{{ wrap.top_albums.0.image }}" alt="{{ wrap.top_albums.0.name }}" class="card-image">
+
+                </div>
+                <br/>
+                <div class="card-content">
+                    <h1 class="artist-name">{{ wrap.top_albums.0.name }}</h1>
+                    <p class="genre">{{ wrap.top_albums.0.subtitle }}</p>
+                    <a href="{{ wrap.top_albums.0.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                </div>
+            </div>
+            
+        {% endif %}
+    </div>
+
+    <!-- Top Artists Container -->
+    <div class="top-artists-container" id="listView" style="display: none;">
+        <h1 class="section-title">Your Top Albums</h1>
         <p class="section-subtitle">Discover your favorite albums from the past year in one place</p>
 
-        <!-- Albums Section -->
-        <div class="card-container">
-            {% if wrap.top_albums %}
-                {% for album in wrap.top_albums %}
-                    <div class="card">
-                        <!-- Album Image -->
-                        <div class="card-image-container">
-                            <img src="{{ album.image }}" alt="{{ album.name }}" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <!-- Album Title -->
-                            <h3>{{ album.name }}</h3>
-                            <p class="artist-name">{{ album.subtitle }}</p>
-                            <a href="{{ album.spotifyUrl }}" class="btn" target="_blank">Listen on Spotify</a>
-                        </div>
+        <!-- Card Grid -->
+        <div class="card-grid">
+            {% for album in wrap.top_albums %}
+                <div class="artist-card">
+                    <div class="card-image-container">
+                        <img src="{{ album.image }}" alt="{{ album.name }}" class="card-image">
                     </div>
-                {% endfor %}
-            {% else %}
-                <p class="no-albums-message">It looks like you haven't listened to any albums this year. Start exploring!</p>
-            {% endif %}
+                    <div class="card-content">
+                        <h3 class="artist-name">{{ album.name }}</h3>
+                        <p class="genre">{{ album.subtitle }}</p>
+                        <a href="{{ album.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                    </div>
+                </div>
+            {% endfor %}
+        
         </div>
 
         <!-- Button to Wrapped Page -->
@@ -35,4 +51,19 @@
             <a href="{% url 'wrapped' %}" class="btn next-btn">View Your Full Wrapped</a>
         </div>
     </div>
+    <script>
+        // JavaScript to toggle between full-screen slide and list view
+        document.addEventListener("DOMContentLoaded", () => {
+            const fullscreenSlide = document.getElementById("fullscreenSlide");
+            const listView = document.getElementById("listView");
+            const backgroundMusic = document.getElementById("backgroundMusic");
+
+            // On click, hide the slide and show the list view
+            fullscreenSlide.addEventListener("click", () => {
+                fullscreenSlide.style.display = "none";
+                listView.style.display = "block";
+                if (backgroundMusic) backgroundMusic.pause(); // Stop music when leaving slideshow
+            });
+        });
+    </script>
 {% endblock %}

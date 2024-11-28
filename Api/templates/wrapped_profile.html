@@ -16,7 +16,7 @@
         top: 0;
         left: 0;
         background: linear-gradient(135deg, #ff0080, #ff8c00); /* Vibrant Spotify-style gradient */
-        z-index: 999; /* Ensure it stays on top */
+        z-index: 1001; /* Ensure it stays on top */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -42,13 +42,28 @@
         transition: transform 0.5s, opacity 0.5s; /* Smooth scaling and fade-in effects */
         opacity: 0;
     }
-
+    
+    /* Add a hover effect */
+    
     .slideshow-item.active {
         display: block; /* Ensure slide is visible */
         opacity: 1; /* Fade in */
         transition: opacity 0.5s ease, transform 0.5s ease;
         transform: translateY(0); /* Move to center */
     }
+    
+    .slideshow-item.active:hover {
+        transform: scale(1) !important;  /* Grow slightly on hover */
+        background-color: rgba(0, 0, 0, 0.6); /* Darken the background slightly */
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7); /* Enhance shadow on hover */
+        cursor: pointer; /* Indicate interactivity */
+    }
+    
+    .slideshow-item.active:hover * { /* Scale all children of .slideshow-item */
+        transform: scale(1.05); /* Slightly enlarge the contents */
+        transition: transform 0.3s; /* Smooth scaling for contents */
+    }
+
 
     .slideshow-item.inactive {
         opacity: 0; /* Fade out */
@@ -163,7 +178,7 @@
             <li class="stat-item"><span class="stat-title">Available In:</span> {{ wrapped_data.totalLocations }} countries</li>
         </ul>
     </div>
-    <a href="{% url 'wrapped_response' %}?time_range={{ time_range }}" class="btn navigate-artists">See Your Music Persona</a>
+    <a href="{% url 'wrapped_response' %}?time_range={{ time_range }}" class="btn navigate-artists">Next: See Your Music Persona</a>
 </div>
 
 <script>
@@ -178,8 +193,12 @@
         "linear-gradient(135deg, #ee9ca7, #ffdde1)"
     ];
     let currentIndex = 0;
+    let isTransitioning = false; // To track if a transition is ongoing
 
     function showNextSlide() {
+        if (isTransitioning) return; // Prevent multiple clicks during transition
+        isTransitioning = true;
+
         if (currentIndex < slides.length) {
             const currentSlide = slides[currentIndex];
             currentSlide.classList.remove('active');
@@ -203,7 +222,9 @@
                     slideshowContainer.style.display = 'none';
                     otherContent.style.display = 'block';
                 }
-            }, 500);
+
+                isTransitioning = false; // Allow new clicks after transition
+            }, 500); // Duration matches the CSS transition timing
         }
     }
 
@@ -218,6 +239,7 @@
         slideshowContainer.style.background = gradients[0];
     };
 </script>
+
 
 
 

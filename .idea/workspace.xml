@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="short/med/long term done and insta/linkedin/x share functionality added">
+    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="small css changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/album_guessing_game.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/album_guessing_game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_albums.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_albums.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_artists.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_artists.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_tracks.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_tracks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_artists.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_artists.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_genai.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_genai.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +105,6 @@
         <env name="DJANGO_SETTINGS_MODULE" value="SpotifyWrapper.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13 (SpotifyWrapper)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -330,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732769651991</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="small css changes">
+      <option name="closed" value="true" />
+      <created>1732821112424</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1732821112425</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,6 +358,7 @@
     <MESSAGE value="halfway through getting 2023 wrapped" />
     <MESSAGE value="made wrapped show past 5 years" />
     <MESSAGE value="short/med/long term done and insta/linkedin/x share functionality added" />
-    <option name="LAST_COMMIT_MESSAGE" value="short/med/long term done and insta/linkedin/x share functionality added" />
+    <MESSAGE value="small css changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="small css changes" />
   </component>
 </project>
