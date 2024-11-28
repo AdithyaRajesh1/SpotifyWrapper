@@ -17,6 +17,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import logout
 import urllib.parse
 
 
@@ -105,11 +108,24 @@ def spotify_redirect(request):
     return redirect(redirect_url)
 
 
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        logout(request)
+        messages.success(request, 'Your account has been successfully deleted.')
+        return redirect('home')
+    return render(request, 'delete_account.html')
+
+
 class CheckAuthentication(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         is_authenticated = is_spotify_authenticated(self.request.session.session_key)
         return Response({"is_authenticated": is_authenticated}, status=status.HTTP_200_OK)
+
+
 
 class CurrentSong(APIView):
     permission_classes = [IsAuthenticated]
