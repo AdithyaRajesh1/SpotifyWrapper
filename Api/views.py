@@ -1,4 +1,3 @@
-#ADITHYAVERSION
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -555,16 +554,18 @@ class SpotifyWrappedView(APIView):
 
            # Top Albums (unchanged)
            "topAlbums": [
-               {
-                   "name": track["album"]["name"],
-                   "subtitle": track["album"]["artists"][0]["name"],
-                   "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                   "releaseDate": track["album"].get("release_date"),
-                   "totalTracks": track["album"].get("total_tracks"),
-                   "spotifyUrl": track["album"]["external_urls"]["spotify"]
-               }
-               for track in top_tracks_response.get("items", [])[:5]
-           ],
+                {
+                    "name": track["album"]["name"],
+                    "subtitle": track["album"]["artists"][0]["name"],
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "releaseDate": track["album"].get("release_date"),
+                    "totalTracks": track["album"].get("total_tracks"),
+                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                }
+                for track in top_tracks_response.get("items", [])
+                if track["album"]["id"] in all_albums and not all_albums.remove(track["album"]["id"])
+            ][:5],
+
 
 
            # Top Locations
@@ -597,7 +598,7 @@ class SpotifyWrappedView(APIView):
 
        if request.user.is_authenticated:
            # Save the data to the database
-           SpotifyWrapped.objects.create(
+           wrap = SpotifyWrapped.objects.create(
                user=request.user,
                time_range=wrapped_data["currentTimeRange"],
                total_artists=wrapped_data["totalArtists"],
@@ -623,6 +624,7 @@ class SpotifyWrappedView(APIView):
        # Otherwise render the template
        return render(request, "wrapped.html", {
            "wrapped_data": wrapped_data,
+           "wrap": wrap,
            "page_title": f"Your Spotify Wrapped - {time_range_display[time_range]}",
            "current_year": datetime.now().year,
            "request": request  # Pass request to template for building absolute URLs
@@ -891,16 +893,18 @@ class SpotifyWrappedAlbumsView(APIView):
         top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
         top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
 
+        seen_albums = set()
         wrapped_data = {
             "topAlbums": [
-                {
-                    "name": track["album"]["name"],
-                    "subtitle": track["album"]["artists"][0]["name"],
-                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
-                }
-                for track in top_tracks_response.get("items", [])[:5]
-            ]
+                 {
+                     "name": track["album"]["name"],
+                     "subtitle": track["album"]["artists"][0]["name"],
+                     "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                     "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                 }
+                 for track in top_tracks_response.get("items", [])
+                 if track["album"]["id"] not in seen_albums and not seen_albums.add(track["album"]["id"])
+             ][:5]
         }
 
         return render(request, "wrapped_albums_locations.html", {"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Top Albums"})
