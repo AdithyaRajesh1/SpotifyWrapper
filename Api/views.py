@@ -226,186 +226,164 @@ class TopSongs(APIView):
         return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
 import random
 class GameView(APIView):
-   def get(self, request, format=None):
-       # Ensure we have a session
-       if not request.session.session_key:
-           request.session.create()
+    def get(self, request, format=None):
+        # Ensure the user is authenticated
+        if not request.user.is_authenticated:
+            return redirect('login')  # Redirect to the login page if not logged in
 
+        # Ensure we have a session
+        if not request.session.session_key:
+            request.session.create()
 
-       time_range = request.GET.get('time_range', 'medium_term')
+        time_range = request.GET.get('time_range', 'medium_term')
 
+        # Validate time range
+        valid_ranges = ['short_term', 'medium_term', 'long_term']
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
 
-       # Validate time range
-       valid_ranges = ['short_term', 'medium_term', 'long_term']
-       if time_range not in valid_ranges:
-           time_range = 'medium_term'
+        # Fetch top tracks
+        key = request.session.session_key
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
 
+        # Prepare album data for the game
+        album_game_data = []
+        for track in top_tracks_response.get("items", []):
+            album = track.get("album", {})
 
-       # Fetch top tracks
-       key = request.session.session_key
-       top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
-       top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+            # Ensure we have all required fields
+            if (album.get("name") and album.get("artists") and album.get("images")):
+                album_entry = {
+                    "album_name": album["name"],
+                    "artist": album["artists"][0]["name"],
+                    "image": album["images"][0]["url"],
+                    "album_id": album.get("id", str(hash(album["name"])))
+                }
+                album_game_data.append(album_entry)
 
+        # Shuffle the albums to randomize game
+        random.shuffle(album_game_data)
 
-       # Prepare album data for the game
-       album_game_data = []
-       for track in top_tracks_response.get("items", []):
-           album = track.get("album", {})
+        # Select first 10 albums for the game or fewer if not enough
+        selected_albums = album_game_data[:10]
 
+        # Prepare albums with blanked-out names
+        for album in selected_albums:
+            # Create a blanked-out version of the album name
+            words = album['album_name'].split()
 
-           # Ensure we have all required fields
-           if (album.get("name") and
-                   album.get("artists") and
-                   album.get("images")):
-               album_entry = {
-                   "album_name": album["name"],
-                   "artist": album["artists"][0]["name"],
-                   "image": album["images"][0]["url"],
-                   "album_id": album.get("id", str(hash(album["name"])))
-               }
-               album_game_data.append(album_entry)
+            # Choose a random word to blank out
+            blank_index = random.randint(0, len(words) - 1)
+            original_word = words[blank_index]
 
+            # Replace the chosen word with underscores
+            words[blank_index] = '_' * len(original_word)
 
-       # Shuffle the albums to randomize game
-       random.shuffle(album_game_data)
+            # Store additional game information
+            album['blanked_name'] = ' '.join(words)
+            album['correct_word'] = original_word
+            album['word_index'] = blank_index
 
+        # Time range display names
+        time_range_display = {
+            'short_term': 'Last 4 Weeks',
+            'medium_term': 'Last 6 Months',
+            'long_term': 'All Time'
+        }
 
-       # Select first 10 albums for the game or fewer if not enough
-       selected_albums = album_game_data[:10]
+        # Store game state in session
+        request.session['spotify_game_albums'] = selected_albums
+        request.session['spotify_game_session'] = {
+            "current_round": 0,
+            "total_rounds": len(selected_albums),
+            "score": 0
+        }
+        request.session.modified = True
 
+        # Structure the data for the frontend
+        trapped_data = {
+            "currentTimeRange": time_range,
+            "timeRangeDisplay": time_range_display[time_range],
+            "availableTimeRanges": [
+                {'value': tr, 'display': time_range_display[tr]}
+                for tr in valid_ranges
+            ],
+            "gameData": {
+                "currentAlbum": selected_albums[0],
+                "allAlbums": selected_albums,
+                "gameSession": {
+                    "current_round": 0,
+                    "total_rounds": len(selected_albums),
+                    "score": 0
+                }
+            }
+        }
 
-       # Prepare albums with blanked-out names
-       for album in selected_albums:
-           # Create a blanked-out version of the album name
-           words = album['album_name'].split()
+        # Return JSON for API consumption
+        if request.headers.get('Accept') == 'application/json':
+            return JsonResponse(trapped_data, encoder=DjangoJSONEncoder)
 
+        # Otherwise render the template
+        return render(request, "album_guessing_game.html", {
+            "trapped_data": trapped_data,
+            "page_title": f"Spotify Album Guessing Game",
+        })
 
-           # Choose a random word to blank out
-           blank_index = random.randint(0, len(words) - 1)
-           original_word = words[blank_index]
+    def post(self, request, format=None):
+        # Ensure the user is authenticated
+        if not request.user.is_authenticated:
+            return redirect('login')  # Redirect to the login page if not logged in
 
+        # Retrieve game state from session
+        try:
+            albums = request.session.get('spotify_game_albums', [])
+            game_session = request.session.get('spotify_game_session', {})
 
-           # Replace the chosen word with underscores
-           words[blank_index] = '_' * len(original_word)
+            if not albums or not game_session:
+                return JsonResponse({"error": "Game session not found"}, status=400)
 
+            # Get submitted answer
+            submitted_word = request.data.get('submittedWord', '').strip()
 
-           # Store additional game information
-           album['blanked_name'] = ' '.join(words)
-           album['correct_word'] = original_word
-           album['word_index'] = blank_index
+            # Check if answer is correct
+            current_album = albums[game_session['current_round']]
+            is_correct = (
+                    submitted_word.lower() == current_album['correct_word'].lower()
+            )
 
+            # Update score
+            if is_correct:
+                game_session['score'] += 1
 
-       # Time range display names
-       time_range_display = {
-           'short_term': 'Last 4 Weeks',
-           'medium_term': 'Last 6 Months',
-           'long_term': 'All Time'
-       }
+            # Move to next round
+            game_session['current_round'] += 1
 
+            # Check if game is over
+            is_game_over = game_session['current_round'] >= game_session['total_rounds']
 
-       # Store game state in session
-       request.session['spotify_game_albums'] = selected_albums
-       request.session['spotify_game_session'] = {
-           "current_round": 0,
-           "total_rounds": len(selected_albums),
-           "score": 0
-       }
-       request.session.modified = True
+            # Prepare response
+            response_data = {
+                "isCorrect": is_correct,
+                "correctWord": current_album['correct_word'],
+                "score": game_session['score'],
+                "currentRound": game_session['current_round'],
+                "totalRounds": game_session['total_rounds'],
+                "isGameOver": is_game_over
+            }
 
+            # If not game over, include next album
+            if not is_game_over:
+                response_data['nextAlbum'] = albums[game_session['current_round']]
 
-       # Structure the data for the frontend
-       trapped_data = {
-           "currentTimeRange": time_range,
-           "timeRangeDisplay": time_range_display[time_range],
-           "availableTimeRanges": [
-               {'value': tr, 'display': time_range_display[tr]}
-               for tr in valid_ranges
-           ],
-           "gameData": {
-               "currentAlbum": selected_albums[0],
-               "allAlbums": selected_albums,
-               "gameSession": {
-                   "current_round": 0,
-                   "total_rounds": len(selected_albums),
-                   "score": 0
-               }
-           }
-       }
+            # Update session
+            request.session['spotify_game_session'] = game_session
+            request.session.modified = True
 
+            return JsonResponse(response_data)
 
-       # Return JSON for API consumption
-       if request.headers.get('Accept') == 'application/json':
-           return JsonResponse(trapped_data, encoder=DjangoJSONEncoder)
-
-
-       # Otherwise render the template
-       return render(request, "album_guessing_game.html", {
-           "trapped_data": trapped_data,
-           "page_title": f"Spotify Album Guessing Game",
-       })
-
-
-   def post(self, request, format=None):
-       # Retrieve game state from session
-       try:
-           albums = request.session.get('spotify_game_albums', [])
-           game_session = request.session.get('spotify_game_session', {})
-
-
-           if not albums or not game_session:
-               return JsonResponse({"error": "Game session not found"}, status=400)
-
-
-           # Get submitted answer
-           submitted_word = request.data.get('submittedWord', '').strip()
-
-
-           # Check if answer is correct
-           current_album = albums[game_session['current_round']]
-           is_correct = (
-                   submitted_word.lower() == current_album['correct_word'].lower()
-           )
-
-
-           # Update score
-           if is_correct:
-               game_session['score'] += 1
-
-
-           # Move to next round
-           game_session['current_round'] += 1
-
-
-           # Check if game is over
-           is_game_over = game_session['current_round'] >= game_session['total_rounds']
-
-
-           # Prepare response
-           response_data = {
-               "isCorrect": is_correct,
-               "correctWord": current_album['correct_word'],
-               "score": game_session['score'],
-               "currentRound": game_session['current_round'],
-               "totalRounds": game_session['total_rounds'],
-               "isGameOver": is_game_over
-           }
-
-
-           # If not game over, include next album
-           if not is_game_over:
-               response_data['nextAlbum'] = albums[game_session['current_round']]
-
-
-           # Update session
-           request.session['spotify_game_session'] = game_session
-           request.session.modified = True
-
-
-           return JsonResponse(response_data)
-
-
-       except Exception as e:
-           return JsonResponse({"error": str(e)}, status=500)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
 class SpotifyWrappedView(APIView):
    def get(self, request, format=None):
        key = self.request.session.session_key
@@ -722,6 +700,10 @@ def wrap_detail(request, id):
 
 class SpotifyWrappedOverviewView(APIView):
     def get(self, request, format=None):
+        # Ensure the user is authenticated
+        if not request.user.is_authenticated:
+            return redirect('login')  # Redirect to the login page if not logged in
+
         key = self.request.session.session_key
         time_range = request.GET.get('time_range', 'medium_term')
         valid_ranges = ['short_term', 'medium_term', 'long_term']
@@ -757,8 +739,12 @@ class SpotifyWrappedOverviewView(APIView):
 
         wraps = SpotifyWrapped.objects.filter(user=request.user).order_by('-created_at')
 
-        return render(request, "wrapped_overview.html", {"wrapped_data": wrapped_data, "wraps": wraps, "time_range" : time_range, "page_title": "Your Spotify Wrapped Overview"})
-
+        return render(request, "wrapped_overview.html", {
+            "wrapped_data": wrapped_data,
+            "wraps": wraps,
+            "time_range": time_range,
+            "page_title": "Your Spotify Wrapped Overview"
+        })
 
 import logging
 from django.shortcuts import render
@@ -1270,6 +1256,21 @@ def WebsiteSocial(request):
         'socials_list': socials_list,  # Pass the list to the template
     }
     return render(request, 'post_list.html', context)  # Ensure 'post_list' matches the URL name for your posts page
+def delete_social(request, id):
+    try:
+        wrap = Social.objects.get(id=id, user=request.user)
+    except Social.DoesNotExist:
+        raise Http404("Social data not found.")
+
+    # Delete the wrap
+    wrap.delete()
+
+    # Re-render the updated list
+    socials_list = Social.objects.all()
+    context = {
+        'socials_list': socials_list,
+    }
+    return render(request, 'post_list.html', context)
 def delete_spotify_wrap(request, id):
     try:
         wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
