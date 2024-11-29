@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="Did some Error Handling" />
+    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="finished Contact the Developers">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/auth.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -374,7 +378,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732871310168</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fixed placement of post on website button">
+      <option name="closed" value="true" />
+      <created>1732905402370</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1732905402370</updated>
+    </task>
+    <task id="LOCAL-00030" summary="finished Contact the Developers">
+      <option name="closed" value="true" />
+      <created>1732906252632</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1732906252632</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,6 +410,8 @@
     <MESSAGE value="short/med/long term done and insta/linkedin/x share functionality added" />
     <MESSAGE value="delete account functionality added" />
     <MESSAGE value="Did some Error Handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Did some Error Handling" />
+    <MESSAGE value="fixed placement of post on website button" />
+    <MESSAGE value="finished Contact the Developers" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished Contact the Developers" />
   </component>
 </project>
