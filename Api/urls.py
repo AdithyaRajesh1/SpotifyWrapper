@@ -53,5 +53,6 @@ path('posts/', views.PostListView.as_view(), name='post_list'),
     path('delete_wrap/<int:id>/', views.delete_spotify_wrap, name='delete_spotify_wrap'),
     path('posted-wraps/', views.WebsiteSocial, name='post_list'),
     path('delete_social/<int:id>/', views.delete_social, name='delete_social'),
+    path('contact/', views.contact_developers, name='contact_developers'),
 ]
 # Detailed view for each wrap

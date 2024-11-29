@@ -134,14 +134,17 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary">Log out</button>
                 </form>
-                
+
                 <!-- Add delete account button -->
                 <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
             {% else %}
                 <!-- Login button aligned to the right -->
                 <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
             {% endif %}
-        
+
+            <!-- Contact the Developers button -->
+            <a href="{% url 'contact_developers' %}" class="btn btn-primary">Contact the Developers</a>
+
             <!-- Theme toggle button -->
             <button id="theme-toggle" class="btn btn-toggle">Change Theme</button>
         </div>

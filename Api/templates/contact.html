@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contact the Developers
+{% endblock %}
+
+{% block content %}
+    <head>
+        <style>
+            .contact-title {
+                text-align: center;
+                font-size: 50px;
+                font-weight: bold;
+                color: #1db954; /* Spotify green color */
+                margin-bottom: 40px;
+            }
+            .developer-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #f9f9f9;
+                margin: 30px;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .developer-section img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                margin-bottom: 20px;
+            }
+            .developer-name {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+            .developer-position {
+                font-size: 20px;
+                color: #555;
+                margin-bottom: 10px;
+            }
+            .developer-bio {
+                font-size: 16px;
+                color: #666;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .contact-info {
+                font-size: 18px;
+                color: #1db954;
+            }
+            .contact-info a {
+                color: #1db954;
+                text-decoration: none;
+            }
+            .contact-info a:hover {
+                text-decoration: underline;
+            }
+            .developer-section:hover {
+                transform: scale(1.05);
+                transition: transform 0.3s ease-in-out;
+            }
+        </style>
+    </head>
+
+    <div class="contact-title">Meet the Development Team</div>
+
+    <div class="developer-sections-container">
+        <!-- Developer 1 -->
+        <div class="developer-section">
+            <img src="https://placekitten.com/150/150" alt="Developer 1">
+            <div class="developer-name">John Doe</div>
+            <div class="developer-position">Lead Developer</div>
+            <div class="developer-bio">
+                John is a passionate software engineer with a focus on backend development. He enjoys working with cloud services and optimizing application performance.
+            </div>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:johndoe@example.com">johndoe@example.com</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/johndoe" target="_blank">linkedin.com/in/johndoe</a></p>
+            </div>
+        </div>
+
+        <!-- Developer 2 -->
+        <div class="developer-section">
+            <img src="https://placekitten.com/150/150" alt="Developer 2">
+            <div class="developer-name">Jane Smith</div>
+            <div class="developer-position">Frontend Developer</div>
+            <div class="developer-bio">
+                Jane specializes in creating intuitive user interfaces. She is passionate about user experience (UX) design and ensuring the product is user-friendly.
+            </div>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:janesmith@example.com">janesmith@example.com</a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/janesmith" target="_blank">github.com/janesmith</a></p>
+            </div>
+        </div>
+
+        <!-- Developer 3 -->
+        <div class="developer-section">
+            <img src="https://placekitten.com/150/150" alt="Developer 3">
+            <div class="developer-name">Alex Johnson</div>
+            <div class="developer-position">Data Scientist</div>
+            <div class="developer-bio">
+                Alex has expertise in machine learning and data analysis. He loves working on projects that involve predictive modeling and data-driven decisions.
+            </div>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:alexjohnson@example.com">alexjohnson@example.com</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/alexjohnson" target="_blank">linkedin.com/in/alexjohnson</a></p>
+            </div>
+        </div>
+
+        <!-- Developer 4 -->
+        <div class="developer-section">
+            <img src="https://placekitten.com/150/150" alt="Developer 4">
+            <div class="developer-name">Emily Davis</div>
+            <div class="developer-position">UI/UX Designer</div>
+            <div class="developer-bio">
+                Emily brings designs to life with a keen eye for detail. She works closely with the frontend team to ensure an elegant and seamless user experience.
+            </div>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:emilydavis@example.com">emilydavis@example.com</a></p>
+                <p><strong>Portfolio:</strong> <a href="https://emilydavisdesigns.com" target="_blank">emilydavisdesigns.com</a></p>
+            </div>
+        </div>
+
+        <!-- Developer 5 -->
+        <div class="developer-section">
+            <img src="https://placekitten.com/150/150" alt="Developer 5">
+            <div class="developer-name">Chris Lee</div>
+            <div class="developer-position">Quality Assurance Engineer</div>
+            <div class="developer-bio">
+                Chris is dedicated to ensuring the software runs smoothly and efficiently. He focuses on testing and improving the quality of the final product.
+            </div>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:chrislee@example.com">chrislee@example.com</a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/chrislee" target="_blank">github.com/chrislee</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

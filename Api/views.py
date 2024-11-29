@@ -1271,6 +1271,8 @@ def delete_social(request, id):
         'socials_list': socials_list,
     }
     return render(request, 'post_list.html', context)
+def contact_developers(request):
+    return render(request, 'contact.html')
 def delete_spotify_wrap(request, id):
     try:
         wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
