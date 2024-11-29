@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'Api.apps.ApiConfig',
     'tailwind',
     'theme',
-    'sim',
 ]
 
 TAILWIND_APP_NAME = 'theme'

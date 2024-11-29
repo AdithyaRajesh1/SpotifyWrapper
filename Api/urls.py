@@ -4,9 +4,7 @@ from django.contrib.auth import views as auth_views
 
 from Api import views
 from Api.views import spotify_redirect, CheckAuthentication, CurrentSong, Authentication, home, TopSongs, \
-    SpotifyWrappedView, register, GameView, delete_account
-
-    SpotifyWrappedView, register, PostListView
+    SpotifyWrappedView, register, GameView, delete_account, PostListView
 urlpatterns = [
 
     path('', home, name='home'),
@@ -53,5 +51,6 @@ path('posts/', views.PostListView.as_view(), name='post_list'),
     path('wrap/<int:id>/', views.wrap_detail, name='wrap_detail'),
 
     path('delete_wrap/<int:id>/', views.delete_spotify_wrap, name='delete_spotify_wrap'),
+    path('posted-wraps/', views.WebsiteSocial, name='post_list'),
 ]
 # Detailed view for each wrap

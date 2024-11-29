@@ -445,7 +445,7 @@ class SpotifyWrappedView(APIView):
        profile_endpoint = "me"
        profile_response = spotify_requests_execution(key, profile_endpoint)
        # Extract top song names and their artists
-       genai.configure(api_key=API_KEY)
+       genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
        model = genai.GenerativeModel("gemini-1.5-flash")
        top_songs_and_artists = [
            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
@@ -616,6 +616,25 @@ class SpotifyWrappedView(APIView):
 
 
        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
+
+       if request.user.is_authenticated:
+           # Save the data to the database
+           SpotifyWrapped.objects.create(
+               user=request.user,
+               time_range=wrapped_data["currentTimeRange"],
+               total_artists=wrapped_data["totalArtists"],
+               total_tracks=wrapped_data["totalTracks"],
+               total_albums=wrapped_data["totalAlbums"],
+               total_locations=wrapped_data["totalLocations"],
+               new_artists_count=wrapped_data["newArtistsCount"],
+               listening_time_hours=wrapped_data["listeningTimeHours"],
+               top_genres=wrapped_data["topGenres"],
+               top_artists=wrapped_data["topArtists"],
+               top_tracks=wrapped_data["topTracks"],
+               top_albums=wrapped_data["topAlbums"],
+               top_locations=wrapped_data["topLocations"],
+               user_profile=wrapped_data["userProfile"]
+           )
 
 
        # Return JSON for API consumption
@@ -1245,7 +1264,12 @@ def saved_spotify_wrapped_profile(request, id):
         "page_title": "Your Saved Spotify Profile",
     })
 
-
+def WebsiteSocial(request):
+    socials_list = Social.objects.all()
+    context = {
+        'socials_list': socials_list,  # Pass the list to the template
+    }
+    return render(request, 'post_list.html', context)  # Ensure 'post_list' matches the URL name for your posts page
 def delete_spotify_wrap(request, id):
     try:
         wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
