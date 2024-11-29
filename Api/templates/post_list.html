@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block content %}
-        <head>
+    <head>
         <style>
-            
             .green-title {
                 color: #1db954; /* Spotify green color */
                 font-size: 70px; /* Make the text bigger */
@@ -94,8 +93,23 @@
                 color: #333;
             }
 
+            /* Delete button style */
+            .delete-btn {
+                background-color: #dc3545;
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            .delete-btn:hover {
+                background-color: #c82333;
+            }
         </style>
     </head>
+
     <div class="page-title green-title">Welcome to Spotify Wrapped Online</div>
 
     {% if socials_list %}
@@ -110,7 +124,13 @@
                     <p><strong>Total Locations:</strong> {{ social.total_locations }}</p>
                     <p><strong>New Artists Count:</strong> {{ social.new_artists_count }}</p>
                     <p><strong>Listening Time (Hours):</strong> {{ social.listening_time_hours }}</p>
-
+                    {% if social.user == request.user %}
+                        <!-- Delete button only for the logged-in user who created the social data -->
+                        <form action="{% url 'delete_social' social.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    {% endif %}
                     <div class="top-tracks-container">
                         <h4>Top Tracks:</h4>
                         {% for track in social.top_tracks %}
