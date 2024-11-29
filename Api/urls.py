@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 from Api import views
 from Api.views import spotify_redirect, CheckAuthentication, CurrentSong, Authentication, home, TopSongs, \
-    SpotifyWrappedView, register, GameView
+    SpotifyWrappedView, register, GameView, delete_account
 
 urlpatterns = [
 
@@ -25,6 +25,7 @@ urlpatterns = [
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
     path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
+    path('delete-account/', delete_account, name='delete_account'),
 
     path('wrapped/intro/', views.SpotifyWrappedOverviewView.as_view(), name='wrapped_intro'),
     path('wrapped/artists/', views.SpotifyWrappedArtistsView.as_view(), name='wrapped_artists'),

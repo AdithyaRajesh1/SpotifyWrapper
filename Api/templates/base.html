@@ -104,7 +104,16 @@
             gap: 1rem !important; /* Space between buttons */
             margin-left: auto !important; /* Pushes these elements to the far right */
         }
-
+        
+        /* Red button for delete account */
+        nav .btn-danger {
+            background-color: #dc3545 !important;
+        }
+        
+        nav .btn-danger:hover {
+            background-color: #c82333 !important;
+        }
+        
         /* Add padding to the content container to prevent clipping */
     </style>
 </head>
@@ -124,11 +133,14 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary">Log out</button>
                 </form>
+                
+                <!-- Add delete account button -->
+                <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
             {% else %}
                 <!-- Login button aligned to the right -->
                 <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
             {% endif %}
-
+        
             <!-- Theme toggle button -->
             <button id="theme-toggle" class="btn btn-toggle">Change Theme</button>
         </div>

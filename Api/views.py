@@ -8,7 +8,7 @@ from rest_framework import status
 from requests import Request, post
 from django.http import JsonResponse, Http404
 from .models import Token
-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, API_KEY
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 from collections import Counter
 from datetime import datetime, timedelta
@@ -17,9 +17,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import logout
 import urllib.parse
-
-
+#import google.generativeai as genai
+import google.generativeai as genai
+import os
 from django.shortcuts import render  # Assuming the function is in utils.py
 
 from django.shortcuts import render, redirect
@@ -105,11 +109,24 @@ def spotify_redirect(request):
     return redirect(redirect_url)
 
 
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        logout(request)
+        messages.success(request, 'Your account has been successfully deleted.')
+        return redirect('home')
+    return render(request, 'delete_account.html')
+
+
 class CheckAuthentication(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         is_authenticated = is_spotify_authenticated(self.request.session.session_key)
         return Response({"is_authenticated": is_authenticated}, status=status.HTTP_200_OK)
+
+
 
 class CurrentSong(APIView):
     permission_classes = [IsAuthenticated]
@@ -418,7 +435,7 @@ class SpotifyWrappedView(APIView):
        profile_endpoint = "me"
        profile_response = spotify_requests_execution(key, profile_endpoint)
        # Extract top song names and their artists
-       genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+       genai.configure(api_key=API_KEY)
        model = genai.GenerativeModel("gemini-1.5-flash")
        top_songs_and_artists = [
            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
@@ -590,25 +607,6 @@ class SpotifyWrappedView(APIView):
 
        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
 
-       if request.user.is_authenticated:
-           # Save the data to the database
-           SpotifyWrapped.objects.create(
-               user=request.user,
-               time_range=wrapped_data["currentTimeRange"],
-               total_artists=wrapped_data["totalArtists"],
-               total_tracks=wrapped_data["totalTracks"],
-               total_albums=wrapped_data["totalAlbums"],
-               total_locations=wrapped_data["totalLocations"],
-               new_artists_count=wrapped_data["newArtistsCount"],
-               listening_time_hours=wrapped_data["listeningTimeHours"],
-               top_genres=wrapped_data["topGenres"],
-               top_artists=wrapped_data["topArtists"],
-               top_tracks=wrapped_data["topTracks"],
-               top_albums=wrapped_data["topAlbums"],
-               top_locations=wrapped_data["topLocations"],
-               user_profile=wrapped_data["userProfile"]
-           )
-
 
        # Return JSON for API consumption
        if request.headers.get('Accept') == 'application/json':
@@ -766,7 +764,7 @@ class SpotifyWrappedGenAIView(APIView):
 
             # Configure GenAI
             import google.generativeai as genai
-            genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+            genai.configure(api_key=API_KEY)
             model = genai.GenerativeModel("gemini-1.5-flash")
 
             # Generate dynamic description based on top songs and artists
