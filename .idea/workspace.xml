@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="delete account functionality added" />
+    <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="small css changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/album_guessing_game.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/album_guessing_game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_albums.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_albums.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_artists.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_artists.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/saved_tracks.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/saved_tracks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_artists.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_artists.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_genai.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_genai.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,19 +35,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <excluded-from-favorite>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="main" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </excluded-from-favorite>
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="eshan1jaffar &lt;80078879+eshan1jaffar@users.noreply.github.com&gt;" />
@@ -48,6 +46,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -58,7 +57,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AdithyaRajesh1/SpotifyWrapper.git&quot;,
-    &quot;accountId&quot;: &quot;a6e4432d-a58b-4499-b0ed-614ae5476f6a&quot;
+    &quot;accountId&quot;: &quot;9c198e46-08e7-49dc-98c8-3c4789907df6&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -70,26 +69,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django Server.SpotifyWrapper.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "main",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "Social-Media",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.SpotifyWrapper.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Roohi\SpotifyWrapper\Api\static\css" />
@@ -108,7 +105,6 @@
         <env name="DJANGO_SETTINGS_MODULE" value="SpotifyWrapper.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -128,8 +124,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.428" />
-        <option value="bundled-python-sdk-80e8e15d2b92-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.428" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153" />
+        <option value="bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153" />
       </set>
     </attachedChunks>
   </component>
@@ -147,8 +143,6 @@
       <workItem from="1731122513124" duration="9875000" />
       <workItem from="1732475516493" duration="3981000" />
       <workItem from="1732735231490" duration="2888000" />
-      <workItem from="1732576538397" duration="178000" />
-      <workItem from="1732576720148" duration="17429000" />
     </task>
     <task id="LOCAL-00001" summary="partial user auth + redirect">
       <option name="closed" value="true" />
@@ -342,13 +336,13 @@
       <option name="project" value="LOCAL" />
       <updated>1732769651991</updated>
     </task>
-    <task id="LOCAL-00025" summary="delete account functionality added">
+    <task id="LOCAL-00025" summary="small css changes">
       <option name="closed" value="true" />
-      <created>1732774398268</created>
+      <created>1732821112424</created>
       <option name="number" value="00025" />
       <option name="presentableId" value="LOCAL-00025" />
       <option name="project" value="LOCAL" />
-      <updated>1732774398277</updated>
+      <updated>1732821112425</updated>
     </task>
     <option name="localTasksCounter" value="26" />
     <servers />
@@ -364,19 +358,7 @@
     <MESSAGE value="halfway through getting 2023 wrapped" />
     <MESSAGE value="made wrapped show past 5 years" />
     <MESSAGE value="short/med/long term done and insta/linkedin/x share functionality added" />
-    <MESSAGE value="delete account functionality added" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete account functionality added" />
-    <option name="LAST_COMMIT_MESSAGE" value="short/med/long term done and insta/linkedin/x share functionality added" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Api/views.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="small css changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="small css changes" />
   </component>
 </project>

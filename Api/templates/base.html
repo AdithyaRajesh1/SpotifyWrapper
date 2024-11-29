@@ -28,15 +28,18 @@
 
         /* Navbar styling */
         nav {
-            background-color: #333 !important;
-            color: #fff !important;
+            background: linear-gradient(270deg, #1DB954, #191414) !important; /* Spotify green */
+            color: #fff !important; /* White text for contrast */
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            padding: 1rem 2rem !important; /* Ensure consistent padding */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            padding: 1rem 2rem !important; /* Consistent side padding */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important; /* Subtle shadow for depth */
             position: relative !important;
-            height: 60px !important; /* Set the height explicitly */
+            height: 10vh !important; /* Dynamic height: 8% of the viewport height */
+            min-height: 60px !important; /* Ensure a minimum height for smaller screens */
+            font-family: 'Arial', sans-serif !important; /* Clean and modern font */
+            z-index: 1000; /* Ensure it stays on top */
         }
 
         /* Navbar link styling */
@@ -59,7 +62,7 @@
         /* Navbar button styling */
         nav button {
             color: #fff !important;
-            padding: 10px 20px !important;
+            padding: 10px 10px !important;
             border-radius: 30px !important;
             font-size: 1rem !important;
             cursor: pointer !important;
@@ -117,7 +120,7 @@
 <body class="light-theme">
     <nav>
         <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'wrapped_intro' %}">Home</a>
              <a href="{% url 'game' %}" class="game-link">Album Guessing Game</a>
             <!-- Google Translate widget -->
             <div id="google_translate_element"></div>

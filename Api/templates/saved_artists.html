@@ -1,15 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
+    
     <link rel="stylesheet" href="{% static 'css/artists.css' %}">
-    <div class="top-artists-container">
+
+    <!-- Full-screen Slide for Top Artist -->
+    <div class="fullscreen-slide" id="fullscreenSlide">
+        {% if wrap.top_artists %}
+           
+            <div class="artist-card fullscreen-card">
+            <h1 class="your_top"> Your Top Artist: </h1>
+                <div class="card-image-container">
+                    
+                    <img src="{{ wrap.top_artists.0.image }}" alt="{{ wrap.top_artists.0.name }}" class="card-image">
+
+                </div>
+                <br/>
+                <div class="card-content">
+                    <h1 class="artist-name">{{ wrap.top_artists.0.name }}</h1>
+                    <p class="genre">{{ wrap.top_artists.0.subtitle }}</p>
+                    <p class="popularity">Popularity: {{ wrap.top_artists.0.popularity }}</p>
+                    <a href="{{ wrap.top_artists.0.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                </div>
+            </div>
+
+            
+        {% endif %}
+    </div>
+
+    <!-- Top Artists Container -->
+    <div class="top-artists-container" id="listView" style="display: none;">
         <h1 class="section-title">Your Top Artists</h1>
         <p class="section-subtitle">These artists have been on repeat!</p>
 
         <!-- Card Grid -->
         <div class="card-grid">
-            {% for artist in wrap.top_artists%}
+            {% for artist in wrap.top_artists %}
                 <div class="artist-card">
                     <div class="card-image-container">
                         <img src="{{ artist.image }}" alt="{{ artist.name }}" class="card-image">
@@ -22,11 +48,27 @@
                     </div>
                 </div>
             {% endfor %}
+        
         </div>
 
         <div class="next-section">
-            <!-- Redirect to the saved top tracks page for this specific wrap -->
-            <a href="{% url 'saved_spotify_wrapped_tracks' id=wrap.id %}" class="btn next-btn">Top Tracks</a>
+            <a href="{% url 'saved_spotify_wrapped_tracks' id=wrap.id %}" class="btn next-btn">Next: Top Tracks</a>
         </div>
     </div>
+
+    <script>
+        // JavaScript to toggle between full-screen slide and list view
+        document.addEventListener("DOMContentLoaded", () => {
+            const fullscreenSlide = document.getElementById("fullscreenSlide");
+            const listView = document.getElementById("listView");
+            const backgroundMusic = document.getElementById("backgroundMusic");
+
+            // On click, hide the slide and show the list view
+            fullscreenSlide.addEventListener("click", () => {
+                fullscreenSlide.style.display = "none";
+                listView.style.display = "block";
+                if (backgroundMusic) backgroundMusic.pause(); // Stop music when leaving slideshow
+            });
+        });
+    </script>
 {% endblock %}

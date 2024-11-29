@@ -2,56 +2,76 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/tracks.css' %}">
-    <div class="container">
-        <h1 class="page-title">Your Top Tracks</h1>
-        <p class="section-subtitle">Here’s what you’ve been vibing to:</p>
-        
-        <div class="card-container">
+    <link rel="stylesheet" href="{% static 'css/artists.css' %}">
+    
+    <!-- Fullscreen Slideshow Mode -->
+    <link rel="stylesheet" href="{% static 'css/artists.css' %}">
+
+    <!-- Full-screen Slide for Top Artist -->
+    <div class="fullscreen-slide" id="fullscreenSlide">
+        {% if wrap.top_tracks %}
+
+            <div class="artist-card fullscreen-card">
+            <h1 class="your_top"> Your Top Track: </h1>
+                <div class="card-image-container">
+
+                    <img src="{{ wrap.top_tracks.0.image }}" alt="{{ wrap.top_tracks.topTracks.0.name }}" class="card-image">
+
+                </div>
+                <br/>
+                <div class="card-content">
+                    <h1 class="artist-name">{{ wrap.top_tracks.0.name }}</h1>
+                    <p class="genre">{{ wrap.top_tracks.0.subtitle }}</p>
+                    <p class="popularity">Album: {{ wrap.top_tracks.0.albumName }}</p>
+                    <a href="{{ wrap.top_tracks.0.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+
+    <!-- Top Artists Container -->
+    <div class="top-artists-container" id="listView" style="display: none;">
+        <h1 class="section-title">Your Top Tracks</h1>
+        <p class="section-subtitle">Here's what you've been vibing to:</p>
+
+        <!-- Card Grid -->
+        <div class="card-grid">
             {% for track in wrap.top_tracks %}
-                <div class="card">
+                <div class="artist-card">
                     <div class="card-image-container">
                         <img src="{{ track.image }}" alt="{{ track.name }}" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3>{{ track.name }}</h3>
-                        <p class="album-name">Album: {{ track.albumName }}</p>
-                        <p class="artist-name">Artist: {{ track.subtitle }}</p>
-                        
-                        {% if track.previewUrl %}
-                            <!-- Audio player for song preview without controls -->
-                            <audio class="track-preview">
-                                <source src="{{ track.previewUrl }}" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                        {% else %}
-                            <p>Preview not available</p>
-                        {% endif %}
-                        
-                        <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">Play on Spotify</a>
+                        <h3 class="artist-name">{{ track.name }}</h3>
+                        <p class="genre">{{ track.subtitle }}</p>
+                        <p class="popularity">Album: {{ track.albumName }}</p>
+                        <a href="{{ track.spotifyUrl }}" target="_blank" class="btn">View on Spotify</a>
                     </div>
                 </div>
             {% endfor %}
+
         </div>
 
         <div class="next-section">
-            <!-- Include time_range in the URL when navigating to the next page -->
-            <a href="{% url 'saved_spotify_wrapped_albums' id=wrap.id %}" class="btn navigate-artists">See Your Top Albums</a>
+            <a href="{% url 'saved_spotify_wrapped_albums' id=wrap.id %}" class="btn navigate-artists">Next: Top Albums</a>
         </div>
     </div>
 
-    <!-- JavaScript to autoplay the first track and remove controls -->
+    <!-- JavaScript to Toggle Views -->
     <script>
-        window.onload = function() {
-            var audioElements = document.querySelectorAll('.track-preview');
-            if (audioElements.length > 0) {
-                // Automatically play the first audio element without controls
-                var firstTrack = audioElements[0];
-                firstTrack.play();
+        // JavaScript to toggle between full-screen slide and list view
+       document.addEventListener("DOMContentLoaded", () => {
+            const fullscreenSlide = document.getElementById("fullscreenSlide");
+            const listView = document.getElementById("listView");
+            const backgroundMusic = document.getElementById("backgroundMusic");
 
-                // Optionally, hide the audio player element (no controls)
-                firstTrack.style.display = 'none';
-            }
-        }
+            // On click, hide the slide and show the list view
+            fullscreenSlide.addEventListener("click", () => {
+                fullscreenSlide.style.display = "none";
+                listView.style.display = "block";
+                if (backgroundMusic) backgroundMusic.pause(); // Stop music when leaving slideshow
+            });
+        });
     </script>
 {% endblock %}

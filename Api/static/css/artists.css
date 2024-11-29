@@ -11,19 +11,26 @@
     left: 0;
     z-index: 9999;
     color: white;
+    overflow: auto;
 }
 
 .fullscreen-card .card-image-container {
-    height: 400px;
+    height: 30vw; /* Dynamic scaling */
+    max-height: 400px;
+    min-height: 200px;
+     /* Enable scrolling for the image container */
 }
+
 .fullscreen-card {
-    width: 80%;
+    width: 70vw;
     max-width: 600px;
+    min-width: 300px;
     text-align: center;
     background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
+    padding: 2vw;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    overflow: auto; /* Enable scrolling for the entire card */
 }
 
 .your_top {

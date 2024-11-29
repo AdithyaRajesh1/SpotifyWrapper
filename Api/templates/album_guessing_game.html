@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <head>
    <meta charset="UTF-8">
    <title>{{ page_title }}</title>
@@ -7,9 +8,7 @@
    <style>
        body {
            font-family: Arial, sans-serif;
-           max-width: 800px;
            margin: 0 auto;
-           padding: 20px;
            text-align: center;
        }
        .album-image {
@@ -34,7 +33,7 @@
        .guess-input {
            padding: 10px;
            font-size: 16px;
-           width: 200px;
+           width: 400px;
            border: 1px solid #ddd;
            border-radius: 5px;
        }
@@ -91,7 +90,6 @@
            <div id="feedback" class="feedback"></div>
           
            <p>Score: <span id="score">0</span> / <span id="total-rounds"></span></p>
-           <a href="{% url 'home' %}">Home</a>
        </div>
       
        <div id="game-over" class="game-over" style="display: none;">
@@ -202,5 +200,6 @@ document.getElementById('album-input').addEventListener('keypress', function(e) 
 });
    </script>
 </body>
-</html>
+{% endblock %}
+
 
