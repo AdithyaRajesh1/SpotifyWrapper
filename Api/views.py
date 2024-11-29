@@ -387,24 +387,55 @@ class SpotifyWrappedView(APIView):
    def get(self, request, format=None):
        key = self.request.session.session_key
        # Configure the API key for the genai module
-       # Get time range from query parameters, default to medium_term
+       # Expanded time ranges to include seasonal options
        time_range = request.GET.get('time_range', 'medium_term')
 
+       # Updated valid ranges to include seasonal options
+       valid_ranges = [
+           'short_term',  # Last 4 Weeks
+           'medium_term',  # Last 6 Months
+           'long_term',  # All Time
+           'christmas',  # Christmas season
+           'halloween'  # Halloween season
+       ]
 
        # Validate time range
-       valid_ranges = ['short_term', 'medium_term', 'long_term']
        if time_range not in valid_ranges:
            time_range = 'medium_term'
 
+       # Define date ranges for seasonal wrapped
+       current_year = datetime.now().year
+       seasonal_ranges = {
+           'christmas': {
+               'start_date': f'{current_year - 1}-12-01',
+               'end_date': f'{current_year - 1}-12-31'
+           },
+           'halloween': {
+               'start_date': f'{current_year}-10-01',
+               'end_date': f'{current_year}-10-31'
+           }
+       }
 
-       # Fetch all necessary data from Spotify API with selected time range
-       # 1. Top Artists
-       top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+       # Modify the endpoint to include date filtering for seasonal ranges
+       def get_seasonal_endpoint(base_endpoint, season):
+           if season in ['christmas', 'halloween']:
+               start_date = seasonal_ranges[season]['start_date']
+               end_date = seasonal_ranges[season]['end_date']
+               return f"{base_endpoint}&after={start_date}&before={end_date}"
+           return base_endpoint
+
+       # 1. Top Artists (with potential seasonal filtering)
+       top_artists_endpoint = get_seasonal_endpoint(
+           f"me/top/artists?time_range={time_range}&limit=50",
+           time_range
+       )
        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
 
-
-       # 2. Top Tracks
-       top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+       # 2. Top Tracks (with potential seasonal filtering)
+       top_tracks_endpoint = get_seasonal_endpoint(
+           f"me/top/tracks?time_range={time_range}&limit=50",
+           time_range
+       )
        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
 
 
@@ -488,12 +519,13 @@ class SpotifyWrappedView(APIView):
            genres.extend(artist.get("genres", []))
        top_genres = Counter(genres).most_common(5)
 
-
-       # Time range display names
+       # Time range display names (updated to include seasonal options)
        time_range_display = {
            'short_term': 'Last 4 Weeks',
            'medium_term': 'Last 6 Months',
-           'long_term': 'All Time'
+           'long_term': 'All Time',
+           'christmas': 'Christmas Season',
+           'halloween': 'Halloween Season'
        }
 
 
@@ -595,6 +627,10 @@ class SpotifyWrappedView(APIView):
 
 
        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
+       wrapped_data['availableTimeRanges'] = [
+           {'value': tr, 'display': time_range_display[tr]}
+           for tr in valid_ranges
+       ]
 
        if request.user.is_authenticated:
            # Save the data to the database
@@ -653,15 +689,12 @@ class SpotifyWrappedView(APIView):
        # Generate platform-specific sharing URLs
        sharing_data = {
            'twitter': {
-               'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}&url={urllib.parse.quote(current_url)}"
+               'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}"
            },
            'linkedin': {
-               'url': f"https://www.linkedin.com/sharing/share-offsite/?url={urllib.parse.quote(current_url)}"
+               'url': f"https://www.linkedin.com/feed/?shareActive=true&text={share_text}%23NewPost"
+
            },
-           'instagram': {
-               'text': share_text,  # For copying to clipboard since Instagram doesn't have a direct sharing API
-               'url': current_url
-           }
        }
        print(sharing_data)
        return sharing_data
