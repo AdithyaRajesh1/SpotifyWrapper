@@ -27,7 +27,6 @@
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <a href="{% url 'wrap_detail' wrap.id %}" class="btn">View Details</a>
 
                         <!-- Post on Website Button -->
                     <a href="{% url 'post_wrap_to_website' wrap.id %}" class="share-button" style="background-color: #ff6600;" title="Post on Website">
