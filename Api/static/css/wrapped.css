@@ -1,0 +1,310 @@
+/* Dark Theme */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme h1 {
+    color: #e0e0e0;
+}
+
+body.light-theme h1{
+    color: black;
+}
+
+body.light-theme h2 {
+    color : black;
+}
+body.dark-theme h2 {
+    color: black;
+
+}
+
+body.dark-theme .share-button {
+    background-color: #444; /* Dark button color */
+}
+
+body.dark-theme .share-button:hover {
+    background-color: #555;
+}
+
+body.dark-theme .user-profile {
+    background: #ffffff; /* Profile container remains white in dark theme */
+    color: #000; /* Text color changed to black */
+}
+
+body.dark-theme .user-profile p,
+body.dark-theme .user-profile h3 {
+    color: #000; /* Text color changed to black */
+}
+
+body.dark-theme .stats-overview ul li {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+/* Make titles black in dark theme */
+body.dark-theme .wrapped-title,
+body.dark-theme .share-title {
+    color: #ffffff; /* Set the title text color to white */
+}
+
+/* Blue Theme */
+body.blue-theme {
+    background-color: #e6f7ff;
+    color: #004085;
+}
+
+body.blue-theme h1, body.blue-theme h2 {
+    color: #004085;
+}
+
+body.blue-theme .share-button {
+    background-color: #007bff; /* Blue button color */
+}
+
+body.blue-theme .share-button:hover {
+    background-color: #0056b3;
+}
+
+body.blue-theme .user-profile {
+    background: #ffffff;
+    color: #004085;
+}
+
+body.blue-theme .user-profile p,
+body.blue-theme .user-profile h3 {
+    color: #000; /* Text color changed to black */
+}
+
+body.blue-theme .stats-overview ul li {
+    background-color: #ffffff;
+    color: #004085;
+}
+
+/* Global Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Share Section */
+.share-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Ensuring the "Share Your Wrapped" header is white */
+.share-section h2 {
+    color: white;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.share-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    background-color: #333; /* Default, to be overwritten per platform */
+}
+
+.share-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.share-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+}
+
+/* Specific Share Buttons */
+.twitter {
+    background-color: #1DA1F2;
+}
+
+.linkedin {
+    background-color: #0077B5;
+}
+
+.instagram {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+}
+
+/* User Profile */
+.user-profile {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.user-profile img {
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.user-profile h3 {
+    font-size: 1.6rem;
+    color: #222;
+    margin-bottom: 0.5rem;
+}
+
+.user-profile p {
+    font-size: 1.1rem;
+    color: #777;
+    margin-bottom: 1.5rem;
+}
+
+.user-profile a {
+    color: #1DB954;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.user-profile a:hover {
+    text-decoration: underline;
+}
+
+/* Stats Overview */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.stats-overview ul {
+    list-style: none;
+    padding: 0;
+}
+
+.stats-overview ul li {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.stats-overview ul li span {
+    font-weight: 700;
+}
+
+/* Top Artists, Tracks, Albums, and Genres */
+section {
+    margin-bottom: 3rem;
+}
+
+section ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+section ul li {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 1rem;
+    margin: 0.8rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    transition: transform 0.2s ease;
+}
+
+section ul li:hover {
+    transform: scale(1.02);
+}
+
+section ul li img {
+    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+section ul li strong {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+section ul li a {
+    color: #1DB954;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+section ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Top Genres Section */
+section ul li {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .share-buttons {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .user-profile {
+        width: 90%;
+    }
+
+    .stats-overview {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    section ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    section ul li img {
+        margin-bottom: 1rem;
+    }
+}

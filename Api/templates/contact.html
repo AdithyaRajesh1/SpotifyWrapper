@@ -11,7 +11,7 @@
                 text-align: center;
                 font-size: 50px;
                 font-weight: bold;
-                color: #1db954; /* Spotify green color */
+                color: #1db954; /* Default Spotify green color */
                 margin-bottom: 40px;
             }
             .developer-section {
@@ -61,6 +61,63 @@
                 transform: scale(1.05);
                 transition: transform 0.3s ease-in-out;
             }
+
+            /* Light Theme */
+            .light-theme .contact-title {
+                color: #1db954;
+            }
+            .light-theme .developer-section {
+                background-color: #f9f9f9;
+            }
+            .light-theme .developer-name,
+            .light-theme .developer-position,
+            .light-theme .developer-bio {
+                color: #333;
+            }
+            .light-theme .contact-info {
+                color: #1db954;
+            }
+
+            /* Dark Theme */
+            .dark-theme .contact-title {
+                color: #1db954;
+            }
+            .dark-theme .developer-section {
+                background-color: #444; /* Lighter background for sections */
+                color: #fff;
+            }
+            .dark-theme .developer-name,
+            .dark-theme .developer-position,
+            .dark-theme .developer-bio {
+                color: #ccc; /* Lighter text color */
+            }
+            .dark-theme .contact-info {
+                color: #1db954;
+            }
+
+            /* Blue Theme */
+            .blue-theme .contact-title {
+                color: #1A5D8D; /* Darker Blue for title */
+            }
+            .blue-theme .developer-section {
+                background-color: #f0f8ff;
+                color: #333;
+            }
+            .blue-theme .developer-name,
+            .blue-theme .developer-position,
+            .blue-theme .developer-bio {
+                color: #333;
+            }
+            .blue-theme .contact-info {
+                color: #1A5D8D; /* Link color set to Darker Blue */
+            }
+            .blue-theme .contact-info a {
+                color: #4682b4; /* Lighter, darker blue for links */
+            }
+            .blue-theme .contact-info a:hover {
+                text-decoration: underline;
+                color: #1A5D8D; /* Highlight on hover */
+            }
         </style>
     </head>
 
@@ -72,8 +129,7 @@
             <img src="https://media.licdn.com/dms/image/v2/D4E03AQFAAjD1XpA92g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1726094880390?e=1738195200&v=beta&t=vsmOiJmz2_LuQUD5ahM0QWtQrEmhztn3OkFTCjvXBj4" alt="Developer 1">
             <div class="developer-name">Pranav Eega</div>
             <div class="developer-position">Scrum Master</div>
-            <div class="developer-bio">
-            </div>
+            <div class="developer-bio"></div>
             <div class="contact-info">
                 <p><strong>Email:</strong> <a href="mailto:eegapr1@gmail.com">eegapr1@gmail.com</a></p>
                 <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pranav-eega-493260219/" target="_blank">https://www.linkedin.com/in/pranav-eega</a></p>
@@ -85,8 +141,7 @@
             <img src="https://media.licdn.com/dms/image/v2/D4E03AQHrcpcn7jrWYQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1726095731754?e=1738195200&v=beta&t=Q93EQzios1c6ziTbni-hppF0zaN_UKiXomKzh7Gyxoo" alt="Developer 2">
             <div class="developer-name">Adithya Rajesh</div>
             <div class="developer-position">Product Owner</div>
-            <div class="developer-bio">
-            </div>
+            <div class="developer-bio"></div>
             <div class="contact-info">
                 <p><strong>Email:</strong> <a href="mailto:adithya.rk06@gmail.com">adithya.rk06@gmail.com</a></p>
                 <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/adithyarrajesh/" target="_blank">https://www.linkedin.com/in/adithyarrajesh</a></p>
@@ -98,8 +153,7 @@
             <img src="https://media.licdn.com/dms/image/v2/D5603AQHaGbo6m4lUwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1691631777430?e=1738195200&v=beta&t=w6dZiL4x1Mp72aZCXOWHUhTbk6x4xKRJJLu3iSamQEE" alt="Developer 3">
             <div class="developer-name">Aishani Bal</div>
             <div class="developer-position">Front-End Developer</div>
-            <div class="developer-bio">
-            </div>
+            <div class="developer-bio"></div>
             <div class="contact-info">
                 <p><strong>Email:</strong> <a href="mailto:aishani.bal5@gmail.com">aishani.bal5@gmail.com</a></p>
                 <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aishani-bal-685a04212/" target="_blank">https://www.linkedin.com/in/aishani-bal</a></p>
@@ -111,8 +165,7 @@
             <img src="https://media.licdn.com/dms/image/v2/C4E03AQFAsN920588Ag/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1663645738240?e=1738195200&v=beta&t=im_KNbjruYPPUZVhzRajS-sUocZvdEAXC6Bk6dAnMUA" alt="Developer 4">
             <div class="developer-name">Eshan Jaffar</div>
             <div class="developer-position">Back-End Developer</div>
-            <div class="developer-bio">
-            </div>
+            <div class="developer-bio"></div>
             <div class="contact-info">
                 <p><strong>Email:</strong> <a href="mailto:eshan1jaffar@gmail.com">eshan1jaffar@gmail.com</a></p>
                 <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/eshan-jaffar-264859234/" target="_blank">https://www.linkedin.com/in/eshan-jaffar</a></p>
@@ -123,12 +176,11 @@
         <div class="developer-section">
             <img src="https://media.licdn.com/dms/image/v2/D4E03AQFIMjMNC-iJog/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1724957808652?e=1738195200&v=beta&t=WtI_Bfgf5MLM_9H_sRfY-0DOybrWZTjLTV48yNkSSWg" alt="Developer 5">
             <div class="developer-name">Megha Goddu</div>
-            <div class="developer-position">Full-Stack Developer</div>
-            <div class="developer-bio">
-            </div>
+            <div class="developer-position">Full Stack Developer</div>
+            <div class="developer-bio"></div>
             <div class="contact-info">
-                <p><strong>Email:</strong> <a href="gmegha901@gmail.com">gmegha901@gmail.com</a></p>
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/megha-goddu/" target="_blank">https://www.linkedin.com/in/megha-goddu</a></p>
+                <p><strong>Email:</strong> <a href="mailto:megha.goddu1@gmail.com">megha.goddu1@gmail.com</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/megha-goddu-0580a8228/" target="_blank">https://www.linkedin.com/in/megha-goddu</a></p>
             </div>
         </div>
     </div>

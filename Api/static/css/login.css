@@ -95,3 +95,28 @@ body.dark-theme .login-form input:focus {
 .text .link:hover {
     text-decoration: underline;
 }
+
+body.blue-theme .text .link {
+    color: #1a1d3b;
+}
+
+body.blue-theme .login-button {
+    background: #1e88e5;
+    border: #1e88e5;
+
+}
+
+body.blue-theme h2 {
+    color: #1a1d3b;
+}
+
+body.blue-theme .login-form input:focus {
+    border-color: #1e88e5;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+
+}
+
+body.blue-theme .login-button:hover {
+    background-color: #3b82f6;
+}
+

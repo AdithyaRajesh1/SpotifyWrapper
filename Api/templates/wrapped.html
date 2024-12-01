@@ -1,89 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Your Spotify Wrapped{% endblock %}
 
 {% block content %}
     <head>
-        <style>
-            .share-section {
-                margin: 2rem 0;
-                padding: 1.5rem;
-                background: #f8f9fa;
-                border-radius: 8px;
-            }
-
-            .share-buttons {
-                display: flex;
-                gap: 1rem;
-                flex-wrap: wrap;
-                margin-top: 1rem;
-            }
-
-            .share-button {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.75rem 1.5rem;
-                border: none;
-                border-radius: 25px;
-                color: white;
-                font-weight: 600;
-                text-decoration: none;
-                cursor: pointer;
-                transition: opacity 0.2s;
-            }
-
-            .share-button:hover {
-                opacity: 0.9;
-            }
-
-            .share-icon {
-                width: 1.25rem;
-                height: 1.25rem;
-                fill: currentColor;
-            }
-
-            .twitter {
-                background-color: #1DA1F2;
-            }
-
-            .linkedin {
-                background-color: #0077B5;
-            }
-
-            .instagram {
-                background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-            }
-            .user-profile {
-                align-content: center;
-                align-self: center;
-                alignment-baseline: center;
-                horiz-align: center;
-            }
-        </style>
+        <!-- Link to the wrapped.css stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/wrapped.css' %}">
     </head>
-    <h1>Your Spotify Wrapped</h1>
-    {% if wrapped_data.userProfile %}
-        <section class= user-profile>
-            <h2>Your Profile</h2>
-            <div>
-                {% if wrapped_data.userProfile.image %}
-                    <img  src="{{ wrapped_data.userProfile.image }}"
-                         alt="{{ wrapped_data.userProfile.name }}"
-                         width="100"
-                         height="100">
-                {% endif %}
-                <p><strong>Name:</strong> {{ wrapped_data.userProfile.name }}</p>
-                <p><strong>Country:</strong> {{ wrapped_data.userProfile.country }}</p>
-                <p><strong>Followers:</strong> {{ wrapped_data.userProfile.followersCount }}</p>
-                <p><strong>Account Type:</strong> {{ wrapped_data.userProfile.product|title }}</p>
-            </div>
-        <br/>
-    </section>
-        
-    {% endif %}
+
+    <h1 class="main-header">Your Spotify Wrapped</h1>
+
     <section class="share-section">
-        <h2>Share Your Wrapped</h2>
+        <h2 class = share>Share Your Wrapped</h2>
         <div class="share-buttons">
             <!-- Twitter Share Button -->
             <a href="{{ wrapped_data.sharing.twitter.url }}"
@@ -108,49 +37,29 @@
                 </svg>
                 Share on LinkedIn
             </a>
-            
+
             <a href="{% url 'post_wrap_to_website' wrap.id %}" class="share-button" style="background-color: #ff6600;" title="Post on Website">
-            <svg class="share-icon" viewBox="0 0 24 24">
-                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
-                <line x1="12" y1="6" x2="12" y2="18"></line>
-                <line x1="6" y1="12" x2="18" y2="12"></line>
-            </svg>
-            Post on Website
+                Post on Website
             </a>
         </div>
     </section>
 
-    <!-- Rest of your existing code remains the same -->
-    <!-- Total Counts Section -->
-    
+    <!-- Stats Overview Section -->
     <section>
-        <h2>Stats Overview</h2>
-        
+        <h1>Stats Overview</h1>
         <ul>
-            <li>
-                <strong>Total Artists:</strong> {{ wrapped_data.totalArtists }}
-            </li>
-            <li>
-                <strong>Total Tracks:</strong> {{ wrapped_data.totalTracks }}
-            </li>
-            <li>
-                <strong>Total Albums:</strong> {{ wrapped_data.totalAlbums }}
-            </li>
-            <li>
-                <strong>Total Listening Time:</strong> {{ wrapped_data.listeningTimeHours }} hours
-            </li>
-            <li>
-                <strong>New Artists Discovered:</strong> {{ wrapped_data.newArtistsCount }}
-            </li>
-            <li>
-                <strong>Available In:</strong> {{ wrapped_data.totalLocations }} countries
-            </li>
+            <li><strong>Total Artists:</strong> {{ wrapped_data.totalArtists }}</li>
+            <li><strong>Total Tracks:</strong> {{ wrapped_data.totalTracks }}</li>
+            <li><strong>Total Albums:</strong> {{ wrapped_data.totalAlbums }}</li>
+            <li><strong>Total Listening Time:</strong> {{ wrapped_data.listeningTimeHours }} hours</li>
+            <li><strong>New Artists Discovered:</strong> {{ wrapped_data.newArtistsCount }}</li>
+            <li><strong>Available In:</strong> {{ wrapped_data.totalLocations }} countries</li>
         </ul>
     </section>
 
     <!-- Top Artists Section -->
     <section>
-        <h2>Top Artists</h2>
+        <h1>Top Artists</h1>
         <ul>
             {% for artist in wrapped_data.topArtists %}
                 <li>
@@ -158,9 +67,6 @@
                         <img src="{{ artist.image }}" alt="{{ artist.name }}" width="50" height="50">
                     {% endif %}
                     <strong>{{ artist.name }}</strong>
-                    {% if artist.genres %}
-                        - Genres: {{ artist.genres|join:", " }}
-                    {% endif %}
                     {% if artist.spotifyUrl %}
                         <a href="{{ artist.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
                     {% endif %}
@@ -171,7 +77,7 @@
 
     <!-- Top Tracks Section -->
     <section>
-        <h2>Top Tracks</h2>
+        <h1>Top Tracks</h1>
         <ul>
             {% for track in wrapped_data.topTracks %}
                 <li>
@@ -179,7 +85,6 @@
                         <img src="{{ track.image }}" alt="{{ track.name }}" width="50" height="50">
                     {% endif %}
                     <strong>{{ track.name }}</strong>
-                    by {{ track.subtitle }}
                     {% if track.spotifyUrl %}
                         <a href="{{ track.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
                     {% endif %}
@@ -190,7 +95,7 @@
 
     <!-- Top Albums Section -->
     <section>
-        <h2>Top Albums</h2>
+        <h1>Top Albums</h1>
         <ul>
             {% for album in wrapped_data.topAlbums %}
                 <li>
@@ -198,10 +103,6 @@
                         <img src="{{ album.image }}" alt="{{ album.name }}" width="50" height="50">
                     {% endif %}
                     <strong>{{ album.name }}</strong>
-                    by {{ album.subtitle }}
-                    {% if album.releaseDate %}
-                        (Released: {{ album.releaseDate }})
-                    {% endif %}
                     {% if album.spotifyUrl %}
                         <a href="{{ album.spotifyUrl }}" target="_blank">(Open in Spotify)</a>
                     {% endif %}
@@ -212,18 +113,13 @@
 
     <!-- Top Genres Section -->
     <section>
-        <h2>Top Genres</h2>
+        <h1>Top Genres</h1>
         <ul>
             {% for genre in wrapped_data.topGenres %}
                 <li>{{ genre.name }} ({{ genre.count }} tracks)</li>
             {% endfor %}
         </ul>
     </section>
-
-   
-
-    <!-- User Profile Section -->
-    
 
     <!-- Additional Context Sections -->
     {% if music_trends %}
@@ -248,6 +144,7 @@
     {% endif %}
 
 {% endblock %}
+
 {% block scripts %}
     <script>
         function copyInstagramText() {

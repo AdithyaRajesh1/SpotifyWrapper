@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/artists.css' %}">
+<link rel="stylesheet" href="{% static 'css/artists.css' %}">
 <style>
     body {
         background-color: #121212;
@@ -11,6 +11,48 @@
         margin: 0;
         padding: 0;
         line-height: 1.6;
+    }
+
+    /* Light theme styles */
+    body.light-theme {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    /* Dark theme styles */
+    body.dark-theme {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    body.dark-theme .genai-card {
+        background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+    }
+
+    /* Blue theme styles */
+    body.blue-theme {
+        background-color: #e3f2fd; /* Light blue background */
+        color: #ffffff; /* White text for contrast */
+    }
+
+    body.blue-theme .section-title {
+        color: #004085; /* Dark blue header */
+    }
+
+    body.blue-theme .section-subtitle {
+        color: #ffffff; /* White subtitle */
+    }
+
+    body.blue-theme .genai-card {
+        background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%); /* Blue gradient for the card */
+    }
+
+    body.blue-theme .card-title {
+        color: #ffffff;
+    }
+
+    body.blue-theme .genai-description {
+        color: #ffffff;
     }
 
     .genai-container {
@@ -22,7 +64,6 @@
 
     .section-title {
         font-size: 2.5rem;
-        color: #1DB954;
         margin-bottom: 0.5rem;
         font-weight: 700;
         letter-spacing: -0.05rem;
@@ -30,17 +71,15 @@
 
     .section-subtitle {
         font-size: 1.2rem;
-        color: #535353;
         margin-bottom: 2rem;
         font-weight: 300;
     }
 
     .genai-card {
-        background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
         border-radius: 20px;
         padding: 2rem;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
     }
 
@@ -49,14 +88,12 @@
     }
 
     .card-title {
-        color: #ffffff;
         font-size: 1.5rem;
         margin-bottom: 1rem;
         font-weight: 600;
     }
 
     .genai-description {
-        color: #e0e0e0;
         font-size: 1.1rem;
         line-height: 1.6;
         font-style: italic;
@@ -73,7 +110,33 @@
         gap: 1rem;
     }
 
-   
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #1DB954;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.25rem;
+        border-radius: 30px;
+        margin-top: 40px;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-theme .btn {
+        background-color: #1DB954;
+    }
+
+    body.dark-theme .btn:hover {
+        background-color: #1ed760;
+    }
+
+    body.blue-theme .btn {
+        background-color: #1e88e5; /* Blue button */
+    }
+
+    body.blue-theme .btn:hover {
+        background-color: #42a5f5; /* Lighter blue on hover */
+    }
 
     @media (max-width: 600px) {
         .genai-container {

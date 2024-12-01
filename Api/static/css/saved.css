@@ -1,15 +1,30 @@
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #181818; /* Dark background */
+    color: #fff; /* Default text color */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 /* Title and Subtitle */
 .page-title {
     font-size: 3rem;
     font-weight: bold;
-    color: #1db954;
+    color: #1db954; /* Default green title */
     margin-bottom: 10px;
     animation: slideUp 1s ease-out;
 }
 
 .section-subtitle {
     font-size: 1.25rem;
-    color: #b3b3b3;
+    color: darkgrey; /* Light gray */
     margin-bottom: 40px;
     animation: fadeIn 1.5s ease-out;
 }
@@ -25,7 +40,7 @@
 
 /* Card Styles */
 .card {
-    background-color: #181818;
+    background-color: #181818; /* Dark card background */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -76,7 +91,7 @@
 /* Button Styles */
 .btn {
     display: inline-block;
-    background-color: #1db954;
+    background-color: #1db954; /* Default green button */
     color: #fff;
     padding: 12px 24px;
     font-size: 1rem;
@@ -88,7 +103,7 @@
 }
 
 .btn:hover {
-    background-color: #1aa13f;
+    background-color: #1aa13f; /* Darker green on hover */
     transform: scale(1.05);
 }
 
@@ -104,7 +119,7 @@
 }
 
 .next-btn {
-    background-color: #1db954;
+    background-color: #1db954; /* Default green button */
     font-size: 1.2rem;
     padding: 12px 24px;
     border-radius: 30px;
@@ -115,7 +130,7 @@
 }
 
 .next-btn:hover {
-    background-color: #1aa13f;
+    background-color: #1aa13f; /* Darker green on hover */
     transform: scale(1.05);
 }
 
@@ -146,5 +161,151 @@
     }
 }
 
+/* Light Theme - Card Styles */
+body.light-theme .card {
+    background-color: #f4f4f4; /* Light background */
+    color: #333; /* Dark text */
+}
+
+body.light-theme .card-content h3,
+body.light-theme .album-name,
+body.light-theme .artist-name {
+    color: #333; /* Dark text for card content */
+}
 
 
+
+/* Blue Theme - Card Styles */
+body.blue-theme .card {
+    background-color: #e6f7ff; /* Light blue card background */
+    color: #004085; /* Dark blue text */
+}
+
+body.blue-theme .card-content h3,
+body.blue-theme .album-name,
+body.blue-theme .artist-name {
+    color: #004085; /* Dark blue text for card content */
+}
+
+body.blue-theme .btn {
+    background-color: #007bff; /* Blue button */
+}
+
+body.blue-theme .btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+body.blue-theme .next-btn {
+    background-color: #007bff; /* Blue button */
+}
+
+body.blue-theme .next-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Blue Theme - Title and Subtitle */
+body.blue-theme .page-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #007bff; /* Blue title */
+    margin-bottom: 10px;
+    animation: slideUp 1s ease-out;
+}
+
+body.blue-theme .section-subtitle {
+    font-size: 1.25rem;
+    color: #b3b3b3; /* Light gray subtitle */
+    margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+/* Blue Theme - Card Layout */
+body.blue-theme .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    animation: fadeIn 2s ease-out;
+}
+
+/* Blue Theme - Card Styles */
+body.blue-theme .card {
+    background-color: #e6f7ff; /* Light blue card background */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.blue-theme .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Blue Theme - Card Image */
+body.blue-theme .card-image-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+body.blue-theme .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+body.blue-theme .card:hover .card-image {
+    transform: scale(1.1);
+}
+
+/* Blue Theme - Button Styles */
+body.blue-theme .btn {
+    display: inline-block;
+    background-color: #007bff; /* Blue button */
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+body.blue-theme .btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05);
+}
+
+body.blue-theme .btn:active {
+    transform: scale(0.95);
+}
+
+/* Blue Theme - Next Section Button */
+body.blue-theme .next-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+body.blue-theme .next-btn {
+    background-color: #007bff; /* Blue button */
+    font-size: 1.2rem;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+body.blue-theme .next-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05);
+}
+
+body.blue-theme .next-btn:active {
+    transform: scale(0.95);
+}
