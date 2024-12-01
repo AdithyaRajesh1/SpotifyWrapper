@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="finished Contact the Developers">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Api/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/SpotifyWrapper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SpotifyWrapper.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/album_guessing_game.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/album_guessing_game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpotifyWrapper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpotifyWrapper/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +58,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -114,6 +117,7 @@
         <env name="DJANGO_SETTINGS_MODULE" value="SpotifyWrapper.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (SpotifyWrapper)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
