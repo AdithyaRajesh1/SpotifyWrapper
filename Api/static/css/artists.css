@@ -2,9 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #121212; /* Default background color */
-    color: #e0e0e0; /* Default text color */
+    padding: 0; /* Default text color */
 }
 
 /* Fullscreen Slideshow Mode */

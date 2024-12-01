@@ -283,28 +283,3 @@ section ul li {
     color: #333;
 }
 
-/* Responsive Layout */
-@media (max-width: 768px) {
-    .share-buttons {
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-
-    .user-profile {
-        width: 90%;
-    }
-
-    .stats-overview {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    section ul li {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    section ul li img {
-        margin-bottom: 1rem;
-    }
-}
