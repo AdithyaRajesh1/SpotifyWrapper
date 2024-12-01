@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="finished Contact the Developers">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Api/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SpotifyWrapper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SpotifyWrapper.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/templates/wrapped_overview.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/wrapped_overview.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +97,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\adith\PycharmProjects\SpotifyWrapper\Api" />
       <recent name="C:\Users\Roohi\SpotifyWrapper\Api\static\css" />
       <recent name="$PROJECT_DIR$/Api/static/js/SpotifyWrapper" />
       <recent name="$PROJECT_DIR$/Api/templates" />
@@ -114,7 +114,6 @@
         <env name="DJANGO_SETTINGS_MODULE" value="SpotifyWrapper.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
