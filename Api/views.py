@@ -477,7 +477,7 @@ class SpotifyWrappedView(APIView):
        profile_endpoint = "me"
        profile_response = spotify_requests_execution(key, profile_endpoint)
        # Extract top song names and their artists
-       genai.configure(api_key="AIzaSyDb3xC6xxLgmjEvgqq5dXhJ5MIfvZgsMdc")
+       genai.configure(api_key=API_KEY)
        model = genai.GenerativeModel("gemini-1.5-flash")
        top_songs_and_artists = [
            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
