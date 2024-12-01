@@ -42,23 +42,23 @@
         transition: transform 0.5s, opacity 0.5s; /* Smooth scaling and fade-in effects */
         opacity: 0;
     }
-    
+
     /* Add a hover effect */
-    
+
     .slideshow-item.active {
         display: block; /* Ensure slide is visible */
         opacity: 1; /* Fade in */
         transition: opacity 0.5s ease, transform 0.5s ease;
         transform: translateY(0); /* Move to center */
     }
-    
+
     .slideshow-item.active:hover {
         transform: scale(1) !important;  /* Grow slightly on hover */
         background-color: rgba(0, 0, 0, 0.6); /* Darken the background slightly */
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7); /* Enhance shadow on hover */
         cursor: pointer; /* Indicate interactivity */
     }
-    
+
     .slideshow-item.active:hover * { /* Scale all children of .slideshow-item */
         transform: scale(1.05); /* Slightly enlarge the contents */
         transition: transform 0.3s; /* Smooth scaling for contents */
@@ -70,7 +70,7 @@
         transform: translateY(-10px); /* Move slightly above the center */
         transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and slide-out effect */
     }
-    
+
     /* Image Styling */
     .slide-image {
         width: 40vw; /* 40% of the viewport width */

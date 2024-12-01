@@ -2,204 +2,270 @@
 {% load static %}
 {% block content %}
 <head>
-   <meta charset="UTF-8">
-   <title>{{ page_title }}</title>
-   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-   <style>
-       body {
-           font-family: Arial, sans-serif;
-           margin: 0 auto;
-           text-align: center;
-       }
-       .album-image {
-       max-width: 500px;
-       max-height: 500px;
-       object-fit: cover;
-       margin-bottom: 20px;
-       border-radius: 10px;
-       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      
-       /* New styles to show only top half of image */
-       clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-       height: 300px; /* Half of original height */
-   }
-       .album-guess {
-           margin-top: 20px;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           gap: 10px;
-       }
-       .guess-input {
-           padding: 10px;
-           font-size: 16px;
-           width: 400px;
-           border: 1px solid #ddd;
-           border-radius: 5px;
-       }
-       .btn {
-           background-color: #1DB954;
-           color: white;
-           border: none;
-           padding: 10px 20px;
-           border-radius: 5px;
-           cursor: pointer;
-           transition: background-color 0.3s ease;
-       }
-       .btn:hover {
-           background-color: #1aa34a;
-       }
-       .feedback {
-           margin-top: 20px;
-           font-weight: bold;
-           height: 30px;
-       }
-       .game-over {
-           background-color: #f9f9f9;
-           padding: 30px;
-           border-radius: 15px;
-           box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-       }
-       .blanked-name {
-           font-weight: bold;
-           color: #333;
-       }
-   </style>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Light Theme */
+        .light-theme {
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* Dark Theme */
+        .dark-theme {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+
+        /* Blue Theme */
+        .blue-theme {
+            background-color: #e0f7fa;
+            color: #134e6f; /* Darker blue color */
+        }
+
+        .album-image {
+            max-width: 500px;
+            max-height: 500px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+            height: 300px;
+        }
+
+        .album-guess {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .guess-input {
+            padding: 10px;
+            font-size: 16px;
+            width: 400px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* General Button Styles */
+        .btn {
+            background-color: #1db954; /* Spotify Blue */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        body.blue-theme .btn {
+            background-color : #1e88e5;
+        }
+
+        .btn:hover {
+            background-color: #1A8AC7; /* Darker blue hover */
+        }
+
+        /* Blue Theme Button Override */
+        .blue-theme .btn {
+            background-color: #1D9BF0; /* Blue button for blue theme */
+        }
+
+        .blue-theme .btn:hover {
+            background-color: #0f9f85; /* Different hover color for blue theme */
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            height: 30px;
+        }
+
+        .game-over {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .blanked-name {
+            font-weight: bold;
+        }
+
+        /* Adjust theme for album name color */
+        .light-theme .blanked-name {
+            color: #333; /* Dark text for light theme */
+        }
+
+        .dark-theme .blanked-name {
+            color: #fff; /* Light text for dark theme */
+        }
+
+        .blue-theme .blanked-name {
+            color: #134e6f; /* Dark blue text for blue theme */
+        }
+
+        /* Adjust theme for button hover color */
+        .light-theme .btn:hover {
+            background-color: #1A8AC7;
+        }
+
+        .dark-theme .btn:hover {
+            background-color: #1A8AC7;
+        }
+
+        .blue-theme .btn:hover {
+            background-color: #0f9f85;
+        }
+
+        /* Page header styling */
+        h1 {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .light-theme h1 {
+            color: #1DB954; /* Spotify Green for light theme */
+        }
+
+        .dark-theme h1 {
+            color: #1DB954; /* Spotify Green for dark theme */
+        }
+
+        .blue-theme h1 {
+            color: #134e6f; /* Dark blue header text for blue theme */
+        }
+
+    </style>
 </head>
-<body>
-   <div id="game-container">
-       <h1>Spotify Album Guessing Game</h1>
-      
-       <div id="game-area">
-           <img id="album-image"
-                class="album-image"
-                alt="Album Cover" src="">
-          
-           <p class="blanked-name" id="blanked-name"></p>
-          
-           <div class="album-guess">
-               <label for="album-input"></label><input
-                   type="text"
-                   id="album-input"
-                   class="guess-input"
-                   placeholder="Enter the missing word"
-               >
-               <button class="btn" onclick="submitGuess()">Submit</button>
-           </div>
-          
-           <div id="feedback" class="feedback"></div>
-          
-           <p>Score: <span id="score">0</span> / <span id="total-rounds"></span></p>
-       </div>
-      
-       <div id="game-over" class="game-over" style="display: none;">
-           <h2>Game Over!</h2>
-           <p>Your Final Score: <span id="final-score"></span></p>
-           <button class="btn" onclick="window.location.reload()">Play Again</button>
-       </div>
-   </div>
+<body class="{% if theme %}{{ theme }}{% else %}light-theme{% endif %}">
+    <div id="game-container">
+        <h1>Spotify Album Guessing Game</h1>
 
+        <div id="game-area">
+            <img id="album-image"
+                 class="album-image"
+                 alt="Album Cover" src="">
 
-   <script>
-       // Parse the initial data
-       const wrappedData = {{ trapped_data|safe }};
-       let currentAlbum = wrappedData.gameData.currentAlbum;
-       let currentRound = 0;
-       let totalRounds = wrappedData.gameData.gameSession.total_rounds;
-       let score = wrappedData.gameData.gameSession.score;
-       let correctWord = currentAlbum.correct_word;
-       let allAlbums = wrappedData.gameData.allAlbums;
+            <p class="blanked-name" id="blanked-name"></p>
 
+            <div class="album-guess">
+                <label for="album-input"></label>
+                <input
+                    type="text"
+                    id="album-input"
+                    class="guess-input"
+                    placeholder="Enter the missing word"
+                >
+                <button class="btn" onclick="submitGuess()">Submit</button>
+            </div>
 
-       // Initialize the game on page load
-       document.addEventListener('DOMContentLoaded', function() {
-           // Set initial album image
-           document.getElementById('album-image').src = currentAlbum.image;
-          
-           // Set blanked name
-           document.getElementById('blanked-name').textContent =
-               `Album Name: ${currentAlbum.blanked_name}`;
-          
-           // Set total rounds
-           document.getElementById('total-rounds').textContent = totalRounds;
-       });
+            <div id="feedback" class="feedback"></div>
 
+            <p>Score: <span id="score">0</span> / <span id="total-rounds"></span></p>
+        </div>
 
-       function submitGuess() {
-   try {
-       const submittedWord = document.getElementById('album-input').value.trim();
-      
-       if (!submittedWord) {
-           throw new Error('Please enter a word');
-       }
-      
-       // Assuming these variables are defined elsewhere in the code
-       if (submittedWord.toLowerCase() === correctWord.toLowerCase()) {
-           // Correct guess
-           const feedbackEl = document.getElementById('feedback');
-           feedbackEl.innerHTML = '✅ Correct!';
-           feedbackEl.style.color = 'green';
-          
-           // Increment score
-           score++;
-           document.getElementById('score').textContent = score;
-       } else {
-           // Incorrect guess
-           const feedbackEl = document.getElementById('feedback');
-           feedbackEl.innerHTML = `❌ Wrong! Correct word was: ${correctWord}`;
-           feedbackEl.style.color = 'red';
-       }
+        <div id="game-over" class="game-over" style="display: none;">
+            <h2>Game Over!</h2>
+            <p>Your Final Score: <span id="final-score"></span></p>
+            <button class="btn" onclick="window.location.reload()">Play Again</button>
+        </div>
+    </div>
 
+    <script>
+        // Parse the initial data
+        const wrappedData = {{ trapped_data|safe }};
+        let currentAlbum = wrappedData.gameData.currentAlbum;
+        let currentRound = 0;
+        let totalRounds = wrappedData.gameData.gameSession.total_rounds;
+        let score = wrappedData.gameData.gameSession.score;
+        let correctWord = currentAlbum.correct_word;
+        let allAlbums = wrappedData.gameData.allAlbums;
 
-       // Clear input
-       document.getElementById('album-input').value = '';
+        // Initialize the game on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial album image
+            document.getElementById('album-image').src = currentAlbum.image;
 
+            // Set blanked name
+            document.getElementById('blanked-name').textContent =
+                `Album Name: ${currentAlbum.blanked_name}`;
 
-       // Check if game is over
-       currentRound++;
-       if (currentRound >= totalRounds) {
-           document.getElementById('game-area').style.display = 'none';
-           document.getElementById('game-over').style.display = 'block';
-           document.getElementById('final-score').textContent = `${score} / ${totalRounds}`;
-       } else {
-           // Prepare next round
-           // Define next album and blanked name
-           const nextAlbum = allAlbums[currentRound].image;
-           const nextAlbumBlankedName = `Album Name: ${allAlbums[currentRound].blanked_name}`;
-           setTimeout(() => {
-               // Update album image
-                document.getElementById('album-image').src = nextAlbum;
-              
-               // Update blanked name
-               document.getElementById('blanked-name').textContent = nextAlbumBlankedName;
-              
-               // Update correct word for next round
-               correctWord = allAlbums[currentRound].correct_word;
-              
-               // Clear feedback
-               document.getElementById('feedback').innerHTML = '';
-           }, 2000);
-       }
-   } catch (error) {
-       // Catch and handle any errors
-       console.error('Error in submitGuess:', error);
-      
-       // Display user-friendly error message
-       const feedbackEl = document.getElementById('feedback');
-       feedbackEl.innerHTML = `❌ ${error.message}`;
-       feedbackEl.style.color = 'red';
-   }
-}
+            // Set total rounds
+            document.getElementById('total-rounds').textContent = totalRounds;
+        });
 
+        function submitGuess() {
+            try {
+                const submittedWord = document.getElementById('album-input').value.trim();
 
-// Allow submitting guess with Enter key
-document.getElementById('album-input').addEventListener('keypress', function(e) {
-   if (e.key === 'Enter') {
-       submitGuess();
-   }
-});
-   </script>
+                if (!submittedWord) {
+                    throw new Error('Please enter a word');
+                }
+
+                if (submittedWord.toLowerCase() === correctWord.toLowerCase()) {
+                    // Correct guess
+                    const feedbackEl = document.getElementById('feedback');
+                    feedbackEl.innerHTML = '✅ Correct!';
+                    feedbackEl.style.color = 'green';
+
+                    // Increment score
+                    score++;
+                    document.getElementById('score').textContent = score;
+                } else {
+                    // Incorrect guess
+                    const feedbackEl = document.getElementById('feedback');
+                    feedbackEl.innerHTML = `❌ Wrong! Correct word was: ${correctWord}`;
+                    feedbackEl.style.color = 'red';
+                }
+
+                // Clear input
+                document.getElementById('album-input').value = '';
+
+                // Check if game is over
+                currentRound++;
+                if (currentRound >= totalRounds) {
+                    document.getElementById('game-area').style.display = 'none';
+                    document.getElementById('game-over').style.display = 'block';
+                    document.getElementById('final-score').textContent = `${score} / ${totalRounds}`;
+                } else {
+                    // Prepare next round
+                    const nextAlbum = allAlbums[currentRound].image;
+                    const nextAlbumBlankedName = `Album Name: ${allAlbums[currentRound].blanked_name}`;
+                    setTimeout(() => {
+                        document.getElementById('album-image').src = nextAlbum;
+                        document.getElementById('blanked-name').textContent = nextAlbumBlankedName;
+                        correctWord = allAlbums[currentRound].correct_word;
+                        document.getElementById('feedback').innerHTML = '';
+                    }, 2000);
+                }
+            } catch (error) {
+                // Handle errors
+                console.error('Error in submitGuess:', error);
+                const feedbackEl = document.getElementById('feedback');
+                feedbackEl.innerHTML = `❌ ${error.message}`;
+                feedbackEl.style.color = 'red';
+            }
+        }
+
+        // Allow submitting guess with Enter key
+        document.getElementById('album-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitGuess();
+            }
+        });
+    </script>
 </body>
 {% endblock %}
-
-

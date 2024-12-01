@@ -1,11 +1,42 @@
-
 /* General Body Styling */
-body {
-    font-family: 'Arial', sans-serif;
+
+/* Light Theme */
+body.light-theme {
     background-color: #f0f0f0;
     color: #333;
-    margin: 0;
-    padding: 0;
+}
+
+body.blue-theme .landing-page-title {
+    color: #004085; /* Dark blue title */
+}
+
+body.blue-theme .landing-page-description {
+    color: #004085; /* Dark blue text for blue theme */
+}
+
+body.blue-theme .time-range-form {
+    background-color: #e6f7ff; /* Light blue background */
+}
+
+body.blue-theme .time-range-label {
+    color: #004085; /* Dark blue for labels */
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: #121212;
+    color: #fff;
+}
+
+body.blue-theme .discover-button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+}
+
+body.blue-theme .time-range-select {
+    background-color: #e6f7ff;
+    border-color: #99c2ff;
+    color: #004085; /* Dark blue text */
 }
 
 /* Landing Page Container */
@@ -21,16 +52,26 @@ body {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #1db954;
+    color: #1DB954; /* Dark blue title for blue theme */
     animation: fadeIn 1s ease-out;
+}
+
+/* Dark theme title color */
+body.dark-theme .landing-page-title {
+    color: #1db954; /* Adjust if needed */
 }
 
 /* Description Styling */
 .landing-page-description {
     font-size: 1.2rem;
-    color: #555;
+    color: black; /* Dark blue text for blue theme */
     margin-bottom: 40px;
     animation: fadeIn 2s ease-out;
+}
+
+/* Dark theme description color */
+body.dark-theme .landing-page-description {
+    color: #ccc; /* Change to a light color for dark theme */
 }
 
 /* Time Range Form Styling */
@@ -44,7 +85,12 @@ body {
 }
 
 .time-range-form:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Slightly enlarge the form */
+}
+
+/* Dark theme time range form background */
+body.dark-theme .time-range-form {
+    background-color: #444;
 }
 
 /* Time Range Label Styling */
@@ -53,6 +99,11 @@ body {
     color: #333;
     margin-bottom: 10px;
     display: inline-block;
+}
+
+/* Dark theme time range label color */
+body.dark-theme .time-range-label {
+    color: #fff;
 }
 
 /* Time Range Select Styling */
@@ -67,10 +118,17 @@ body {
     box-sizing: border-box;
 }
 
+/* Dark theme select background and border */
+body.dark-theme .time-range-select {
+    background-color: #444;
+    border-color: #555;
+    color: #fff;
+}
+
 /* Discover Button Styling */
 .discover-button {
     display: inline-block;
-    background-color: #1db954;
+    background-color: #1DB954; /* Blue button */
     color: white;
     padding: 15px 30px;
     margin-top: 20px;
@@ -82,8 +140,14 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+/* Dark theme button color */
+body.dark-theme .discover-button {
+    background-color: #1db954;
+    color: white;
+}
+
 .discover-button:hover {
-    background-color: #1aa13f;
+    background-color: #0056b3; /* Darker blue on hover */
     transform: scale(1.05);
 }
 

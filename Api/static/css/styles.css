@@ -5,305 +5,297 @@
     box-sizing: border-box;
 }
 
+/* Ensure the body and html elements span the entire viewport width */
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 /* Light Theme */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4; /* Light background */
-    color: #333; /* Dark text */
+    background-color: #f4f4f4;
+    color: #333;
 }
+nav > * {
+    display: flex;!important;
+    align-items: center; !important;/* Center the child elements inside the navbar */
+    flex-wrap: wrap;
+    height: auto; !important;
+
+}
+
+nav .navbar-links > * {
+    display: flex !important;
+    flex-wrap: wrap;
+    height: auto !important;
+    align-items: center !important;
+}
+
+
 
 /* Navigation Bar */
 nav {
-    background-color: #333; /* Dark background */
-    color: #fff;
-    padding: 1em;
+    background: linear-gradient(135deg, #1db954, #191414) !important;
+    color: #fff !important;
+    padding: 1em 1.5em !important;
+    flex-wrap: wrap;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100vw !important;
+    height: auto; !important;
+    box-sizing: border-box !important;
 }
 
 /* Dark Theme */
 body.dark-theme {
-    background-color: #121212; /* Dark background */
-    color: #fff; /* Light text */
+    background-color: #121212;
+    color: #fff;
 }
 
 nav.dark-theme {
-    background-color: #222; /* Dark navigation bar */
+    background: linear-gradient(135deg, #1db954, #191414) !important;
 }
 
 /* Blue Theme */
 body.blue-theme {
-    background-color: #add8e6; /* Light blue background */
-    color: #333; /* Dark text */
+    background-color: #add8e6;
+    color: #333;
 }
 
 nav.blue-theme {
-    background-color: #4682b4; /* Blue navigation bar */
+    background: linear-gradient(135deg, #4682b4, #87cefa) !important;
 }
 
-/* Main Content Area */
+/* Navbar links and buttons */
+nav a {
+    color: #fff !important;
+    flex-wrap: wrap;
+    text-decoration: none !important;
+    margin: 0 10px !important;
+    font-weight: bold !important;
+    transition: color 0.3s !important;
+}
+
+nav a:hover {
+    color: #1db954 !important;
+}
+
+/* Navbar buttons, login, and theme toggle */
+nav .btn {
+    padding: 8px 16px!important;
+    font-size: calc(0.5rem + 0.5vw) !important;
+    font-weight: bold;
+    border-radius: 25px!important;
+    flex-wrap: wrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    box-sizing: border-box;
+    min-width: 120px!important;
+    max-width: 250px!important;
+    height: 45px!important;
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Default Button (Dark with Green Accent) */
+nav .btn-default {
+    background-color: #333 !important;
+    color: white !important;
+    border: 2px solid #333 !important;
+}
+
+nav .btn-default:hover {
+    background-color: #444 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Primary Button (Spotify Green for Light and Dark Themes) */
+nav .btn-primary {
+    background-color: #1db954 !important;
+    color: white !important;
+    border: 2px solid #1db954 !important;
+}
+
+nav .btn-primary:hover {
+    background-color: #333 !important;
+    border-color: #333 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Blue Theme - Primary Button in Blue */
+body.blue-theme .btn-primary {
+    background-color: #4682b4 !important;
+    color: white !important;
+    border: 2px solid #4682b4 !important;
+}
+
+body.blue-theme .btn-primary:hover {
+    background-color: #5f9ea0 !important;
+    border-color: #5f9ea0 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Theme toggle button using btn-primary */
+nav .btn-toggle {
+    background-color: #1db954 !important;
+    color: white !important;
+    border: 2px solid #1db954 !important;
+}
+
+nav .btn-toggle:hover {
+    background-color: #333 !important;
+    border-color: #333 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Navigation bar right-aligned buttons */
+
+
+/* Ensure buttons stay in horizontal layout */
+
+
+/* Content area styling */
 .content {
     max-width: 1200px;
     margin: 2em auto;
     padding: 1em;
-    background-color: #fff; /* Light background */
+    background-color: #fff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
 body.dark-theme .content {
-    background-color: #333; /* Dark content area */
-    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for dark theme */
+    background-color: #333;
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
 }
 
 body.blue-theme .content {
-    background-color: #87cefa; /* Light blue content area */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for blue theme */
+    background-color: #87cefa;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Headers */
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 1em;
+/* Light Theme Navbar */
+body.light-theme nav {
+    background: linear-gradient(135deg, #1db954, #191414) !important;
+    color: #fff !important;
 }
 
-body.dark-theme h1,
-body.blue-theme h1 {
-    color: #fff; /* Light text for dark and blue theme */
+/* Light Theme Buttons */
+body.light-theme .btn-default {
+    background-color: #fff !important;
+    color: #333 !important;
+    border: 2px solid #333 !important;
 }
 
-/* Share Section */
-.share-section {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: #f8f9fa; /* Light background by default */
-    border-radius: 8px;
-    color: #333; /* Dark text by default */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for light mode */
+nav.light-theme .btn-default:hover {
+    background-color: #f4f4f4 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
-body.dark-theme .share-section {
-    background-color: #333; /* Dark background for dark theme */
-    color: #fff; /* Light text for dark theme */
+nav.light-theme .btn-primary {
+    background-color: #1db954 !important;
+    color: #fff !important;
+    border: 2px solid #1db954 !important;
 }
 
-body.blue-theme .share-section {
-    background-color: #87cefa; /* Light blue background for blue theme */
-    color: #333; /* Dark text for blue theme */
+nav.light-theme .btn-primary:hover {
+    background-color: #1ed760 !important;
+    border-color: #1ed760 !important;
 }
 
-/* Share Buttons */
-.share-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
+/* Dark Theme Navbar */
+body.dark-theme nav {
+    background: linear-gradient(135deg, #1db954, #191414) !important;
+    color: #fff !important;
 }
 
-/* Share Button */
-.share-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    color: white;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: opacity 0.2s;
+/* Dark Theme Buttons */
+nav.dark-theme .btn-default {
+    background-color: #333 !important;
+    color: #fff !important;
+    border: 2px solid #333 !important;
 }
 
-body.dark-theme .share-button {
-    color: #fff; /* Light text for dark theme */
+nav.dark-theme .btn-default:hover {
+    background-color: #444 !important;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2) !important;
 }
 
-body.blue-theme .share-button {
-    color: #333; /* Dark text for blue theme */
+nav.dark-theme .btn-primary {
+    background-color: #1db954 !important;
+    color: #fff !important;
+    border: 2px solid #1db954 !important;
 }
 
-/* Hover Effect */
-.share-button:hover {
-    opacity: 0.9;
+nav.dark-theme .btn-primary:hover {
+    background-color: #1ed760 !important;
+    border-color: #1ed760 !important;
 }
 
-/* Share Icon */
-.share-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: currentColor;
+/* Blue Theme Navbar */
+body.blue-theme nav {
+    background: linear-gradient(135deg, #4682b4, #87cefa) !important;
+    color: #fff !important;
 }
 
-body.dark-theme .share-icon {
-    fill: #fff; /* White icons in dark theme */
+/* Blue Theme Buttons */
+body.blue-theme .btn-primary {
+    background-color: #4682b4 !important;
+    color: white !important;
+    border: 2px solid #4682b4 !important;
 }
 
-body.blue-theme .share-icon {
-    fill: #333; /* Dark icons in blue theme */
+body.blue-theme .btn-primary:hover {
+    background-color: #5f9ea0 !important;
+    border-color: #5f9ea0 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Specific Button Colors */
-.twitter {
-    background-color: #1DA1F2;
+/* Danger Button (Red with White Text) */
+nav .btn-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: 2px solid #dc3545 !important;
 }
 
-.linkedin {
-    background-color: #0077B5;
+nav .btn-danger:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
-.instagram {
-    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+
+#google_translate_element {
+    position: fixed;  /* Fixes the position relative to the viewport */
+    bottom: 20px;     /* Position 20px from the bottom of the viewport */
+    right: 20px;      /* Position 20px from the right edge of the viewport */
+    padding: 10px;    /* Add padding around the widget */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Adds a slight background for better visibility */
+    border-radius: 5px; /* Optional: Adds rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds shadow to the widget */
+    z-index: 1000;    /* Ensure it's on top of other elements */
 }
 
-/* Lists */
-ul {
-    list-style-type: none;
-    padding: 0;
+/* Adjust the size of the widget */
+#google_translate_element iframe {
+    width: 200px;  /* Adjust width of the iframe */
+    height: auto;  /* Maintain aspect ratio */
 }
 
-ul li {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    background-color: #fafafa; /* Light background */
-}
-
-body.dark-theme ul li {
-    background-color: #444; /* Dark list item background */
-    border-color: #666; /* Lighter border in dark theme */
-}
-
-body.blue-theme ul li {
-    background-color: #b0e0e6; /* Light blue list item background */
-    border-color: #4682b4; /* Blue border in blue theme */
-}
-
-ul li img {
-    border-radius: 5px;
-    margin-right: 15px;
-}
-
-ul li strong {
-    font-size: 1.1em;
-}
-
-ul li a {
-    color: #1db954;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-body.dark-theme ul li a,
-body.blue-theme ul li a {
-    color: #1db954; /* Green link color in both themes */
-}
-
-ul li a:hover {
-    color: #14833b;
-}
-
-body.dark-theme ul li a:hover,
-body.blue-theme ul li a:hover {
-    color: #99e5a1; /* Lighter hover color for dark and blue themes */
-}
-
-/* Details Section */
-details {
-    margin-bottom: 1em;
-    border: 1px solid #ddd;
-    padding: 0.5em;
-    border-radius: 5px;
-    background-color: #f9f9f9; /* Light background */
-}
-
-body.dark-theme details {
-    background-color: #333; /* Dark background for details section */
-    border-color: #666; /* Lighter border for dark theme */
-}
-
-body.blue-theme details {
-    background-color: #b0e0e6; /* Light blue background for details section */
-    border-color: #4682b4; /* Blue border for blue theme */
-}
-
-summary {
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-summary h2 {
-    display: inline;
-}
-
-details[open] summary {
-    color: #1db954;
-}
-
-details ul {
-    margin-top: 1em;
-}
-
-body.dark-theme details[open] summary,
-body.blue-theme details[open] summary {
-    color: #99e5a1; /* Lighter summary color for dark and blue themes */
-}
-
-/* Login Button */
-.login-btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #1db954; /* Spotify green */
-    color: #fff;
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-right: 20px;
-}
-
-.login-btn:hover {
-    background-color: #1aa13f;
-    transform: scale(1.05);
-}
-
-.login-btn:active {
-    transform: scale(0.95);
-}
-
-/* Theme Toggle Button */
-.theme-toggle-btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #444; /* Default dark theme background */
-    color: #fff;
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 30px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-body.dark-theme .theme-toggle-btn {
-    background-color: #333;
-}
-
-body.blue-theme .theme-toggle-btn {
-    background-color: #4682b4;
-}
-
-.theme-toggle-btn:hover {
-    background-color: #555;
-    transform: scale(1.05);
-}
-
-.theme-toggle-btn:active {
-    transform: scale(0.95);
+/* Adjust position on smaller screens */
+@media (max-width: 768px) {
+    #google_translate_element {
+        bottom: 10px;  /* Reduce bottom margin on smaller screens */
+        right: 10px;   /* Reduce right margin on smaller screens */
+        padding: 8px;  /* Adjust padding for smaller screens */
+    }
 }

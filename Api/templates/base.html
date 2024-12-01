@@ -4,122 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google" content="notranslate"> <!-- Prevent translation of the entire page -->
+    <!-- Prevent translation of the entire page -->
     <title>{% block title %}My Music App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    
-    <style>
-        /* Google Translate dropdown styling */
-        .goog-te-combo {
-            max-width: 150px;
-            font-size: 14px;
-        }
-        #google_translate_element {
-            position: relative;
-            display: inline-block;
-            max-height: 50px;
-            overflow: hidden;
-        }
-
-        /* Hide Google Translate banner */
-        .goog-te-banner-frame {
-            display: none !important;
-        }
-
-        /* Navbar styling */
-        nav {
-            background: linear-gradient(270deg, #1DB954, #191414) !important; /* Spotify green */
-            color: #fff !important; /* White text for contrast */
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 1rem 2rem !important; /* Consistent side padding */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important; /* Subtle shadow for depth */
-            position: relative !important;
-            height: 10vh !important; /* Dynamic height: 8% of the viewport height */
-            min-height: 60px !important; /* Ensure a minimum height for smaller screens */
-            font-family: 'Arial', sans-serif !important; /* Clean and modern font */
-            z-index: 1000; /* Ensure it stays on top */
-        }
-
-        /* Navbar link styling */
-        nav a {
-            color: #fff !important;
-            text-decoration: none !important;
-            font-weight: bold !important;
-            margin-right: 2rem !important;
-            padding: 10px 20px !important;
-            border-radius: 30px !important;
-            font-size: 1rem !important;
-            transition: background-color 0.3s, transform 0.3s !important;
-        }
-
-        nav a:hover {
-            background-color: #555 !important;
-            transform: scale(1.05) !important;
-        }
-
-        /* Navbar button styling */
-        nav button {
-            color: #fff !important;
-            padding: 10px 10px !important;
-            border-radius: 30px !important;
-            font-size: 1rem !important;
-            cursor: pointer !important;
-            transition: background-color 0.3s, transform 0.3s !important;
-            border: none !important;
-        }
-
-        /* Green button for login */
-        nav .btn-primary {
-            background-color: #1db954 !important;
-        }
-
-        nav .btn-primary:hover {
-            background-color: #1aa13f !important;
-        }
-
-        /* Red button for logout */
-        nav .btn-secondary {
-            background-color: #dc3545 !important;
-        }
-
-        nav .btn-secondary:hover {
-            background-color: #c82333 !important;
-        }
-
-        /* Button for theme toggle */
-        .btn-toggle {
-            background-color: #444 !important;
-        }
-
-        .btn-toggle:hover {
-            background-color: #555 !important;
-        }
-
-        /* Ensure buttons are aligned to the right */
-        .nav-right {
-            display: flex !important;
-            align-items: center !important;
-            gap: 1rem !important; /* Space between buttons */
-            margin-left: auto !important; /* Pushes these elements to the far right */
-        }
-        
-        /* Red button for delete account */
-        nav .btn-danger {
-            background-color: #dc3545 !important;
-        }
-        
-        nav .btn-danger:hover {
-            background-color: #c82333 !important;
-        }
-        
-        /* Add padding to the content container to prevent clipping */
-    </style>
 </head>
 <body class="light-theme">
-    <nav>
-        <div class="nav-links">
+    <nav class="navbar">
+        <div class="navbar-links">
             {% if user.is_authenticated %}
                 <a href="{% url 'wrapped_intro' %}" class="btn btn-primary">Home</a>
                 <a href="{% url 'game' %}" class="btn btn-primary">Album Guessing Game</a>
@@ -129,27 +20,20 @@
                 <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
                 <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
             {% endif %}
-            
-        </div>
-
-        <div class="nav-right">
+        
             {% if user.is_authenticated %}
-                <!-- Logout button aligned to the right -->
-                <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary">Log out</button>
-                </form>
+                    <!-- Logout button aligned to the right -->
+                    <a href="#" class="btn btn-danger" id="logout-link">Log out</a>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                        {% csrf_token %}
+                    </form>
+    
+                    <!-- Add delete account button -->
+                    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+                {% endif %}
 
-                <!-- Add delete account button -->
-                <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
-            
-            {% endif %}
-
-            <!-- Contact the Developers button -->
-            
-
-            <!-- Theme toggle button -->
-            <button id="theme-toggle" class="btn btn-toggle">Change Theme</button>
+            <!-- Theme toggle button with the same class as others -->
+            <a href="#" class="btn btn-primary" id="theme-toggle">Change Theme</a>
             <div id="google_translate_element"></div>
         </div>
     </nav>
@@ -164,7 +48,7 @@
             new google.translate.TranslateElement(
                 {
                     pageLanguage: 'en',
-                    includedLanguages: 'en,es,zh-CN,hi,ta,te',
+                    includedLanguages: 'en,zh-CN,hi',
                     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
                 },
                 'google_translate_element'
@@ -199,6 +83,12 @@
                 childList: true,
                 subtree: true
             });
+        });
+
+        // Add event listener to the logout link to trigger form submission
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            document.getElementById('logout-form').submit(); // Submit the hidden form
         });
     </script>
 </body>

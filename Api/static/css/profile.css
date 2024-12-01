@@ -5,12 +5,30 @@
     box-sizing: border-box;
 }
 
+/* General Body Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #121212;
-    color: #fff;
 }
 
+/* Light theme styles */
+body.light-theme {
+    background-color: #f0f0f0; /* Light background */
+    color: #333; /* Dark text for light theme */
+}
+
+/* Dark theme adjustments */
+body.dark-theme {
+    background-color: #121212; /* Dark background */
+    color: #fff; /* Light text for dark theme */
+}
+
+/* Blue theme styles */
+body.blue-theme {
+    background-color: #e3f2fd; /* Light blue background */
+    color: #333; /* Dark text for blue theme */
+}
+
+/* Landing Page Styles */
 .wrapped-overview-container {
     max-width: 800px;
     margin: 0 auto;
@@ -22,20 +40,50 @@ body {
     font-size: 3rem;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #1DB954;
+    color: #1DB954; /* Green title for both themes */
+}
+
+/* Dark theme landing title color */
+body.dark-theme .landing-title {
+    color: #1DB954; /* Green title in dark theme */
+}
+
+/* Blue theme title color */
+body.blue-theme .landing-title {
+    color: #004085; /* Dark blue title for blue theme */
 }
 
 .description {
     font-size: 1.25rem;
     margin-bottom: 30px;
-    color: #B3B3B3;
+    color: #B3B3B3; /* Lighter gray text */
+}
+
+/* Dark theme description color */
+body.dark-theme .description {
+    color: #B3B3B3; /* Lighter gray text for dark theme */
+}
+
+/* Blue theme description color */
+body.blue-theme .description {
+    color: #333; /* Darker text for description in blue theme */
 }
 
 .section-title {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #fff;
+    color: #fff; /* White section titles */
     font-weight: 600;
+}
+
+/* Dark theme section title color */
+body.dark-theme .section-title {
+    color: #fff; /* White section title in dark theme */
+}
+
+/* Blue theme section title color */
+body.blue-theme .section-title {
+    color: #004085; /* Dark blue section title for blue theme */
 }
 
 .stats-list {
@@ -43,6 +91,7 @@ body {
     padding: 0;
 }
 
+/* Base stat-item styling */
 .stat-item {
     font-size: 1.25rem;
     margin: 20px 0;
@@ -51,49 +100,58 @@ body {
     animation: fadeInUp 0.6s forwards;
 }
 
-.stat-item:nth-child(1) {
-    animation-delay: 0.3s;
+/* Light theme stat-item styling */
+body.light-theme .stat-item {
+    color: #333; /* Dark text for stat items in light theme */
 }
 
-.stat-item:nth-child(2) {
-    animation-delay: 0.5s;
+/* Dark theme stat-item styling */
+body.dark-theme .stat-item {
+    color: #fff; /* White text for stat items in dark theme */
 }
 
-.stat-item:nth-child(3) {
-    animation-delay: 0.7s;
+/* Blue theme stat-item styling */
+body.blue-theme .stat-item {
+    color: #fff; /* White text for stat items in blue theme */
 }
 
-.stat-item:nth-child(4) {
-    animation-delay: 0.9s;
-}
-
-.stat-item:nth-child(5) {
-    animation-delay: 1.1s;
-}
-
-.stat-item:nth-child(6) {
-    animation-delay: 1.3s;
-}
-
-.stat-title {
-    font-weight: bold;
-    color: #1DB954;
-}
-
+/* Button Styling */
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    background-color: #1DB954;
-    color: #fff;
+    background-color: #1DB954; /* Green for default/light theme */
+    color: #fff; /* White text */
     text-decoration: none;
     font-size: 1.25rem;
     border-radius: 30px;
     margin-top: 40px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Button Hover */
 .btn:hover {
-    background-color: #1ed760;
+    background-color: #1ed760; /* Brighter green hover */
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+/* Dark theme button colors */
+body.dark-theme .btn {
+    background-color: #1DB954; /* Green button */
+    color: #fff; /* White text */
+}
+
+body.dark-theme .btn:hover {
+    background-color: #1ed760; /* Hover effect for dark theme */
+}
+
+/* Blue theme button styles */
+body.blue-theme .btn {
+    background-color: #1e88e5; /* Lighter blue for buttons */
+    color: #fff; /* White text on buttons */
+}
+
+body.blue-theme .btn:hover {
+    background-color: #42a5f5; /* Even lighter blue on hover */
 }
 
 /* Animations */

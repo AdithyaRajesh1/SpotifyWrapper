@@ -1,3 +1,10 @@
+/* Base Styles (Default) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; /* Default text color */
+}
+
 /* Fullscreen Slideshow Mode */
 .fullscreen-slide {
     width: 100%;
@@ -18,7 +25,7 @@
     height: 30vw; /* Dynamic scaling */
     max-height: 400px;
     min-height: 200px;
-     /* Enable scrolling for the image container */
+    /* Enable scrolling for the image container */
 }
 
 .fullscreen-card {
@@ -38,8 +45,6 @@
     color: lightgreen;
     margin-bottom: 10px;
 }
-
-
 
 .fullscreen-card .artist-name {
     font-size: 2rem;
@@ -69,9 +74,6 @@
 }
 
 /* List View Cards */
-
-
-/* Add a wrapper class to prevent conflict with navbar styles */
 .page-wrapper {
     padding-top: 80px; /* Increase top padding to ensure content is not clipped by navbar */
 }
@@ -79,7 +81,7 @@
 /* Container for the entire section */
 .top-artists-container {
     max-width: 1200px;
-    margin:  0 auto;
+    margin: 0 auto;
     padding: 40px 20px;
     text-align: center;
     height: auto;
@@ -210,3 +212,124 @@
         transform: translateY(0);
     }
 }
+
+/* Dark Theme Styles */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-theme .fullscreen-slide {
+    background: linear-gradient(135deg, #1DB954, #191414);
+}
+
+.dark-theme .fullscreen-card {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.dark-theme .section-title {
+    color: #1db954;
+}
+
+.dark-theme .artist-card {
+    background-color: #181818;
+}
+
+.dark-theme .btn {
+    background-color: #1DB954;
+}
+
+/* Light Theme Styles */
+body.light-theme {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.light-theme .fullscreen-slide {
+    background: linear-gradient(135deg, #FF9F00, #F3F3F3); /* Light and warm gradient */
+}
+
+.light-theme .fullscreen-card {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.light-theme .section-title {
+    color: #1DB954;
+}
+
+.light-theme .artist-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .btn {
+    background-color: #1DB954;
+}
+
+/* Blue Theme Styles */
+body.blue-theme {
+    background-color: #1d1f2f;
+    color: #e0e0e0;
+}
+
+.blue-theme .fullscreen-slide {
+    background: linear-gradient(135deg, #3b82f6, #1e2a47); /* Cool blue gradient */
+}
+
+.blue-theme .fullscreen-card {
+    background: rgba(0, 0, 50, 0.8);
+}
+
+.blue-theme .section-title {
+    color: #3b82f6;
+}
+
+body.blue-theme .artist-card {
+    background-color: #1a1d3b;
+}
+
+body.blue-theme .btn {
+    background-color: #3b82f6;
+}
+
+.blue-theme .section-subtitle {
+    color: white;
+}
+
+body.light-theme {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.light-theme .fullscreen-slide {
+    background: linear-gradient(135deg, #FF9F00, #F3F3F3); /* Light and warm gradient */
+}
+
+.light-theme .fullscreen-card {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.light-theme .section-title {
+    color: #1DB954;
+}
+
+.light-theme .artist-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .btn {
+    background-color: #1DB954;
+}
+
+/* Adjust text color to make it darker */
+.light-theme .artist-name {
+    color: #333; /* Darker text for artist names */
+}
+
+.light-theme .genre,
+.light-theme .popularity {
+    color: #666; /* Darker text for genre and popularity */
+}
+
+
