@@ -32,6 +32,7 @@ from django.views.generic import ListView
 from .models import Social
 #import google.generativeai as genai
 import google.generativeai as genai
+from django.core.mail import send_mail
 import os
 from django.shortcuts import render  # Assuming the function is in utils.py
 
@@ -57,6 +58,30 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+
+
+def contact_view(request):
+    success_message = None
+
+    if request.method == 'POST':
+        # Get data from the form
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # Example: Send email (or handle the message)
+        send_mail(
+            f"Message from {name}",
+            message,
+            email,
+            ['developer@example.com'],  # Replace with your email
+        )
+
+        # Display success message
+        success_message = "Thank you for contacting us! We will get back to you soon."
+
+    return render(request, 'contact.html', {'success_message': success_message})
 
 class Authentication(APIView):
     permission_classes = [IsAuthenticated]

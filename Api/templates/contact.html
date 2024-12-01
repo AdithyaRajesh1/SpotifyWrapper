@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Contact the Developers
@@ -7,6 +8,16 @@
 {% block content %}
     <head>
         <style>
+
+
+            .contact-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+
             .contact-title {
                 text-align: center;
                 font-size: 50px;
@@ -14,52 +25,120 @@
                 color: #1db954; /* Default Spotify green color */
                 margin-bottom: 40px;
             }
-            .developer-section {
+
+
+
+            form {
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                background-color: #f9f9f9;
-                margin: 30px;
+            }
+
+            label {
+                font-weight: bold;
+                color: #1db954;
+            }
+
+            input, textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            textarea {
+                font-family: Arial, sans-serif;
+                resize: vertical;
+            }
+
+            button {
+                padding: 10px;
+                background-color: #1db954;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #14833b;
+            }
+
+            .developer-sections-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .developer-section {
+                width: 100%;
+                max-width: 300px;
+                background-color: #fff;
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                transition: transform 0.3s ease-in-out;
             }
+
+            .developer-section:hover {
+                transform: scale(1.05);
+            }
+
             .developer-section img {
-                width: 150px;
-                height: 150px;
+                width: 120px;
+                height: 120px;
                 border-radius: 50%;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
+
             .developer-name {
-                font-size: 24px;
+                font-size: 20px;
                 font-weight: bold;
                 color: #333;
+                margin-bottom: 5px;
             }
+
             .developer-position {
-                font-size: 20px;
-                color: #555;
-                margin-bottom: 10px;
-            }
-            .developer-bio {
-                font-size: 16px;
-                color: #666;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .contact-info {
                 font-size: 18px;
+                color: #555;
+                margin-bottom: 15px;
+            }
+
+            .developer-bio {
+                font-size: 14px;
+                color: #666;
+                margin-bottom: 15px;
+            }
+
+            .contact-info {
+                font-size: 14px;
                 color: #1db954;
             }
+
             .contact-info a {
                 color: #1db954;
                 text-decoration: none;
             }
+
             .contact-info a:hover {
                 text-decoration: underline;
             }
-            .developer-section:hover {
-                transform: scale(1.05);
-                transition: transform 0.3s ease-in-out;
+
+            @media (max-width: 768px) {
+                .contact-title {
+                    font-size: 40px;
+                }
+
+                .form-container {
+                    width: 95%;
+                }
+
+                .developer-section {
+                    max-width: 100%;
+                }
             }
 
             /* Light Theme */
@@ -119,7 +198,29 @@
                 color: #1A5D8D; /* Highlight on hover */
             }
         </style>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     </head>
+    <body>
+    <h1 class="contact-title">Contact the Developers</h1>
+    <h2>Comments, questions, concerns? Send them to our team!</h2>
+    {% if success_message %}
+        <p style="color: green;">{{ success_message }}</p>
+    {% endif %}
+    <div class = contact-container >
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+        <button type="submit">Send</button>
+    </form>
+    </div>
 
     <div class="contact-title">Meet the Development Team</div>
 
@@ -184,4 +285,5 @@
             </div>
         </div>
     </div>
+    </body>
 {% endblock %}
