@@ -1,5 +1,5 @@
 import requests
-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+from .credential import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .models import Token
 from django.utils import timezone
 from datetime import timedelta

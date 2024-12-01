@@ -8,10 +8,9 @@ from rest_framework import status
 from requests import Request, post
 from django.http import JsonResponse, Http404
 from .models import Token
-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, API_KEY
+from .credential import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, API_KEY
 from django.http import JsonResponse
 from .models import Token, Social
-from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from .extras import create_or_update_tokens, is_spotify_authenticated, spotify_requests_execution
 from collections import Counter
 from datetime import datetime, timedelta
