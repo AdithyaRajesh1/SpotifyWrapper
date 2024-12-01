@@ -22,25 +22,32 @@ body {
 nav > * {
     display: flex;!important;
     align-items: center; !important;/* Center the child elements inside the navbar */
-    height: 100%;!important;
+    flex-wrap: wrap;
+    height: auto; !important;
+
 }
 
 nav .navbar-links > * {
     display: flex !important;
+    flex-wrap: wrap;
+    height: auto !important;
     align-items: center !important;
 }
+
+
 
 /* Navigation Bar */
 nav {
     background: linear-gradient(135deg, #1db954, #191414) !important;
     color: #fff !important;
     padding: 1em 1.5em !important;
+    flex-wrap: wrap;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
     width: 100vw !important;
+    height: auto; !important;
     box-sizing: border-box !important;
-    height: 120px !important;
 }
 
 /* Dark Theme */
@@ -66,6 +73,7 @@ nav.blue-theme {
 /* Navbar links and buttons */
 nav a {
     color: #fff !important;
+    flex-wrap: wrap;
     text-decoration: none !important;
     margin: 0 10px !important;
     font-weight: bold !important;
@@ -82,6 +90,7 @@ nav .btn {
     font-size: calc(0.5rem + 0.5vw) !important;
     font-weight: bold;
     border-radius: 25px!important;
+    flex-wrap: wrap;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
