@@ -1,0 +1,12 @@
+Index: .idea/shelf/Uncommitted_changes_before_Merge_at_11_24_2024_2_01_AM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Merge_at_11_24_2024_2_01_AM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Merge_at_11_24_2024_2_01_AM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Merge_at_11_24_2024_2_01_AM__Changes_.xml	(revision 918842237f8606e03890bc4788683b172baafbc9)
++++ /dev/null	(revision 918842237f8606e03890bc4788683b172baafbc9)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Merge_at_11_24_2024_2_01_AM_[Changes]" date="1732431715653" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_11_24_2024_2_01_AM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Merge at 11/24/2024 2:01 AM [Changes]" />
+-</changelist>
+\ No newline at end of file
