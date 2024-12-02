@@ -128,7 +128,7 @@ body.dark-theme .time-range-select {
 /* Discover Button Styling */
 .discover-button {
     display: inline-block;
-    background-color: #1DB954; /* Blue button */
+    background-color: #1DB954; /* Green button */
     color: white;
     padding: 15px 30px;
     margin-top: 20px;
@@ -146,8 +146,22 @@ body.dark-theme .discover-button {
     color: white;
 }
 
+/* Light theme discover button hover (slightly darker green) */
+body.light-theme .discover-button:hover {
+    background-color: #17a34a; /* Slightly darker green */
+}
+
+/* Dark theme discover button hover (slightly darker green) */
+body.dark-theme .discover-button:hover {
+    background-color: #1a9c4b; /* Slightly darker green */
+}
+
+/* Blue theme discover button hover (slightly darker blue) */
+body.blue-theme .discover-button:hover {
+    background-color: #0066cc; /* Slightly darker blue */
+}
+
 .discover-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
     transform: scale(1.05);
 }
 

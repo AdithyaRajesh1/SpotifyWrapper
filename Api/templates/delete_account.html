@@ -3,19 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>Delete Account</title>
+    <style>
+        /* Base Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        /* Light Theme */
+        .light-theme .btn {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .light-theme .btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Dark Theme */
+        .dark-theme .btn {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        .dark-theme .btn:hover {
+            background-color: #555;
+        }
+
+        /* Blue Theme */
+        .blue-theme .btn {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .blue-theme .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Specific Button Styles */
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
 </head>
-<body>
+<body class="light-theme"> <!-- Change this class to dark-theme or blue-theme as needed -->
     {% extends 'base.html' %}
 
     {% block content %}
     <div class="delete-account-container">
         <h2>Delete Account</h2>
         <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-        
+
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Confirm Delete Account</button>
-            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'wrapped_intro' %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
     {% endblock %}

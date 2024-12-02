@@ -3,13 +3,176 @@
 {% block title %}Reset Password{% endblock %}
 
 {% block content %}
+    <div class="container">
+        <h2>Register</h2>
+        <form method="post" class="register-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+        <p class="account-message">Already have an account? <a href="{% url 'login' %}" class="link">Log in</a></p>
+    </div>
 
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
 
-    <h2>Register</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .register-form button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .account-message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .account-message .link {
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
+
+        .account-message .link:hover {
+            text-decoration: underline;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        body.light-theme .container {
+            background-color: white;
+        }
+
+        body.light-theme h2 {
+            color: #444;
+        }
+
+        body.light-theme .register-form input {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+        }
+
+        body.light-theme .register-form button {
+            background-color: #1db954; /* Spotify Green */
+            color: white;
+        }
+
+        body.light-theme .register-form button:hover {
+            background-color: #1aa13f; /* Darker Spotify Green */
+        }
+
+        body.light-theme .account-message .link {
+            color: #1db954;
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .container {
+            background-color: #2c2c2c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-theme h2 {
+            color: #f1f1f1;
+        }
+
+        body.dark-theme .register-form input {
+            border: 1px solid #555;
+            background-color: #333;
+            color: #ddd;
+        }
+
+        body.dark-theme .register-form button {
+            background-color: #1db954; /* Spotify Green */
+            color: white;
+        }
+
+        body.dark-theme .register-form button:hover {
+            background-color: #1aa13f; /* Darker Spotify Green */
+        }
+
+        body.dark-theme .account-message .link {
+            color: #1db954;
+        }
+
+        /* Blue Theme */
+        body.blue-theme {
+            background-color: #e6f7ff;
+            color: #004085;
+        }
+
+        body.blue-theme .container {
+            background-color: white;
+        }
+
+        body.blue-theme h2 {
+            color: #0056b3;
+        }
+
+        body.blue-theme .register-form input {
+            border: 1px solid #ccd;
+            background-color: #f0faff;
+            color: #004085;
+        }
+
+        body.blue-theme .register-form button {
+            background-color: #66b3ff; /* Softer Blue */
+            color: white;
+        }
+
+        body.blue-theme .register-form button:hover {
+            background-color: #4da6ff; /* Slightly Darker Blue */
+        }
+
+        body.blue-theme .account-message .link {
+            color: #004085;
+        }
+    </style>
 {% endblock %}
