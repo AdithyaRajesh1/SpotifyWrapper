@@ -28,14 +28,17 @@ from django.contrib import messages
 from rest_framework.views import APIView
 from .models import SpotifyWrapped, Social
 from django.views.generic import ListView
+from django.contrib.admin.views.decorators import staff_member_required
+from .models import ContactRequest
 from .models import Social
 #import google.generativeai as genai
 import google.generativeai as genai
 from django.core.mail import send_mail
 import os
-from django.shortcuts import render  # Assuming the function is in utils.py
 
-from django.shortcuts import render, redirect
+import smtplib
+from django.core.mail.backends.smtp import EmailBackend
+
 
 
 def home(request):
@@ -61,26 +64,31 @@ def register(request):
 
 
 def contact_view(request):
-    success_message = None
-
+    success_message = ""
     if request.method == 'POST':
         # Get data from the form
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
+        ContactRequest.objects.create(name=name, email=email, message=message)
 
         # Example: Send email (or handle the message)
         send_mail(
             f"Message from {name}",
             message,
             email,
-            ['developer@example.com'],  # Replace with your email
+            ['aishbal25@gmail.com'],  # Replace with your email
+
         )
 
         # Display success message
         success_message = "Thank you for contacting us! We will get back to you soon."
 
     return render(request, 'contact.html', {'success_message': success_message})
+
+
+
+
 
 class Authentication(APIView):
     permission_classes = [IsAuthenticated]
@@ -1182,41 +1190,8 @@ class TopGenresView(APIView):
         return render(request, "top_genres.html", {"wrapped_data": wrapped_data})
 
 
-print("dablt")
 
-# Connect to the SQLite database
-conn = sqlite3.connect('db.sqlite3')  # Replace with the correct path if needed
-cursor = conn.cursor()
 
-# Get the list of all table names in the database
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-tables = cursor.fetchall()
-
-# Iterate through each table and display its contents
-for table in tables:
-    table_name = table[0]
-    print(f"Displaying data from table: {table_name}")
-
-    try:
-        # Query to select everything from the current table
-        cursor.execute(f"SELECT * FROM {table_name}")
-
-        # Fetch all rows from the table
-        rows = cursor.fetchall()
-
-        # If the table is empty, print a message
-        if not rows:
-            print(f"Table {table_name} is empty.")
-        else:
-            # Print each row in the table
-            for row in rows:
-                print(row)
-
-    except sqlite3.Error as e:
-        # Handle the case where a table can't be queried
-        print(f"Error querying table {table_name}: {e}")
-
-    print("\n" + "-" * 50 + "\n")
 
 
 class PostListView(ListView):
@@ -1256,7 +1231,6 @@ def post_wrap_to_website(request, wrap_id):
     }
     return render(request, 'post_list.html', context)  # Ensure 'post_list' matches the URL name for your posts page
 # Close the connection when done
-conn.close()
 
 
 def saved_spotify_wrapped_artists(request, id):
