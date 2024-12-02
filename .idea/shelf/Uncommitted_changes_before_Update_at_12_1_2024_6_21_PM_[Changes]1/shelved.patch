@@ -1,0 +1,27 @@
+Index: Api/templates/base.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% load static %}\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <!-- Prevent translation of the entire page -->\r\n    <title>{% block title %}My Music App{% endblock %}</title>\r\n    <link rel=\"stylesheet\" href=\"{% static 'css/styles.css' %}\">\r\n</head>\r\n<body class=\"light-theme\">\r\n    <nav class=\"navbar\">\r\n        <div class=\"navbar-links\">\r\n            {% if user.is_authenticated %}\r\n                <a href=\"{% url 'wrapped_intro' %}\" class=\"btn btn-primary\">Home</a>\r\n                <a href=\"{% url 'game' %}\" class=\"btn btn-primary\">Album Guessing Game</a>\r\n                <a href=\"{% url 'post_list' %}\" class=\"btn btn-primary\">View Posted Wraps</a>\r\n                <a href=\"{% url 'contact_developers' %}\" class=\"btn btn-primary\">Contact the Developers</a>\r\n            {% else %}\r\n                <a href=\"{% url 'login' %}\" class=\"btn btn-primary\">Log in</a>\r\n                <a href=\"{% url 'register' %}\" class=\"btn btn-primary\">Register</a>\r\n            {% endif %}\r\n        \r\n            {% if user.is_authenticated %}\r\n                    <!-- Logout button aligned to the right -->\r\n                    <a href=\"#\" class=\"btn btn-danger\" id=\"logout-link\">Log out</a>\r\n                    <form id=\"logout-form\" action=\"{% url 'logout' %}\" method=\"post\" style=\"display: none;\">\r\n                        {% csrf_token %}\r\n                    </form>\r\n    \r\n                    <!-- Add delete account button -->\r\n                    <a href=\"{% url 'delete_account' %}\" class=\"btn btn-danger\">Delete Account</a>\r\n                {% endif %}\r\n\r\n            <!-- Theme toggle button with the same class as others -->\r\n            <a href=\"#\" class=\"btn btn-primary\" id=\"theme-toggle\">Change Theme</a>\r\n            <div id=\"google_translate_element\"></div>\r\n        </div>\r\n    </nav>\r\n\r\n    <div class=\"content\">\r\n        {% block content %}\r\n        {% endblock %}\r\n    </div>\r\n\r\n    <script type=\"text/javascript\">\r\n        function googleTranslateElementInit() {\r\n            new google.translate.TranslateElement(\r\n                {\r\n                    pageLanguage: 'en',\r\n                    includedLanguages: 'en,zh-CN,hi',\r\n                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE\r\n                },\r\n                'google_translate_element'\r\n            );\r\n        }\r\n    </script>\r\n\r\n    <script src=\"https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>\r\n    <script src=\"{% static 'js/theme-toggle.js' %}\"></script>\r\n\r\n    <script>\r\n        // Hide the Google Translate bar when a language is selected\r\n        function hideTranslateBar() {\r\n            var translateBar = document.querySelector('.goog-te-banner-frame');\r\n            if (translateBar) {\r\n                translateBar.style.display = 'none'; // Hide it\r\n            }\r\n        }\r\n\r\n        // Listen for Google Translate language changes and hide the banner\r\n        window.addEventListener('load', function() {\r\n            // Initially hide the banner\r\n            hideTranslateBar();\r\n\r\n            // Watch for language changes by Google Translate\r\n            var observer = new MutationObserver(function() {\r\n                hideTranslateBar();\r\n            });\r\n\r\n            // Observe changes to the DOM\r\n            observer.observe(document.body, {\r\n                childList: true,\r\n                subtree: true\r\n            });\r\n        });\r\n\r\n        // Add event listener to the logout link to trigger form submission\r\n        document.getElementById('logout-link').addEventListener('click', function(event) {\r\n            event.preventDefault(); // Prevent the default link behavior\r\n            document.getElementById('logout-form').submit(); // Submit the hidden form\r\n        });\r\n    </script>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Api/templates/base.html b/Api/templates/base.html
+--- a/Api/templates/base.html	(revision 8877432a206926ff98c8bff6cb9fa24eeb7e71b7)
++++ b/Api/templates/base.html	(date 1733085098625)
+@@ -20,14 +20,14 @@
+                 <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+                 <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+             {% endif %}
+-        
++
+             {% if user.is_authenticated %}
+                     <!-- Logout button aligned to the right -->
+                     <a href="#" class="btn btn-danger" id="logout-link">Log out</a>
+                     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                         {% csrf_token %}
+                     </form>
+-    
++
+                     <!-- Add delete account button -->
+                     <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+                 {% endif %}
