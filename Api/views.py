@@ -31,7 +31,7 @@ from django.views.generic import ListView
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import ContactRequest
 from .models import Social
-#import google.generativeai as genai
+# import google.generativeai as genai
 import google.generativeai as genai
 from django.core.mail import send_mail
 import os
@@ -40,14 +40,11 @@ import smtplib
 from django.core.mail.backends.smtp import EmailBackend
 
 
-
 def home(request):
     if request.user.is_authenticated:
         return redirect('spotify/check-auth')  # Replace 'dashboard' with your dashboard route name
     else:
         return redirect('login')  # Replace 'login' with your login route name
-
-
 
 
 def register(request):
@@ -60,7 +57,6 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
-
 
 
 def contact_view(request):
@@ -87,11 +83,9 @@ def contact_view(request):
     return render(request, 'contact.html', {'success_message': success_message})
 
 
-
-
-
 class Authentication(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read user-library-read playlist-read-private user-read-recently-played user-read-private user-read-email"
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
@@ -100,10 +94,8 @@ class Authentication(APIView):
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID,
         }).prepare().url
-        #return Response({"url": url}, status=status.HTTP_200_OK)
+        # return Response({"url": url}, status=status.HTTP_200_OK)
         return render(request, 'auth.html', {"url": url})
-
-
 
 
 @login_required
@@ -115,15 +107,14 @@ def spotify_redirect(request):
         return JsonResponse({"error": error}, status=status.HTTP_400_BAD_REQUEST)
 
     response = post(
-    'https://accounts.spotify.com/api/token',
-    data={
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': REDIRECT_URI,
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
-    }).json()
-
+        'https://accounts.spotify.com/api/token',
+        data={
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': REDIRECT_URI,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+        }).json()
 
     print("Authorization Code:", code)
 
@@ -163,14 +154,15 @@ def delete_account(request):
 
 class CheckAuthentication(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         is_authenticated = is_spotify_authenticated(self.request.session.session_key)
         return Response({"is_authenticated": is_authenticated}, status=status.HTTP_200_OK)
 
 
-
 class CurrentSong(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         key = self.request.session.session_key
         '''
@@ -205,6 +197,7 @@ class CurrentSong(APIView):
         }
 
         return Response(song, status=status.HTTP_200_OK)
+
 
 class TopSongs(APIView):
     def get(self, request, format=None):
@@ -255,7 +248,11 @@ class TopSongs(APIView):
             playlists_by_year[playlist_name] = tracks
 
         return render(request, 'dashboard.html', {"playlists_by_year": playlists_by_year})
+
+
 import random
+
+
 class GameView(APIView):
     def get(self, request, format=None):
         # Ensure the user is authenticated
@@ -415,323 +412,262 @@ class GameView(APIView):
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
+
+
 class SpotifyWrappedView(APIView):
-   def get(self, request, format=None):
-       key = self.request.session.session_key
-       # Configure the API key for the genai module
-       # Expanded time ranges to include seasonal options
-       time_range = request.GET.get('time_range', 'medium_term')
+    def get(self, request, format=None):
+        key = self.request.session.session_key
+        # Configure the API key for the genai module
+        time_range = request.GET.get('time_range', 'medium_term')
 
-       # Updated valid ranges to include seasonal options
-       valid_ranges = [
-           'short_term',  # Last 4 Weeks
-           'medium_term',  # Last 6 Months
-           'long_term',  # All Time
-           'christmas',  # Christmas season
-           'halloween'  # Halloween season
-       ]
+        # Updated valid ranges to include seasonal options
+        valid_ranges = [
+            'short_term',  # Last 4 Weeks
+            'medium_term',  # Last 6 Months
+            'long_term',  # All Time
+        ]
 
-       # Validate time range
-       if time_range not in valid_ranges:
-           time_range = 'medium_term'
+        # Validate time range
+        if time_range not in valid_ranges:
+            time_range = 'medium_term'
 
-       # Define date ranges for seasonal wrapped
-       current_year = datetime.now().year
-       seasonal_ranges = {
-           'christmas': {
-               'start_date': f'{current_year - 1}-12-01',
-               'end_date': f'{current_year - 1}-12-31'
-           },
-           'halloween': {
-               'start_date': f'{current_year}-10-01',
-               'end_date': f'{current_year}-10-31'
-           }
-       }
+        # 1. Top Artists
+        top_artists_endpoint = f"me/top/artists?time_range={time_range}&limit=50"
+        top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
 
-       # Modify the endpoint to include date filtering for seasonal ranges
-       def get_seasonal_endpoint(base_endpoint, season):
-           if season in ['christmas', 'halloween']:
-               start_date = seasonal_ranges[season]['start_date']
-               end_date = seasonal_ranges[season]['end_date']
-               return f"{base_endpoint}&after={start_date}&before={end_date}"
-           return base_endpoint
+        # 2. Top Tracks
+        top_tracks_endpoint = f"me/top/tracks?time_range={time_range}&limit=50"
+        top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
 
-       # 1. Top Artists (with potential seasonal filtering)
-       top_artists_endpoint = get_seasonal_endpoint(
-           f"me/top/artists?time_range={time_range}&limit=50",
-           time_range
-       )
-       top_artists_response = spotify_requests_execution(key, top_artists_endpoint)
+        # 3. Recently played tracks (this endpoint doesn't use time_range)
+        recent_tracks_endpoint = "me/player/recently-played?limit=50"
+        recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)
 
-       # 2. Top Tracks (with potential seasonal filtering)
-       top_tracks_endpoint = get_seasonal_endpoint(
-           f"me/top/tracks?time_range={time_range}&limit=50",
-           time_range
-       )
-       top_tracks_response = spotify_requests_execution(key, top_tracks_endpoint)
+        # 4. Get user's playlists
+        playlists_endpoint = "me/playlists"
+        playlists_response = spotify_requests_execution(key, playlists_endpoint)
 
+        import google.generativeai as genai
+        # 5. Get user profile
+        profile_endpoint = "me"
+        profile_response = spotify_requests_execution(key, profile_endpoint)
+        # Extract top song names and their artists
+        genai.configure(api_key=API_KEY)
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        top_songs_and_artists = [
+            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
+            for track in top_tracks_response.get("items", [])[:5]
+        ]
+        top_songs_and_artists_str = "; ".join(top_songs_and_artists)
 
-       # 3. Recently played tracks (this endpoint doesn't use time_range)
-       recent_tracks_endpoint = "me/player/recently-played?limit=50"
-       recent_tracks_response = spotify_requests_execution(key, recent_tracks_endpoint)
+        # Generate dynamic description based on top songs and artists
+        response = model.generate_content(
+            f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
+            f"These are my top songs and artists: {top_songs_and_artists_str}. Limit the response to less than 100 words."
+        )
+        print(response)
+        # Process the data
+        all_artists = set()
+        for artist in top_artists_response.get("items", []):
+            all_artists.add(artist["id"])
 
+        for track in top_tracks_response.get("items", []):
+            for artist in track["artists"]:
+                all_artists.add(artist["id"])
 
-       # 4. Get user's playlists
-       playlists_endpoint = "me/playlists"
-       playlists_response = spotify_requests_execution(key, playlists_endpoint)
+        # Calculate new artists discovered
+        recent_artists = set()
+        for item in recent_tracks_response.get("items", []):
+            for artist in item["track"]["artists"]:
+                recent_artists.add(artist["id"])
 
-       import google.generativeai as genai
-       # 5. Get user profile
-       profile_endpoint = "me"
-       profile_response = spotify_requests_execution(key, profile_endpoint)
-       # Extract top song names and their artists
-       genai.configure(api_key=API_KEY)
-       model = genai.GenerativeModel("gemini-1.5-flash")
-       top_songs_and_artists = [
-           f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
-           for track in top_tracks_response.get("items", [])[:5]
-       ]
-       top_songs_and_artists_str = "; ".join(top_songs_and_artists)
+        new_artists = recent_artists - all_artists
 
+        # Track-related metrics
+        all_tracks = set(track["id"] for track in top_tracks_response.get("items", []))
 
+        # Album-related metrics
+        all_albums = set(track["album"]["id"] for track in top_tracks_response.get("items", []))
 
+        # Location/Market metrics
+        all_markets = set()
+        for track in top_tracks_response.get("items", []):
+            all_markets.update(track.get("available_markets", []))
 
-       # Generate dynamic description based on top songs and artists
-       response = model.generate_content(
-           f"Dynamically describe how someone who listens to my kind of music tends to act/think/dress. "
-           f"These are my top songs and artists: {top_songs_and_artists_str}. Limit the response to less than 100 words."
-       )
-       print(response)
-       # Process the data
-       all_artists = set()
-       for artist in top_artists_response.get("items", []):
-           all_artists.add(artist["id"])
+        # Calculate listening time
+        total_listening_time = sum(
+            item["track"]["duration_ms"]
+            for item in recent_tracks_response.get("items", [])
+        )
+        listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)
 
+        # Process top genres
+        genres = []
+        for artist in top_artists_response.get("items", []):
+            genres.extend(artist.get("genres", []))
+        top_genres = Counter(genres).most_common(5)
 
-       for track in top_tracks_response.get("items", []):
-           for artist in track["artists"]:
-               all_artists.add(artist["id"])
+        # Time range display names (updated to include seasonal options)
+        time_range_display = {
+            'short_term': 'Last 4 Weeks',
+            'medium_term': 'Last 6 Months',
+            'long_term': 'All Time',
+        }
 
+        # Structure the data for the frontend
+        wrapped_data = {
+            "response": response,
+            # Time range information
+            "currentTimeRange": time_range,
+            "timeRangeDisplay": time_range_display[time_range],
+            "availableTimeRanges": [
+                {'value': tr, 'display': time_range_display[tr]}
+                for tr in valid_ranges
+            ],
 
-       # Calculate new artists discovered
-       recent_artists = set()
-       for item in recent_tracks_response.get("items", []):
-           for artist in item["track"]["artists"]:
-               recent_artists.add(artist["id"])
+            # Total counts
+            "totalArtists": len(all_artists),
+            "totalTracks": len(all_tracks),
+            "totalAlbums": len(all_albums),
+            "totalLocations": len(all_markets),
+            "newArtistsCount": len(new_artists),
 
+            # Listening statistics
+            "listeningTimeHours": listening_time_hours,
+            "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
 
-       new_artists = recent_artists - all_artists
-
-
-       # Track-related metrics
-       all_tracks = set(track["id"] for track in top_tracks_response.get("items", []))
-
-
-       # Album-related metrics
-       all_albums = set(track["album"]["id"] for track in top_tracks_response.get("items", []))
-
-
-       # Location/Market metrics
-       all_markets = set()
-       for track in top_tracks_response.get("items", []):
-           all_markets.update(track.get("available_markets", []))
-
-
-       # Calculate listening time
-       total_listening_time = sum(
-           item["track"]["duration_ms"]
-           for item in recent_tracks_response.get("items", [])
-       )
-       listening_time_hours = round(total_listening_time / (1000 * 60 * 60), 2)
-
-
-       # Process top genres
-       genres = []
-       for artist in top_artists_response.get("items", []):
-           genres.extend(artist.get("genres", []))
-       top_genres = Counter(genres).most_common(5)
-
-       # Time range display names (updated to include seasonal options)
-       time_range_display = {
-           'short_term': 'Last 4 Weeks',
-           'medium_term': 'Last 6 Months',
-           'long_term': 'All Time',
-           'christmas': 'Christmas Season',
-           'halloween': 'Halloween Season'
-       }
-
-
-       # Structure the data for the frontend
-       wrapped_data = {
-           "response": response,
-           # Time range information
-           "currentTimeRange": time_range,
-           "timeRangeDisplay": time_range_display[time_range],
-           "availableTimeRanges": [
-               {'value': tr, 'display': time_range_display[tr]}
-               for tr in valid_ranges
-           ],
-
-
-           # Total counts
-           "totalArtists": len(all_artists),
-           "totalTracks": len(all_tracks),
-           "totalAlbums": len(all_albums),
-           "totalLocations": len(all_markets),
-           "newArtistsCount": len(new_artists),
-
-
-           # Listening statistics
-           "listeningTimeHours": listening_time_hours,
-           "topGenres": [{"name": genre, "count": count} for genre, count in top_genres],
-
-
-           # Top Artists
-           "topArtists": [
-               {
-                   "name": artist["name"],
-                   "subtitle": ", ".join(artist.get("genres", [])[:2]),
-                   "image": artist["images"][0]["url"] if artist.get("images") else None,
-                   "popularity": artist.get("popularity", 0),
-                   "genres": artist.get("genres", []),
-                   "spotifyUrl": artist["external_urls"]["spotify"]
-               }
-               for artist in top_artists_response.get("items", [])[:5]
-           ],
-
-
-           # Top Tracks
-           "topTracks": [
-               {
-                   "name": track["name"],
-                   "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
-                   "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                   "popularity": track.get("popularity", 0),
-                   "previewUrl": track.get("preview_url"),
-                   "spotifyUrl": track["external_urls"]["spotify"],
-                   "albumName": track["album"]["name"],
-                   "duration": track["duration_ms"]
-               }
-               for track in top_tracks_response.get("items", [])[:5]
-           ],
-
-
-           # Top Albums (unchanged)
-           "topAlbums": [
+            # Top Artists
+            "topArtists": [
                 {
-                    "name": track["album"]["name"],
-                    "subtitle": track["album"]["artists"][0]["name"],
-                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                    "releaseDate": track["album"].get("release_date"),
-                    "totalTracks": track["album"].get("total_tracks"),
-                    "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                    "name": artist["name"],
+                    "subtitle": ", ".join(artist.get("genres", [])[:2]),
+                    "image": artist["images"][0]["url"] if artist.get("images") else None,
+                    "popularity": artist.get("popularity", 0),
+                    "genres": artist.get("genres", []),
+                    "spotifyUrl": artist["external_urls"]["spotify"]
                 }
-                for track in top_tracks_response.get("items", [])
-                if track["album"]["id"] in all_albums and not all_albums.remove(track["album"]["id"])
-            ][:5],
+                for artist in top_artists_response.get("items", [])[:5]
+            ],
 
+            # Top Tracks
+            "topTracks": [
+                {
+                    "name": track["name"],
+                    "subtitle": ", ".join(artist["name"] for artist in track["artists"]),
+                    "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                    "popularity": track.get("popularity", 0),
+                    "previewUrl": track.get("preview_url"),
+                    "spotifyUrl": track["external_urls"]["spotify"],
+                    "albumName": track["album"]["name"],
+                    "duration": track["duration_ms"]
+                }
+                for track in top_tracks_response.get("items", [])[:5]
+            ],
 
+            # Top Albums (unchanged)
+            "topAlbums": [
+                             {
+                                 "name": track["album"]["name"],
+                                 "subtitle": track["album"]["artists"][0]["name"],
+                                 "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                                 "releaseDate": track["album"].get("release_date"),
+                                 "totalTracks": track["album"].get("total_tracks"),
+                                 "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                             }
+                             for track in top_tracks_response.get("items", [])
+                             if track["album"]["id"] in all_albums and not all_albums.remove(track["album"]["id"])
+                         ][:5],
 
-           # Top Locations
-           "topLocations": [
-               {
-                   "name": market,
-                   "count": len([
-                       track for track in top_tracks_response.get("items", [])
-                       if market in track.get("available_markets", [])
-                   ])
-               }
-               for market in list(all_markets)[:5]
-           ],
+            # Top Locations
+            "topLocations": [
+                {
+                    "name": market,
+                    "count": len([
+                        track for track in top_tracks_response.get("items", [])
+                        if market in track.get("available_markets", [])
+                    ])
+                }
+                for market in list(all_markets)[:5]
+            ],
 
+            # User Profile
+            "userProfile": {
+                "name": profile_response.get("display_name"),
+                "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
+                "country": profile_response.get("country"),
+                "product": profile_response.get("product"),
+                "followersCount": profile_response.get("followers", {}).get("total", 0)
+            }
 
-           # User Profile
-           "userProfile": {
-               "name": profile_response.get("display_name"),
-               "image": profile_response.get("images", [{}])[0].get("url") if profile_response.get("images") else None,
-               "country": profile_response.get("country"),
-               "product": profile_response.get("product"),
-               "followersCount": profile_response.get("followers", {}).get("total", 0)
-           }
+        }
 
+        wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
+        wrapped_data['availableTimeRanges'] = [
+            {'value': tr, 'display': time_range_display[tr]}
+            for tr in valid_ranges
+        ]
 
-       }
+        if request.user.is_authenticated:
+            # Save the data to the database
+            wrap = SpotifyWrapped.objects.create(
+                user=request.user,
+                time_range=wrapped_data["currentTimeRange"],
+                total_artists=wrapped_data["totalArtists"],
+                total_tracks=wrapped_data["totalTracks"],
+                total_albums=wrapped_data["totalAlbums"],
+                total_locations=wrapped_data["totalLocations"],
+                new_artists_count=wrapped_data["newArtistsCount"],
+                listening_time_hours=wrapped_data["listeningTimeHours"],
+                top_genres=wrapped_data["topGenres"],
+                top_artists=wrapped_data["topArtists"],
+                top_tracks=wrapped_data["topTracks"],
+                top_albums=wrapped_data["topAlbums"],
+                top_locations=wrapped_data["topLocations"],
+                user_profile=wrapped_data["userProfile"]
+            )
 
+        # Return JSON for API consumption
+        if request.headers.get('Accept') == 'application/json':
+            return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)
 
-       wrapped_data['sharing'] = self.generate_sharing_data(wrapped_data, request)
-       wrapped_data['availableTimeRanges'] = [
-           {'value': tr, 'display': time_range_display[tr]}
-           for tr in valid_ranges
-       ]
+        # Otherwise render the template
+        return render(request, "wrapped.html", {
+            "wrapped_data": wrapped_data,
+            "wrap": wrap,
+            "page_title": f"Your Spotify Wrapped - {time_range_display[time_range]}",
+            "current_year": datetime.now().year,
+            "request": request  # Pass request to template for building absolute URLs
+        })
 
-       if request.user.is_authenticated:
-           # Save the data to the database
-           wrap = SpotifyWrapped.objects.create(
-               user=request.user,
-               time_range=wrapped_data["currentTimeRange"],
-               total_artists=wrapped_data["totalArtists"],
-               total_tracks=wrapped_data["totalTracks"],
-               total_albums=wrapped_data["totalAlbums"],
-               total_locations=wrapped_data["totalLocations"],
-               new_artists_count=wrapped_data["newArtistsCount"],
-               listening_time_hours=wrapped_data["listeningTimeHours"],
-               top_genres=wrapped_data["topGenres"],
-               top_artists=wrapped_data["topArtists"],
-               top_tracks=wrapped_data["topTracks"],
-               top_albums=wrapped_data["topAlbums"],
-               top_locations=wrapped_data["topLocations"],
-               user_profile=wrapped_data["userProfile"]
-           )
+    def generate_sharing_data(self, wrapped_data, request):
+        """Generate sharing text and URLs for social media platforms"""
 
+        # Base sharing text
+        share_text = (
+            f"🎵 My Spotify Wrapped Stats:\n"
+            f"• {wrapped_data['listeningTimeHours']} hours of music\n"
+            f"• Top Artist: {wrapped_data['topArtists'][0]['name']}\n"
+            f"• Top Track: {wrapped_data['topTracks'][0]['name']}\n"
+            f"• {wrapped_data['totalArtists']} different artists\n"
+            f"#SpotifyWrapped"
+        )
 
-       # Return JSON for API consumption
-       if request.headers.get('Accept') == 'application/json':
-           return JsonResponse(wrapped_data, encoder=DjangoJSONEncoder)
+        # Get the current page's URL
+        current_url = request.build_absolute_uri()
 
+        # Generate platform-specific sharing URLs
+        sharing_data = {
+            'twitter': {
+                'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}"
+            },
+            'linkedin': {
+                'url': f"https://www.linkedin.com/feed/?shareActive=true&text={share_text}%23NewPost"
 
-       # Otherwise render the template
-       return render(request, "wrapped.html", {
-           "wrapped_data": wrapped_data,
-           "wrap": wrap,
-           "page_title": f"Your Spotify Wrapped - {time_range_display[time_range]}",
-           "current_year": datetime.now().year,
-           "request": request  # Pass request to template for building absolute URLs
-       })
+            },
+        }
+        print(sharing_data)
+        return sharing_data
 
-
-   def generate_sharing_data(self, wrapped_data, request):
-       """Generate sharing text and URLs for social media platforms"""
-
-
-       # Base sharing text
-       share_text = (
-           f"🎵 My Spotify Wrapped Stats:\n"
-           f"• {wrapped_data['listeningTimeHours']} hours of music\n"
-           f"• Top Artist: {wrapped_data['topArtists'][0]['name']}\n"
-           f"• Top Track: {wrapped_data['topTracks'][0]['name']}\n"
-           f"• {wrapped_data['totalArtists']} different artists\n"
-           f"#SpotifyWrapped"
-       )
-
-
-       # Get the current page's URL
-       current_url = request.build_absolute_uri()
-
-
-       # Generate platform-specific sharing URLs
-       sharing_data = {
-           'twitter': {
-               'url': f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}"
-           },
-           'linkedin': {
-               'url': f"https://www.linkedin.com/feed/?shareActive=true&text={share_text}%23NewPost"
-
-           },
-       }
-       print(sharing_data)
-       return sharing_data
-
-    
 
 from django.shortcuts import render
 from django.shortcuts import render, redirect
@@ -739,6 +675,7 @@ from .models import SpotifyWrapped
 
 from django.shortcuts import render
 from .models import SpotifyWrapped
+
 
 def savedwraps(request):
     # Fetch all saved SpotifyWrapped data for the logged-in user
@@ -752,6 +689,7 @@ def savedwraps(request):
 
     return render(request, "savedwraps.html", context)
 
+
 def wrap_detail(request, id):
     # Get the SpotifyWrapped entry based on the provided id
     wrap = get_object_or_404(SpotifyWrapped, id=id)
@@ -764,6 +702,7 @@ def wrap_detail(request, id):
 
     # Render the 'wrap_detail.html' template with the context
     return render(request, "wrap_detail.html", context)
+
 
 class SpotifyWrappedOverviewView(APIView):
     def get(self, request, format=None):
@@ -813,11 +752,14 @@ class SpotifyWrappedOverviewView(APIView):
             "page_title": "Your Spotify Wrapped Overview"
         })
 
+
 import logging
 from django.shortcuts import render
 from rest_framework.views import APIView
 
 logger = logging.getLogger(__name__)
+
+
 class SpotifyWrappedGenAIView(APIView):
     def get(self, request, format=None):
         # Get the session key for the request
@@ -948,7 +890,9 @@ class SpotifyWrappedTracksView(APIView):
             ]
         }
 
-        return render(request, "wrapped_tracks.html", {"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Top Tracks"})
+        return render(request, "wrapped_tracks.html",
+                      {"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Top Tracks"})
+
 
 class SpotifyWrappedAlbumsView(APIView):
     def get(self, request, format=None):
@@ -961,24 +905,25 @@ class SpotifyWrappedAlbumsView(APIView):
         seen_albums = set()
         wrapped_data = {
             "topAlbums": [
-                 {
-                     "name": track["album"]["name"],
-                     "subtitle": track["album"]["artists"][0]["name"],
-                     "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
-                     "spotifyUrl": track["album"]["external_urls"]["spotify"]
-                 }
-                 for track in top_tracks_response.get("items", [])
-                 if track["album"]["id"] not in seen_albums and not seen_albums.add(track["album"]["id"])
-             ][:5]
+                             {
+                                 "name": track["album"]["name"],
+                                 "subtitle": track["album"]["artists"][0]["name"],
+                                 "image": track["album"]["images"][0]["url"] if track["album"].get("images") else None,
+                                 "spotifyUrl": track["album"]["external_urls"]["spotify"]
+                             }
+                             for track in top_tracks_response.get("items", [])
+                             if track["album"]["id"] not in seen_albums and not seen_albums.add(track["album"]["id"])
+                         ][:5]
         }
 
-        return render(request, "wrapped_albums_locations.html", {"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Top Albums"})
-
+        return render(request, "wrapped_albums_locations.html",
+                      {"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Top Albums"})
 
 
 from collections import Counter
 from django.shortcuts import render
-from rest_framework.views import APIView # Assuming spotify_requests_execution is a utility function
+from rest_framework.views import APIView  # Assuming spotify_requests_execution is a utility function
+
 
 class SpotifyWrappedProfileView(APIView):
     def get(self, request, *args, **kwargs):
@@ -1103,12 +1048,14 @@ class SpotifyWrappedProfileView(APIView):
             'medium_term': 'Last 6 Months',
             'long_term': 'All Time'
         }
-        return render(request, "wrapped_profile.html",{"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Spotify Profile"})
+        return render(request, "wrapped_profile.html",
+                      {"wrapped_data": wrapped_data, 'time_range': time_range, "page_title": "Your Spotify Profile"})
 
 
 from django.shortcuts import render
 from django.http import JsonResponse
 import requests
+
 
 class TopLocationsView(APIView):
     def get(self, request, format=None):
@@ -1133,20 +1080,23 @@ class TopLocationsView(APIView):
         top_locations = [
             {
                 "name": market,
-                "count": len([track for track in top_tracks_response.get("items", []) if market in track.get("available_markets", [])])
+                "count": len([track for track in top_tracks_response.get("items", []) if
+                              market in track.get("available_markets", [])])
             }
             for market in list(all_markets)[:5]
         ]
 
         # Log data for debugging
         print("Wrapped Data:", {
-            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],
+            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[
+                time_range],
             "topLocations": top_locations
         })
 
         # Structure the data for the frontend
         wrapped_data = {
-            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[time_range],
+            "timeRangeDisplay": {'short_term': 'Last 4 Weeks', 'medium_term': 'Last 6 Months', 'long_term': 'All Time'}[
+                time_range],
             "topLocations": top_locations
         }
 
@@ -1190,10 +1140,6 @@ class TopGenresView(APIView):
         return render(request, "top_genres.html", {"wrapped_data": wrapped_data})
 
 
-
-
-
-
 class PostListView(ListView):
     model = Social
     template_name = 'post_list.html'
@@ -1230,6 +1176,8 @@ def post_wrap_to_website(request, wrap_id):
         'socials_list': socials_list,  # Pass the list to the template
     }
     return render(request, 'post_list.html', context)  # Ensure 'post_list' matches the URL name for your posts page
+
+
 # Close the connection when done
 
 
@@ -1244,7 +1192,6 @@ def saved_spotify_wrapped_artists(request, id):
         "wrap": wrap,
         "page_title": "Your Saved Spotify Profile",
     })
-
 
 
 def saved_spotify_wrapped_tracks(request, id):
@@ -1285,12 +1232,15 @@ def saved_spotify_wrapped_profile(request, id):
         "page_title": "Your Saved Spotify Profile",
     })
 
+
 def WebsiteSocial(request):
     socials_list = Social.objects.all()
     context = {
         'socials_list': socials_list,  # Pass the list to the template
     }
     return render(request, 'post_list.html', context)  # Ensure 'post_list' matches the URL name for your posts page
+
+
 def delete_social(request, id):
     try:
         wrap = Social.objects.get(id=id, user=request.user)
@@ -1306,8 +1256,12 @@ def delete_social(request, id):
         'socials_list': socials_list,
     }
     return render(request, 'post_list.html', context)
+
+
 def contact_developers(request):
     return render(request, 'contact.html')
+
+
 def delete_spotify_wrap(request, id):
     try:
         wrap = SpotifyWrapped.objects.get(id=id, user=request.user)
