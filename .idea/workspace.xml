@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ebb3b2a-d6e2-466a-8852-d90e5934e4e5" name="Changes" comment="finished Contact the Developers">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Api/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/credentials.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api/extras.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/extras.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api/templates/contact_requests.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/Api/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpotifyWrapper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpotifyWrapper/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,6 +88,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Api" />
       <recent name="C:\Users\Roohi\SpotifyWrapper\Api\static\css" />
       <recent name="$PROJECT_DIR$/Api/static/js/SpotifyWrapper" />
       <recent name="$PROJECT_DIR$/Api/templates" />
@@ -101,7 +105,6 @@
         <env name="DJANGO_SETTINGS_MODULE" value="SpotifyWrapper.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />

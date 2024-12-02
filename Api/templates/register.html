@@ -1,15 +1,70 @@
 {% extends "base.html" %}
-
-{% block title %}Reset Password{% endblock %}
+{% load static %}
 
 {% block content %}
+    <h2 class="register-title">Register</h2>
+    <body>
 
-
-    <h2>Register</h2>
-    <form method="post">
+    <form method="post" class="register-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Register</button>
+        <button type="submit" class="register-button">Register</button>
     </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    </body>
+    <style>
+        .register-title {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .register-form {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .register-form input,
+        .register-form button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .register-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .register-form button:hover {
+            background-color: #45a049;
+        }
+
+        .login-link {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .p {
+            color: black !important
+        }
+    </style>
 {% endblock %}

@@ -229,13 +229,13 @@
     <form method="post">
         {% csrf_token %}
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <input placeholder="Name" type="text" id="name" name="name" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input placeholder="Email" type="email" id="email" name="email" required><br><br>
 
         <label for="message">Message:</label><br>
-        <textarea id="message" name="message" rows="5" required></textarea><br><br>
+        <textarea placeholder="Write your message here" id="message" name="message" rows="5" required></textarea><br><br>
 
         <button type="submit">Send</button>
     </form>
